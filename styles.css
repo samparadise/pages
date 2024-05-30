@@ -30,6 +30,6 @@ img {
 }
 
 .sig-image {
-	width: 10vw;  /* 10% of the viewport width */
+	width: 21vw;  /* 10% of the viewport width */
 	height: auto; /* Maintains the aspect ratio */
 }
