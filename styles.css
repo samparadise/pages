@@ -9,6 +9,12 @@ body, html {
 	background-color: #f0f0f0;
 }
 
+.cutive-mono-regular {
+  font-family: "Cutive Mono", monospace;
+  font-weight: 400;
+  font-style: normal;
+}
+
 .content {
 	width: 100vw;
 	height: 100vh;
@@ -30,6 +36,6 @@ img {
 }
 
 .sig-image {
-	width: 21vw;  /* 10% of the viewport width */
+	width: 17vw;  /* 10% of the viewport width */
 	height: auto; /* Maintains the aspect ratio */
 }
