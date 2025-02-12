@@ -6,7 +6,10 @@ body, html {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-color: #f0f0f0;
+
+	background-color: #121212; /* Dark background */
+	color: #e0e0e0; /* Light text for contrast */
+
 }
 
 .cutive-mono-regular {
@@ -33,9 +36,37 @@ img {
 	max-height: 33vh;  /* 33% of the viewport height */
 	width: auto;
 	height: auto;
+
+	filter: brightness(0.8) contrast(1.2); /* Slightly adjust image visibility */
 }
 
+#frontpage-quote {
+	width: 80%; /* Restrict width for better alignment */
+	max-width: 800px; /* Ensures it doesn't stretch too far on large screens */
+	margin: 0 auto; /* Centers the quote container */
+
+	color: #e0e0e0; /* Light text for readability */
+}
+
+#quote-text {
+	display: block;
+	text-align: left;
+	font-size: 1.2rem; /* Increase font size slightly */
+}
+
+#quote-author {
+	display: block;
+	text-align: right;
+	font-size: 1.2rem; /* Keep the font size close to the quote */
+	margin-top: 5px;
+	padding-right: 10px; /* Small padding to ensure it doesn't touch the right edge */
+
+   color: #b0b0b0; /* Slightly dimmer for subtle contrast */
+}
+
+/*
 .sig-image {
 	width: 17vw;  /* 10% of the viewport width */
 	height: auto; /* Maintains the aspect ratio */
 }
+*/
