@@ -66,14 +66,17 @@ img {
 
 @media (max-width: 600px) {
 	#frontpage-quote {
-		width: 90%; /* Allow more width on smaller screens */
+		width: 95%; /* Expand width to nearly full screen */
+		padding: 0 5vw; /* Reduce side padding */
 		max-width: none; /* Remove max-width restriction */
 	}
-
+	blockquote {
+		margin: 0; /* Remove default margin */
+		padding: 0; /* Reduce default padding */
+	}
 	#quote-text {
 		font-size: 1.2rem; /* Slightly smaller font for better fit */
 	}
-
 	#quote-author {
 		font-size: 1.1rem; /* Keep it proportional */
 		padding-right: 5px; /* Slightly reduce padding */
