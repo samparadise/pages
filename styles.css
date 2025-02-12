@@ -7,9 +7,27 @@ body, html {
 	justify-content: center;
 	align-items: center;
 
-	background-color: #121212; /* Dark background */
-	color: #e0e0e0; /* Light text for contrast */
+	background-color: #121212 !important; /* Force dark mode */
+	color: #e0e0e0 !important; /* Ensure all text remains light */
 
+}
+
+.container {
+	background-color: transparent !important; /* Ensure no unwanted background */
+}
+
+/* Override Bootstrap’s default card & dropdown background */
+.dropdown-menu {
+	background-color: #222 !important; /* Darken dropdown background */
+	border: 1px solid #333; /* Slight border for contrast */
+}
+
+.dropdown-item {
+	color: #e0e0e0 !important; /* Light text */
+}
+
+.dropdown-item:hover {
+	background-color: #333 !important; /* Darker hover effect */
 }
 
 .cutive-mono-regular {
@@ -36,6 +54,7 @@ img {
 	max-height: 33vh;  /* 33% of the viewport height */
 	width: auto;
 	height: auto;
+	margin-bottom: 20px; /* Add space below the image */
 
 	filter: brightness(0.8) contrast(1.2); /* Slightly adjust image visibility */
 }
@@ -64,7 +83,15 @@ img {
    color: #b0b0b0; /* Slightly dimmer for subtle contrast */
 }
 
+.navbar {
+	background-color: rgba(34, 34, 34, 0.85); /* Semi-transparent */
+	backdrop-filter: blur(5px);
+}
+
 @media (max-width: 600px) {
+	img {
+		margin-bottom: 15px; /* Slightly less space on mobile */
+	}
 	#frontpage-quote {
 		width: 95%; /* Expand width to nearly full screen */
 		padding: 0 5vw; /* Reduce side padding */
@@ -81,11 +108,16 @@ img {
 		font-size: 1.1rem; /* Keep it proportional */
 		padding-right: 5px; /* Slightly reduce padding */
 	}
+	.menu {
+		display: none; /* Hide desktop menu on small screens */
+	}
+	
+	.hamburger {
+		display: block; /* Show hamburger */
+	}
+	
+	.mobile-menu.show {
+		display: flex;
+	}
 }
 
-/*
-.sig-image {
-	width: 17vw;  /* 10% of the viewport width */
-	height: auto; /* Maintains the aspect ratio */
-}
-*/

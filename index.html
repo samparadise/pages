@@ -8,9 +8,73 @@
 	<link rel="stylesheet" href="styles.css">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+	<!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
 	<link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Homemade+Apple&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
 </head>
 <body>
+
+	<!-- Bootstrap Navbar -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="#">Samparadise</a>
+		
+			<!-- Hamburger Toggle -->
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<!-- Navbar Links -->
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ms-auto">
+					<!-- Writings Dropdown -->
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="writingsDropdown" role="button"
+							data-bs-toggle="dropdown" aria-expanded="false">
+							Writing
+						</a>
+						<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="writingsDropdown">
+							<li><a class="dropdown-item" 
+									href="https://medium.com/@samparadise/ironman-70-3-phuket-5df29bacfb73" 
+									target="_blank" rel="noopener noreferrer">Ironman 70.3 Phuket</a></li>
+							<li><a class="dropdown-item" 
+									href="https://medium.com/@samparadise/learning-to-fly-2bce62a9d6e6"
+									target="_blank" rel="noopener noreferrer">Learning to Fly</a></li>
+							<li><a class="dropdown-item" 
+									href="https://medium.com/@samparadise/learning-to-fly-better-7e273cba3f33"
+									target="_blank" rel="noopener noreferrer">Learning to Fly Better</a></li>
+							<li><a class="dropdown-item" 
+									href="https://medium.com/@samparadise/hanging-up-the-flying-shoes-d5f775130adb"
+									target="_blank" rel="noopener noreferrer">Hanging Up the Flying Shoes</a></li>
+						</ul>
+					</li>
+
+					<!-- Code Dropdown -->
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="codeDropdown" role="button"
+							data-bs-toggle="dropdown" aria-expanded="false">
+							Coding
+						</a>
+						<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="codeDropdown">
+							<li><a class="dropdown-item" 
+									href="https://badjupiter.com"
+									target="_blank" rel="noopener noreferrer">Jupiter</a></li>
+							<li><a class="dropdown-item" 
+									href="https://thedataworks.org"
+									target="_blank" rel="noopener noreferrer">DataWorks</a></li>
+							<li><a class="dropdown-item" 
+									href="https://badjupiter.cloud/squares"
+									target="_blank" rel="noopener noreferrer">Squares</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>	
+	
 	<div class="content">
 		<img src="img/sam-trans.png" alt="Sam J.">
 		
@@ -23,6 +87,9 @@
 		</div>
 	</div>
 
+	<!-- Bootstrap JS (for responsive toggles) -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	
 	<script src="script.js"></script>
 </body>
 </html>

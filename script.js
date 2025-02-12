@@ -1,3 +1,7 @@
+function toggleMenu() {
+	document.querySelector(".mobile-menu").classList.toggle("show");
+}
+
 document.addEventListener("DOMContentLoaded", () => {
 	const quoteText = document.getElementById("quote-text");
 	const quoteAuthor = document.getElementById("quote-author");
@@ -11,7 +15,21 @@ document.addEventListener("DOMContentLoaded", () => {
 			quoteAuthor.innerHTML = randomQuote.author;
 		})
 		.catch(error => console.error("Error loading quotes:", error));
+
+	const dropdowns = document.querySelectorAll(".mobile-menu .dropdown > a");
+		dropdowns.forEach(item => {
+			item.addEventListener("click", (event) => {
+				event.preventDefault(); // Prevent parent link from navigating
+				const submenu = item.nextElementSibling;
+				if (submenu) {
+					submenu.classList.toggle("show");
+				}
+			});
+		});
+
 });
+
+
 
 // function typeQuote(quote, author, quoteText, quoteAuthor) {
 // 	let index = 0;
