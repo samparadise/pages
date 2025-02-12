@@ -11,7 +11,10 @@ document.addEventListener("DOMContentLoaded", () => {
 		.then(quotes => {
 			const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
 
-			typeQuote(randomQuote.quote, randomQuote.author, quoteTextElement, quoteAuthorElement);
+			// Ensure author is always a string (empty if missing)
+			const author = randomQuote.author ? randomQuote.author : "";
+
+			typeQuote(randomQuote.quote, author, quoteTextElement, quoteAuthorElement);
 			
 			// quoteText.innerHTML = randomQuote.quote;
 			// quoteAuthor.innerHTML = randomQuote.author;
@@ -39,7 +42,7 @@ function typeQuote(quote, author, quoteElement, authorElement) {
 
 	function typeLine() {
 		if (currentLine < lines.length) {
-			let line = lines[currentLine];
+			let line = lines[currentLine].replace(/\n/g, "<br>");
 			let lineIndex = 0;
 
 			function typeCharacter() {
@@ -53,7 +56,8 @@ function typeQuote(quote, author, quoteElement, authorElement) {
 					if (currentLine < lines.length) {
 						setTimeout(typeLine, 400); // Delay between lines
 					} else {
-						quoteElement.innerHTML = quote + cursor; // Full quote with blinking cursor
+						// quoteElement.innerHTML = quote + cursor; // Full quote with blinking cursor
+						quoteElement.innerHTML = quote.replace(/\n/g, "<br>") + cursor; // Preserve line breaks
 						setTimeout(() => {
 							document.querySelector(".cursor").style.display = "inline-block"; // Keep cursor
 							authorElement.innerHTML = author; // Show author after delay
