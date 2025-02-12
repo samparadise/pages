@@ -2,6 +2,7 @@ body, html {
 	height: 100%;
 	margin: 0;
 	padding: 0;
+	padding-top: 56px; /* Adjust this value to match the navbar height */
 	font-family: 'Nunito', sans-serif;
 	display: flex;
 	justify-content: center;
@@ -89,6 +90,9 @@ img {
 }
 
 @media (max-width: 600px) {
+	body {
+		padding-top: 64px; /* Slightly larger padding for mobile */
+	}
 	img {
 		margin-bottom: 15px; /* Slightly less space on mobile */
 	}
@@ -102,7 +106,8 @@ img {
 		padding: 0; /* Reduce default padding */
 	}
 	#quote-text {
-		font-size: 1.2rem; /* Slightly smaller font for better fit */
+		font-size: 1.1rem; /* Slightly smaller */
+		line-height: 1.2; /* Reduce line spacing */
 	}
 	#quote-author {
 		font-size: 1.1rem; /* Keep it proportional */
