@@ -64,6 +64,22 @@ img {
    color: #b0b0b0; /* Slightly dimmer for subtle contrast */
 }
 
+@media (max-width: 600px) {
+	#frontpage-quote {
+		width: 90%; /* Allow more width on smaller screens */
+		max-width: none; /* Remove max-width restriction */
+	}
+
+	#quote-text {
+		font-size: 1.2rem; /* Slightly smaller font for better fit */
+	}
+
+	#quote-author {
+		font-size: 1.1rem; /* Keep it proportional */
+		padding-right: 5px; /* Slightly reduce padding */
+	}
+}
+
 /*
 .sig-image {
 	width: 17vw;  /* 10% of the viewport width */
