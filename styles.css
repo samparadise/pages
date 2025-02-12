@@ -72,16 +72,18 @@ img {
 	display: block;
 	text-align: left;
 	font-size: 1.2rem; /* Increase font size slightly */
+
+	margin-bottom: 20px; /* Default spacing for desktop */
 }
 
 #quote-author {
 	display: block;
 	text-align: right;
 	font-size: 1.2rem; /* Keep the font size close to the quote */
-	margin-top: 5px;
 	padding-right: 10px; /* Small padding to ensure it doesn't touch the right edge */
+	color: #b0b0b0; /* Slightly dimmer for subtle contrast */
 
-   color: #b0b0b0; /* Slightly dimmer for subtle contrast */
+	margin-top: 10px; /* Default spacing for desktop */
 }
 
 .cursor {
@@ -119,10 +121,12 @@ img {
 	#quote-text {
 		font-size: 1.1rem; /* Slightly smaller */
 		line-height: 1.2; /* Reduce line spacing */
+		margin-bottom: 10px; /* Less spacing on mobile */
 	}
 	#quote-author {
 		font-size: 1.1rem; /* Keep it proportional */
 		padding-right: 5px; /* Slightly reduce padding */
+		margin-top: 5px; /* Closer to the quote */
 	}
 	.menu {
 		display: none; /* Hide desktop menu on small screens */
