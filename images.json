@@ -18,5 +18,29 @@
 	{
 		"filename": "wheel.jpg",
 		"description": "Wonder Wheel, Coney Island NY"
+	},
+	{
+		"filename": "bridge.jpg",
+		"description": "Bridge, Knoxville KY"
+	},
+	{
+		"filename": "gas.jpg",
+		"description": "Gas Station in Texas"
+	},
+	{
+		"filename": "vegas.jpg",
+		"description": "Dancers at the Blackjack Tables, Las Vegas"
+	},
+	{
+		"filename": "street.jpg",
+		"description": "Quiet Street, Siem Reap Cambodia"
+	},
+	{
+		"filename": "window.jpg",
+		"description": "Window, Paris"
+	},
+	{
+		"filename": "koolaide.jpg",
+		"description": "Kool Aide Cowboy, Knoxville State Fair"
 	}
 ]
