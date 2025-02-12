@@ -3,16 +3,18 @@ function toggleMenu() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-	const quoteText = document.getElementById("quote-text");
-	const quoteAuthor = document.getElementById("quote-author");
+	const quoteTextElement = document.getElementById("quote-text");
+	const quoteAuthorElement = document.getElementById("quote-author");
 
 	fetch("quotes.json")
 		.then(response => response.json())
 		.then(quotes => {
 			const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-			// typeQuote(randomQuote.quote, randomQuote.author, quoteText, quoteAuthor);
-			quoteText.innerHTML = randomQuote.quote;
-			quoteAuthor.innerHTML = randomQuote.author;
+
+			typeQuote(randomQuote.quote, randomQuote.author, quoteTextElement, quoteAuthorElement);
+			
+			// quoteText.innerHTML = randomQuote.quote;
+			// quoteAuthor.innerHTML = randomQuote.author;
 		})
 		.catch(error => console.error("Error loading quotes:", error));
 
@@ -29,43 +31,40 @@ document.addEventListener("DOMContentLoaded", () => {
 
 });
 
+function typeQuote(quote, author, quoteElement, authorElement) {
+	let index = 0;
+	let cursor = `<span class="cursor">_</span>`;
+	let lines = quote.split("\n"); // Split into lines for multi-line effect
+	let currentLine = 0;
 
+	function typeLine() {
+		if (currentLine < lines.length) {
+			let line = lines[currentLine];
+			let lineIndex = 0;
 
-// function typeQuote(quote, author, quoteText, quoteAuthor) {
-// 	let index = 0;
-// 	const speed = 50;
-// 
-// 	const cursor = document.createElement("span");
-// 	cursor.classList.add("cursor");
-// 	cursor.textContent = "|";
-// 	quoteText.appendChild(cursor);
-// 
-// 	function typeCharacter() {
-// 		if (index < quote.length) {
-// 			quoteText.textContent = quote.substring(0, index + 1);
-// 			quoteText.appendChild(cursor); // 🔥 Ensures cursor stays at the end
-// 			index++;
-// 			setTimeout(typeCharacter, speed);
-// 		} else {
-// 			setTimeout(() => typeAuthor(author, 0), 500);
-// 		}
-// 	}
-// 
-// 	function typeAuthor(author, authorIndex) {
-// 		if (authorIndex === 0) {
-// 			quoteText.removeChild(cursor);
-// 			quoteAuthor.appendChild(cursor); // 🔥 Moves cursor to author name
-// 		}
-// 
-// 		if (authorIndex < author.length) {
-// 			quoteAuthor.textContent = author.substring(0, authorIndex + 1);
-// 			quoteAuthor.appendChild(cursor);
-// 			authorIndex++;
-// 			setTimeout(() => typeAuthor(author, authorIndex), speed);
-// 		} else {
-// 			cursor.style.animation = "blink 0.6s infinite";
-// 		}
-// 	}
-// 
-// 	typeCharacter();
-// }
+			function typeCharacter() {
+				if (lineIndex < line.length) {
+					quoteElement.innerHTML = lines.slice(0, currentLine).join("<br>") + "<br>" +
+						line.substring(0, lineIndex + 1) + cursor;
+					lineIndex++;
+					setTimeout(typeCharacter, 50); // Typing speed
+				} else {
+					currentLine++;
+					if (currentLine < lines.length) {
+						setTimeout(typeLine, 400); // Delay between lines
+					} else {
+						quoteElement.innerHTML = quote + cursor; // Full quote with blinking cursor
+						setTimeout(() => {
+							document.querySelector(".cursor").style.display = "inline-block"; // Keep cursor
+							authorElement.innerHTML = author; // Show author after delay
+						}, 1000);
+					}
+				}
+			}
+
+			typeCharacter();
+		}
+	}
+
+	typeLine();
+}
