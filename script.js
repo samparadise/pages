@@ -2,104 +2,182 @@ function toggleMenu() {
 	document.querySelector(".mobile-menu").classList.toggle("show");
 }
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", function () {
 	const quoteTextElement = document.getElementById("quote-text");
 	const quoteAuthorElement = document.getElementById("quote-author");
+	
+	const dynamicMenu = document.getElementById("dynamicMenu");
+	const exploringMenuItem = document.getElementById("open-gallery").parentElement;
+	
+//	const navbarNav = document.getElementById("navbarNav");
 
+	const subPage = document.getElementById("subPage");
+	const subPageContent = document.getElementById("subPageContent");
+	const subPageOverlay = document.getElementById("subPageOverlay");
+
+	// === Load Quotes ===
 	fetch("quotes.json")
 		.then(response => response.json())
 		.then(quotes => {
 			const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-
-			// Ensure author is always a string (empty if missing)
 			const author = randomQuote.author ? randomQuote.author : "";
 
 			typeQuote(randomQuote.quote, author, quoteTextElement, quoteAuthorElement);
-			
-			// quoteText.innerHTML = randomQuote.quote;
-			// quoteAuthor.innerHTML = randomQuote.author;
 		})
 		.catch(error => console.error("Error loading quotes:", error));
 
-	const dropdowns = document.querySelectorAll(".mobile-menu .dropdown > a");
-		dropdowns.forEach(item => {
-			item.addEventListener("click", (event) => {
-				event.preventDefault(); // Prevent parent link from navigating
-				const submenu = item.nextElementSibling;
-				if (submenu) {
-					submenu.classList.toggle("show");
+	// === Load Menu Items from JSON ===
+	fetch("menu.json")
+		.then(response => response.json())
+		.then(menuData => {
+			insertMenuItems(menuData);
+		})
+		.catch(error => console.error("Error loading menu:", error));
+
+	function insertMenuItems(menuData) {
+		Object.keys(menuData).reverse().forEach(category => {
+			let dropdown = document.createElement("li");
+			dropdown.classList.add("nav-item", "dropdown");
+	
+			dropdown.innerHTML = `
+				<a class="nav-link dropdown-toggle" href="#" id="${category}Dropdown" role="button"
+					data-bs-toggle="dropdown" aria-expanded="false">
+					${capitalizeFirstLetter(category)}
+				</a>
+				<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="${category}Dropdown">
+			`;
+	
+			let dropdownMenu = dropdown.querySelector(".dropdown-menu");
+	
+			menuData[category].forEach(entry => {
+				let menuItem = document.createElement("li");
+				menuItem.innerHTML = `<a class="dropdown-item menu-link" href="#" data-category="${category}" data-item="${entry.item}">${entry.item}</a>`;
+				dropdownMenu.appendChild(menuItem);
+			});
+	
+			dropdown.appendChild(dropdownMenu);
+			dynamicMenu.insertBefore(dropdown, exploringMenuItem);
+		});
+	
+		attachMenuEventListeners(menuData);
+	}
+	
+	function attachMenuEventListeners(menuData) {
+		document.querySelectorAll(".menu-link").forEach(item => {
+			item.addEventListener("click", function (event) {
+				event.preventDefault();
+
+				const category = this.getAttribute("data-category");
+				const itemName = this.getAttribute("data-item");
+
+				const menuEntry = menuData[category].find(entry => entry.item === itemName);
+				if (menuEntry) {
+					
+					let contentHTML = `<div class="sub-page-content-wrapper">`;
+					
+					// If an image is provided, include it
+					if (menuEntry.image) {
+						contentHTML += `<img src="${menuEntry.image}" alt="${menuEntry.item}" class="sub-page-image">`;
+					}
+					
+					// Add the markdown content
+					contentHTML += `<div class="markdown-content">${marked.parse(menuEntry.overview_md)}</div></div>`;
+					
+					subPageContent.innerHTML = contentHTML;
+
+					subPage.classList.add("active");
+					subPageOverlay.classList.add("active");
+
+					// Ensure all links open in a new tab
+					document.querySelectorAll(".markdown-content a").forEach(link => {
+						link.setAttribute("target", "_blank");
+						link.setAttribute("rel", "noopener noreferrer");
+					});
+					
+					// Hide submenu
+					document.querySelectorAll(".dropdown-menu.show").forEach(menu => {
+						menu.classList.remove("show");
+					});
 				}
 			});
 		});
+	}
+
+	// === Clicking outside closes the markdown panel ===
+	subPageOverlay.addEventListener("click", function () {
+		subPage.classList.remove("active");
+		subPageOverlay.classList.remove("active");
+		subPageContent.innerHTML = "";
+	});
+
+	function capitalizeFirstLetter(string) {
+		return string.charAt(0).toUpperCase() + string.slice(1);
+	}
 
 	const galleryModal = document.getElementById("gallery-modal");
-		const openGallery = document.getElementById("open-gallery");
-		const closeGallery = document.querySelector(".close-gallery");
-		const modalDescription = document.getElementById("modal-description");
-		let currentImage = null; // Track currently displayed image
-		
-		// Open gallery when "Gallery" in navbar is clicked
-		openGallery.addEventListener("click", (event) => {
-			event.preventDefault();
-			galleryModal.style.display = "flex";
-		});
-		
-		// Close gallery when clicking the close button
-		closeGallery.addEventListener("click", () => {
-			galleryModal.style.display = "none";
-			modalDescription.style.display = "none"; // Hide description when closing
-		});
-		
-		// Close gallery when clicking outside content
-		galleryModal.addEventListener("click", (event) => {
-			if (event.target === galleryModal) {
-				galleryModal.style.display = "none";
-				modalDescription.style.display = "none"; // Hide description when closing
-			}
-		});
-		
-		// Fetch images for the carousel
-		fetch("images.json")
-			.then(response => response.json())
-			.then(images => {
-				const carouselInner = document.getElementById("carousel-images");
-		
-				images.forEach((image, index) => {
-					let div = document.createElement("div");
-					div.classList.add("carousel-item");
-					if (index === 0) div.classList.add("active");
-		
-					let img = document.createElement("img");
-					img.src = `photos/${image.filename}`;
-					img.classList.add("d-block", "w-100");
-					img.alt = image.description;
-					img.setAttribute("data-description", image.description);
-		
-					div.appendChild(img);
-					carouselInner.appendChild(div);
-		
-					// Toggle description on click
-					img.addEventListener("click", function () {
-						if (currentImage === this) {
-							// If same image clicked again, toggle visibility
-							modalDescription.style.display = modalDescription.style.display === "none" ? "block" : "none";
-						} else {
-							// If a new image is clicked, show its description
-							modalDescription.textContent = this.getAttribute("data-description");
-							modalDescription.style.display = "block";
-							currentImage = this;
-						}
-					});
-				});
-		
-				// Hide description when image changes (Bootstrap event)
-				document.getElementById("carouselExample").addEventListener("slid.bs.carousel", function () {
-					modalDescription.style.display = "none";
-					currentImage = null; // Reset current image tracker
-				});
-			})
-			.catch(error => console.error("Error loading images:", error));
+	const openGallery = document.getElementById("open-gallery");
+	const closeGallery = document.querySelector(".close-gallery");
+	const modalDescription = document.getElementById("modal-description");	
+	let currentImage = null;
+	
+	// === Load Gallery Images ===
+	fetch("images.json")
+		.then(response => response.json())
+		.then(images => {
+			const carouselInner = document.getElementById("carousel-images");
 
+			images.forEach((image, index) => {
+				let div = document.createElement("div");
+				div.classList.add("carousel-item");
+				if (index === 0) div.classList.add("active");
+
+				let img = document.createElement("img");
+				img.src = `photos/${image.filename}`;
+				img.classList.add("d-block", "w-100");
+				img.alt = image.description;
+				img.setAttribute("data-description", image.description);
+
+				div.appendChild(img);
+				carouselInner.appendChild(div);
+
+				// Toggle description on click
+				img.addEventListener("click", function () {
+					if (currentImage === this) {
+						modalDescription.style.display = modalDescription.style.display === "none" ? "block" : "none";
+					} else {
+						modalDescription.textContent = this.getAttribute("data-description");
+						modalDescription.style.display = "block";
+						currentImage = this;
+					}
+				});
+			});
+
+			// Hide description when image changes (Bootstrap event)
+			document.getElementById("carouselExample").addEventListener("slid.bs.carousel", function () {
+				modalDescription.style.display = "none";
+				currentImage = null;
+			});
+		})
+		.catch(error => console.error("Error loading images:", error));
+
+	// === Open/Close Gallery ===
+	openGallery.addEventListener("click", (event) => {
+		event.preventDefault();
+		galleryModal.style.display = "flex";
+	});
+
+	closeGallery.addEventListener("click", () => {
+		console.log("Close button clicked!");
+		galleryModal.style.display = "none";
+		modalDescription.style.display = "none";
+	});
+
+	galleryModal.addEventListener("click", (event) => {
+		if (event.target === galleryModal) {
+			galleryModal.style.display = "none";
+			modalDescription.style.display = "none";
+		}
+	});
 });
 
 function typeQuote(quote, author, quoteElement, authorElement) {

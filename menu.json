@@ -1,13 +1,28 @@
-[
-	"writing": [
-		"Ironman 70.3 Phuket": "https://medium.com/@samparadise/ironman-70-3-phuket-5df29bacfb73",
-		"Learning to Fly": "https://medium.com/@samparadise/learning-to-fly-2bce62a9d6e6",
-		"Learning to Fly Better": "https://medium.com/@samparadise/learning-to-fly-better-7e273cba3f33",
-		"Hanging Up the Flying Shoes": "https://medium.com/@samparadise/hanging-up-the-flying-shoes-d5f775130adb" 
+{
+	"PondCast": [
+		{
+			"item": "The PondCast",
+			"image": "img/pondcast.png",
+			"overview_md": "It all started at Spudder, when Chris and I were sitting at the bar drinking martinis and talking about the kind of nonsense we always did, and the bartender came over after a while and said, \"You guys should really do a podcast.\"\n\nI'm not sure, in retrospect, that he was right, but when Chris moved overseas the next year we thought it might be clever to catch up across The Pond every once in a while...\n\n[The PondCast with Sam & Chris](https://pondcast.buzzsprout.com)"
+		}
 	],
-	"coding": [
-		"Jupiter": "https://badjupiter.com",
-		"DataWorks": "https://thedataworks.org",
-		"Squares": "https://badjupiter.cloud/squares"
+	"writing": [
+		{
+			"item": "Ironman 70.3 Phuket",
+			"image": "img/thai-flower.png",
+			"overview_md": "The first and most fantastical of all my triathlon experiences. Transformative for a few reasons: the distance, the terrain, the weather. I was fired up enough when it was all over I felt the need to write it all down.\n\nOn Medium: [Ironman 70.3 Phuket](https://medium.com/@samparadise/ironman-70-3-phuket-5df29bacfb73)"
+		},
+		{
+			"item": "Learning to Fly",
+			"image": "img/charlie-plane.jpg",
+			"overview_md": "One of the first things I did after moving back to Tulsa was to start flight school, and that led to a fantastic five-year adventure involving eyeglass prescriptions, airplane ownership, emergency landings, and some amazing trips with a couple kids who were too young to remember. I wrote a lot of it down in three parts:\n\nOn Medium: [Learning to Fly](https://medium.com/@samparadise/learning-to-fly-2bce62a9d6e6)\n\nOn Medium: [Learning to Fly Better](https://medium.com/@samparadise/learning-to-fly-better-7e273cba3f33)\n\nOn Medium: [Hanging Up the Flying Shoes](https://medium.com/@samparadise/hanging-up-the-flying-shoes-d5f775130adb)"
+		}
+	],
+	"software": [
+		{
+			"item": "Jupiter",
+			"image": "https://badjupiter.com/img/circle-j-transbg.png",
+			"overview_md": "It took four years, $1.5M, and a small team to get this right, and we came out of COVID much leaner and meaner. Jupiter is a super-lightweight responsive mobile-authenticated white-label architecture that businesses can use to engage diretly with their customers, anywhere and any time. Example solutions include customer loyalty and referral programs, feedback, event RSVPs, and even a [Bourbon Club](https://badjupiter.cloud/bourbon).\n\nVisit the website: [Jupiter](https://badjupiter.com)"
+		}
 	]
-]
+}

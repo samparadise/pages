@@ -31,6 +31,75 @@ body, html {
 	background-color: #333 !important; /* Darker hover effect */
 }
 
+.sub-page {
+	display: none;
+	position: absolute; /* Ensures it overlays content */
+	top: 56px; /* Below the navbar */
+	left: 0;
+	width: 100%;
+	background: #121212; /* Dark mode */
+	padding: 20px;
+	box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+	border-top: 3px solid #333;
+	z-index: 1050; /* Ensure it's above the rest of the page */
+}
+
+.sub-page.active {
+	display: block;
+	animation: slideDown 0.4s ease-in-out;
+}
+
+@keyframes slideDown {
+	from {
+		transform: translateY(-20px);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+/* Gray line below markdown content */
+#subPageContent {
+	padding-bottom: 10px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.3); /* Thin gray line */
+}
+
+/* Ensure clicking outside closes it */
+.sub-page-overlay {
+	position: fixed;
+	top: 56px; /* Right below navbar */
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: none;
+	background: rgba(0, 0, 0, 0.5); /* Subtle backdrop */
+	z-index: 1049; /* Slightly below the content */
+}
+
+.sub-page-content-wrapper {
+	display: flex;
+	align-items: flex-start;
+}
+
+.sub-page img.sub-page-image {
+	max-width: 100px; /* Adjust width as needed */
+	max-height: 100px;
+	margin-right: 15px;
+	border-radius: 8px; /* Optional: Rounded corners */
+	float: left;
+}
+
+.sub-page-overlay.active {
+	display: block;
+}
+
+.close-btn {
+	display: block;
+	margin-bottom: 10px;
+}
+
 .cutive-mono-regular {
   font-family: "Cutive Mono", monospace;
   font-weight: 400;
