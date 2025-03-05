@@ -234,11 +234,9 @@ function typeQuote(quote, author, quoteElement, authorElement, refreshLink) {
 							document.querySelector(".cursor").style.display = "inline-block"; // Keep cursor
 							authorElement.innerHTML = author; // Show author after delay
 							
-							// Show "Show me another one!" link after a small delay
 							setTimeout(() => {
-								refreshLink.classList.remove("d-none"); // Make it visible
-								refreshLink.classList.add("show");
-							}, 800); // Adjust delay time (800ms = 0.8s)
+								refreshLink.classList.add("show"); // Apply fade-in effect
+							}, 4200); // Adjust delay as needed
 							
 						}, 1000);
 					}
