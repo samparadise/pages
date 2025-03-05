@@ -5,6 +5,11 @@ function toggleMenu() {
 document.addEventListener("DOMContentLoaded", function () {
 	const quoteTextElement = document.getElementById("quote-text");
 	const quoteAuthorElement = document.getElementById("quote-author");
+	const refreshQuoteLink = document.getElementById("refresh-quote");
+	
+	function getQuoteIdFromURL() {
+		return window.location.hash ? window.location.hash.substring(1) : null;
+	}
 	
 	const dynamicMenu = document.getElementById("dynamicMenu");
 	const exploringMenuItem = document.getElementById("open-gallery").parentElement;
@@ -15,17 +20,38 @@ document.addEventListener("DOMContentLoaded", function () {
 	const subPageContent = document.getElementById("subPageContent");
 	const subPageOverlay = document.getElementById("subPageOverlay");
 
-	// === Load Quotes ===
 	fetch("quotes.json")
 		.then(response => response.json())
 		.then(quotes => {
-			const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-			const author = randomQuote.author ? randomQuote.author : "";
-
-			typeQuote(randomQuote.quote, author, quoteTextElement, quoteAuthorElement);
+			let quoteId = getQuoteIdFromURL();
+			let selectedQuote;
+	
+			if (quoteId) {
+				selectedQuote = quotes.find(q => q.id === quoteId);
+			}
+	
+			// If no valid quote ID is found, select a new random quote on every page load
+			if (!selectedQuote) {
+				selectedQuote = quotes[Math.floor(Math.random() * quotes.length)];
+			
+				// Update hash-based URL without preventing re-randomization on refresh
+				window.location.replace(`#${selectedQuote.id}`);
+			}
+	
+			// Display the quote
+			typeQuote(selectedQuote.quote, selectedQuote.author, quoteTextElement, quoteAuthorElement, refreshQuoteLink);
 		})
 		.catch(error => console.error("Error loading quotes:", error));
-
+		
+		// Handle "Show me another one!" click
+		refreshQuoteLink.addEventListener("click", function (event) {
+			event.preventDefault(); // Prevent the default link behavior
+		
+			// Remove the hash from the URL to force a new random selection
+			window.location.hash = "";
+			location.reload(); // Reload the page to get a new random quote
+		});
+		
 	// === Load Menu Items from JSON ===
 	fetch("menu.json")
 		.then(response => response.json())
@@ -180,7 +206,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	});
 });
 
-function typeQuote(quote, author, quoteElement, authorElement) {
+function typeQuote(quote, author, quoteElement, authorElement, refreshLink) {
 	let index = 0;
 	let cursor = `<span class="cursor">_</span>`;
 	let lines = quote.split("\n"); // Split into lines for multi-line effect
@@ -207,6 +233,13 @@ function typeQuote(quote, author, quoteElement, authorElement) {
 						setTimeout(() => {
 							document.querySelector(".cursor").style.display = "inline-block"; // Keep cursor
 							authorElement.innerHTML = author; // Show author after delay
+							
+							// Show "Show me another one!" link after a small delay
+							setTimeout(() => {
+								refreshLink.classList.remove("d-none"); // Make it visible
+								refreshLink.classList.add("show");
+							}, 800); // Adjust delay time (800ms = 0.8s)
+							
 						}, 1000);
 					}
 				}

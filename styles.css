@@ -161,6 +161,22 @@ img {
 	margin-top: 10px; /* Default spacing for desktop */
 }
 
+#refresh-quote {
+	color: #6c757d; /* Subtle color */
+	font-size: 0.9em;
+	text-decoration: none;
+	transition: opacity 0.5s ease-in-out;
+	opacity: 0; /* Initially hidden */
+}
+
+#refresh-quote:hover {
+	color: #495057; /* Slightly darker on hover */
+}
+
+#refresh-quote.show {
+	opacity: 1; /* Smooth fade-in */
+}
+
 .cursor {
 	display: inline-block;
 	font-weight: bold;

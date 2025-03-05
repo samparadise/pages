@@ -1,86 +1,107 @@
 [
 	{
 		"quote": "The only people for me are the mad ones, the ones who are mad to live, mad to talk, mad to be saved, desirous of everything at the same time, the ones who never yawn or say a commonplace thing, but burn, burn, burn like fabulous yellow roman candles exploding like spiders across the stars.",
-		"author": "Jack Kerouac"
+		"author": "Jack Kerouac",
+		"id": "kerouac-mad-ones"
 	},
 	{
 		"quote": "True stability results when presumed order and presumed disorder are balanced. A truly stable system expects the unexpected, is prepared to be disrupted, waits to be transformed.",
-		"author": "Tom Robbins"
+		"author": "Tom Robbins",
+		"id": "robbins-stability"
 	},
 	{
 		"quote": "A leader is best when people barely know he exists. When his work is done, his aim fulfilled, they will say: we did it ourselves.",
-		"author" :"Lao Tzu"
+		"author" :"Lao Tzu",
+		"id": "laotzu-leader"
 	},
 	{
 		"quote": "I have approximate answers and possible beliefs and different degrees of certainty about different things, but I'm not absolutely sure about anything. And there are many things I don't know anything about. It doesn't frighten me!",
-		"author": "Richard Feynman"
+		"author": "Richard Feynman",
+		"id": "feynman-uncertainty"
 	},
 	{
 		"quote": "Different matters are arranged in my head as in drawers; I open one drawer and close another as I wish. I have never been kept awake by an involuntary pre-occupation of the mind. If I desire repose, I shut up all the drawers, and sleep. I have always slept when I wanted rest, and almost at will.",
-		"author": "Napoleon"
+		"author": "Napoleon",
+		"id": "napoleon-drawers"
 	},
 	{
 		"quote": "Never turn your back on fear. It should always be in front of you, like a thing that might have to be killed.",
-		"author": "Hunter S. Thompson"
+		"author": "Hunter S. Thompson",
+		"id": "hst-fear"
 	},
 	{
 		"quote": "Good and evil both increase at compound interest. That is why the little decisions you and I make every day are of such infinite importance. The smallest good act today is the capture of a strategic point from which, a few months later, you may be able to go on to victories you never dreamed of.",
-		"author": "C. S. Lewis"
+		"author": "C. S. Lewis",
+		"id": "lewis-good-evil"
 	},
 	{
 		"quote": "My best skill was that I was coachable. I was a sponge and aggressive to learn.",
-		"author": "Michael Jordan"
+		"author": "Michael Jordan",
+		"id": "mj-skills"
 	},
 	{
 		"quote": "The stupider one is, the clearer one is. Stupidity is brief and artless while intelligence wriggles and hides itself. Intelligence is a knave, but stupidity is honest and straightforward.",
-		"author": "Fyodor Dostoyevsky"
+		"author": "Fyodor Dostoyevsky",
+		"id": "dostoyevsky-stupidity"
 	},
 	{
 		"quote": "\"I wish it need not have happened in my time,\" Said Frodo.\n\n\"So do I,\" said Gandalf, \"and so do all who live to see such times. But that is not for them to decide. All we have to decide is what to do with the time that is given us.\"",
-		"author": "J.R.R. Tolkien"
+		"author": "J.R.R. Tolkien",
+		"id": "tolkien-time"
 	},
 	{
 		"quote": "A photograph is neither taken nor seized by force. It offers itself up. It is the photo that takes you. One must not take photos.",
-		"author": "Henri Cartier-Bresson"
+		"author": "Henri Cartier-Bresson",
+		"id": "hcb-photos"
 	},
 	{
 		"quote": "It's unarguable to say that every one of us has been moved by the beauty of what I have called snapshots, but for photographers they are charms and proverbs, and like lightning or wild strawberries.",
-		"author": "Tod Pappageorge"
+		"author": "Tod Pappageorge",
+		"id": "pappageorge-snapshots"
 	},
 	{
 		"quote": "The quickest way to a man's heart is to insert a needle between the xiphoid process and left costal margin, at a 15- to 30-degree angle, directed towards the left shoulder.",
-		"author": "Josh Rubin, MD"
+		"author": "Josh Rubin, MD",
+		"id": "way-to-a-mans-heart"
 	},
 	{
 		"quote": "Enjoy every sandwich.",
-		"author": "Warren Zevon"
+		"author": "Warren Zevon",
+		"id": "zevon-sandwich"
 	},
 	{
 		"quote": "I hate the bloody highways. I hate hamburgers, I hate Greyhound buses. I'd have liked to have been in America during the Jazz Age, or the Golden Age of Hollywood.",
-		"author": "Shane MacGowan"
+		"author": "Shane MacGowan",
+		"id": "shane-america"
 	},
 	{
 		"quote": "You'll never find your gold on a sandy beach\n\nYou'll never drill for oil on a city street\n\nI know you're looking for a ruby in a mountain of rocks\n\nBut there ain't no Coup de Ville hiding at the bottom of a Cracker Jack box",
-		"author": "Meatloaf"
+		"author": "Meatloaf",
+		"id": "meatloaf-two"
 	},
 	{
 		"quote": "From the South South Bronx, on out to Queensbridge, from Hollis Queens right down to Bay Ridge\n\nFrom Castle Hill to the Lower East Side, from 1010 WINS to Live At Five\n\nDear New York, this is a love letter to you and how you brought us together\n\nWe can't say enough about all you do cause in the city we're ourselves and electric, too",
-		"author": "Beastie Boys"
+		"author": "Beastie Boys",
+		"id": "bboys-nyc"
 	},
 	{
 		"quote": "Life should not be a journey to the grave with the intention of arriving safely in a pretty and well preserved body, but rather to skid in broadside in a cloud of smoke, thoroughly used up, totally worn out, and loudly proclaiming \"Wow! What a ride!\"",
-		"author": "Hunter S. Thompson"
+		"author": "Hunter S. Thompson",
+		"id": "hst-ride"
 	},
 	{
 		"quote": "Whosoever is delighted in solitude, is either a wild beast or a god.",
-		"author": "Marcus Aurelius"
+		"author": "Marcus Aurelius",
+		"id": "solitude"
 	},
 	{
-		"quote": "Fall in love and stay in love. Explode. Don't intellectualize. Get passionate about ideas. Cram your head full of images. Stay in the library. Stay off the internet nd all that crap. Read all the great books. Read all the great poetry. See all the great films. Fill your life with metaphors. And then explode.",
-		"author": "Ray Bradbury"
+		"quote": "Fall in love and stay in love. Explode. Don't intellectualize. Get passionate about ideas. Cram your head full of images. Stay in the library. Stay off the internet and all that crap. Read all the great books. Read all the great poetry. See all the great films. Fill your life with metaphors. And then explode.",
+		"author": "Ray Bradbury",
+		"id": "bradbury-love"
 	},
 	{
 		"quote": "What did you do as a child that made the hours pass like minutes? Herein lies the key to your earthly pursuits.",
-		"author": "Carl Jung"
+		"author": "Carl Jung",
+		"id": "jung-child"
 	}
 ]
