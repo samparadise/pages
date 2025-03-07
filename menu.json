@@ -28,6 +28,10 @@
 			"item": "Squares",
 			"image": "img/squares-icon.png",
 			"overview_md": "This was the first Jupiter \"app\" -- meaning that it has its own UI structure and doesn't conform to any of the templates Jupiter supports for B2C interactions.\n\nSquares is a mobile implementation of the classic game where people have a football-watching party, sell squares on a blank grid, randomly assign score numbers, and see who wins each quarter. This one gets live score updates, shows a real-time view on who's winning the current quarter at any moment in time, and can even handle the money when there's money involved... although PayPal fees are prohibitive for low-stakes games.\n\nSee if any games are going: [Squares](https://badjupiter.cloud/squares)"
+		},
+		{
+			"item": "Samparadise",
+			"overview_md": "This website is an ever-evolving project that's continually getting tweaked by me and my trusty coding sidekick, ChatGPT. I'm the idea guy, and GPT helps me with syntax and structure for things I barely understand like Javascript and CSS. It's hosted on Github Pages and is built entirely with HTML, CSS, and Javascript. Dynamic content (quotes, images, even the menus) are all driven by JSON files that are super-simple for me to update and maintain."
 		}
 	]
 }
