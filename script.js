@@ -71,7 +71,6 @@ document.addEventListener("DOMContentLoaded", function () {
 			let selectedQuote = remainingQuotes[Math.floor(Math.random() * remainingQuotes.length)];
 			
 			shownQuotes.push(selectedQuote); // Mark it as shown
-			console.log(`shown: ${selectedQuote.id}`);
 			return selectedQuote;
 		}
 		
@@ -237,7 +236,7 @@ function typeQuote(quote, author, quoteElement, authorElement, refreshLink, done
 
 	// Immediately hide the refresh link so it fades in again later
 	refreshLink.style.opacity = "0";
-	refreshLink.style.display = "none"; // Ensure it disappears instantly
+	refreshLink.style.visibility = "hidden"; // Ensure it disappears instantly
 
 	function typeLine() {
 		if (currentLine < lines.length) {
@@ -261,16 +260,16 @@ function typeQuote(quote, author, quoteElement, authorElement, refreshLink, done
 							document.querySelector(".cursor").style.display = "inline-block"; // Keep cursor
 							authorElement.innerHTML = author; // Show author after delay
 							
-							setTimeout(() => {
-								
+							setTimeout(() => {								
 								if (done) {
-								
 									refreshLink.innerText = "that's all so far...";
 									refreshLink.style.pointerEvents = "none"; // Disable clicking
 									refreshLink.style.color = "#555"; // Make it look disabled
 									refreshLink.style.display = "block"; // Ensure it's visible
 								} 
-								refreshLink.style.display = "block";
+								
+								refreshLink.style.visibility = "visible";
+								
 								setTimeout(() => {
 									refreshLink.classList.add("show"); // Apply fade-in effect
 									refreshLink.style.opacity = "1";
@@ -281,10 +280,8 @@ function typeQuote(quote, author, quoteElement, authorElement, refreshLink, done
 					}
 				}
 			}
-
 			typeCharacter();
 		}
 	}
-
 	typeLine();
 }
