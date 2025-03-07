@@ -103,5 +103,15 @@
 		"quote": "What did you do as a child that made the hours pass like minutes? Herein lies the key to your earthly pursuits.",
 		"author": "Carl Jung",
 		"id": "child"
+	},
+	{
+		"quote": "Simple can be harder than complex. You have to work hard to get your thinking clean to make it simple. But it's worth it in the end because once you get there, you can move mountains.",
+		"author": "Steve Jobs",
+		"id": "simple"
+	},
+	{
+		"quote": "Creativity is just connecting things. When you as creative people how they did something, they feel a little guilty because they didn't really do it, they just saw something. It seemed obvious to them after a while. That's because they were able to connect experiences they've had and synthesize new things.",
+		"author": "Steve Jobs",
+		"id": "creativity"
 	}
 ]

@@ -166,7 +166,6 @@ img {
 	font-size: 0.9em;
 	text-decoration: none;
 	opacity: 0; /* Initially hidden */
-	display: block;
 	transition: opacity 2.1s ease-in-out; /* Smooth fade-in */
 }
 
