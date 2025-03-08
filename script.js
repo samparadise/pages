@@ -124,6 +124,17 @@ document.addEventListener("DOMContentLoaded", function () {
 	const exploringMenuItem = document.getElementById("open-gallery").parentElement;
 	
 //	const navbarNav = document.getElementById("navbarNav");
+	const navbarToggler = document.querySelector(".navbar-toggler");
+	const navbarCollapse = document.querySelector(".navbar-collapse");
+	
+	document.querySelectorAll(".navbar-nav a").forEach(link => {
+		link.addEventListener("click", function () {
+			if (window.innerWidth < 992) { // Collapse only on small screens
+				navbarToggler.click(); // Simulate toggle button click
+			}
+		});
+	});
+
 
 	const subPage = document.getElementById("subPage");
 	const subPageContent = document.getElementById("subPageContent");
