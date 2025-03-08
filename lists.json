@@ -1,0 +1,35 @@
+{
+	"intro_md": "A problem with lists is they quickly get long and unwieldy. I’m going to try to not let that happen here, which will mean that I’ll have to change things up periodically. Which means there’ll be a temporal element to these lists, and if you go away for too long you might miss something life-changing. Can’t say I didn’t warn you.",
+	
+	"lists": {
+		
+		"Reading": {
+			"intro_md": "Another problem with lists is you want to keep them interesting. I shouldn’t have to tell you to read On the Road, for instance. Do I? So this list is gonna be about oldies-but-goodies when I dust them off, and new surprise ones I pick up that are great.",
+			"items": [
+				{
+					"title": "A Supposedly Fun Thing I'll Never Do Again",
+					"attrib": "David Foster Wallace",
+					"info_md": "I quite literally grabbed this out of one of those little mini-library things you see in parks and on street corners. A bunch of essays, fun to read. I started with the one about David Lynch since he just died recently... that's as far as I've gotten but so far I like it."
+				},
+				{
+					"title": "Soul of a Chef",
+					"info_md": "Read 'Kitchen Confidential', of course, because Bourdain is a rock star and it's just a great no-nonsense book about running the kitchen at Les Halles in NYC, and it's super fun. Soul is different: it's four sections and four different stories and the one that I found so amazing was the profile of Thomas Keller and the French Laundry and just what an unbelievable perfectionist that guy is."
+				},
+				{
+					"title": "What Design Can't Do",
+					"attrib": "Silvio Lorusso",
+					"info_md": "\"Essays on Design and Disillusion\" given to me as a gift, found at one of those indie bookstores in Brooklyn, I think. Every few days I read a little of it. It's a very cool glimpse into the design profession: what it wants to be, what it really is, and how it's changed over time."
+				}
+			]
+		},
+		"Watching": {
+			"intro_md": "It's a weird time in human history for watching stuff. Everything is scattered across streaming services, or else sudenly isn't anywhere. And I don't have a DVD player anymore. These are some of the ones that either I'm caught up in and loving right now or else I keep coming back to and re-watching (or trying to find again). Hopefully something in here you might not have discovered or seen yet.",
+			"items": [
+				{
+					"title": "American Psycho",
+					"info_md": "\"Let's see Paul Allen's card.\" The best thing about this movie besides all the fantastic quotes is that it somehow managed to take a book that shouldn't be made into a movie (couldn't in fact, the first two tries) and turn it into a movie that works fantastically well because it figured out it didn't even have to do the blood and gore stuff. The book is not for the faint of heart, and \"that's a very fine chardonnay you're not drinking.\""
+				}
+			]
+		}
+	}
+}

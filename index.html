@@ -19,7 +19,8 @@
 	<!-- Bootstrap Navbar -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="#">Samparadise</a>
+
+			<a class="navbar-brand" href="/">Samparadise</a>
 		
 			<!-- Hamburger Toggle -->
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -35,7 +36,11 @@
 					<li class="nav-item">
 						<a class="nav-link" href="#" id="open-gallery">Photography</a>
 					</li>
-	
+					<!-- Lists page -->
+					<li class="nav-item">
+						<a class="nav-link" href="#" id="show-lists">Lists</a>
+					</li>
+					
 				</ul>
 			</div>
 		</div>
@@ -60,6 +65,80 @@
 			<p><a href="#" id="refresh-quote" class="small-text">(thanks may I have another)</a></p>
 		</div>
 	</div>
+
+
+	<!-- Lists Page (Initially Hidden) -->
+	<div id="lists-page" class="container d-none">
+	
+		<!-- Explanation Text -->
+		<div id="explanation-container">
+			<div id="explanation-text" class="p-3 clickable">
+				<p>This is a page for lists. If there's nothing here, then I guess come back another time?</p>
+			</div>
+			<hr class="divider">
+		</div>
+	
+		<!-- Lists Container -->
+		<div class="lists-container">
+
+<!--			
+			<!-- List Section (Example: Reading List) -- >
+			<div class="list-section">
+				<div class="list-header" data-bs-toggle="collapse" data-bs-target="#readingList">
+					Read <span class="toggle-arrow">▼</span>
+				</div>
+				<div id="readingList" class="collapse">
+					<p class="list-description">Another problem with lists is you want to keep them interesting. I shouldn’t have to tell you to read On the Road, for instance. Do I? So this list is gonna be about oldies-but-goodies when I dust them off, and new surprise ones I pick up that are great.</p>
+					
+					<!-- List Items -- >
+					<ul class="list-group">
+						<li class="list-group-item">
+							<div class="item-header" data-bs-toggle="collapse" data-bs-target="#book1">
+								A Supposedly Fun Thing I'll Never Do Again <span class="toggle-arrow">▼</span>
+							</div>
+							<div id="book1" class="collapse">
+								<p class="item-description">I quite literally grabbed this out of one of those little mini-library things you see in parks and on street corners. A bunch of essays, fun to read. I started with the one about David Lynch since he just died recently... that's as far as I've gotten but so far I like it.</p>
+							</div>
+						</li>
+						<li class="list-group-item">
+							<div class="item-header" data-bs-toggle="collapse" data-bs-target="#book2">
+								Soul of a Chef <span class="toggle-arrow">▼</span>
+							</div>
+							<div id="book2" class="collapse">
+								<p class="item-description">Read 'Kitchen Confidential', of course, because Bourdain is a rock star and it's just a great no-nonsense book about running the kitchen in Les Halles in NYC, and it's super fun. Soul is different: it's four sections and four different stories and the one that I found so amazing was the profile of Thomas Keller and the French Laundry and just what an unbelievable perfectionist that guy is.</p>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+	
+			<hr class="divider">
+	
+			<!-- Another List Section (Example: Movies List) -- >
+			<div class="list-section">
+				<div class="list-header" data-bs-toggle="collapse" data-bs-target="#moviesList">
+					Watch <span class="toggle-arrow">▼</span>
+				</div>
+				<div id="moviesList" class="collapse">
+					<p class="list-description">These are some of the ones that either I'm caught up in and loving right now or else I keep coming back to and re-watching because they're just so fantastic. Not all of them, but hopefully some that you might not have discovered or seen yet.</p>
+					
+					<!-- List Items -- >
+					<ul class="list-group">
+						<li class="list-group-item">
+							<div class="item-header" data-bs-toggle="collapse" data-bs-target="#movie1">
+								American Psycho <span class="toggle-arrow">▼</span>
+							</div>
+							<div id="movie1" class="collapse">
+								<p class="item-description">"Let's see Paul Allen's card." The best thing about this movie besides all the fantastic quotes is that it somehow managed to take a book that shouldn't be made into a movie (couldn't in fact, the first two tries) and turn it into a movie that works fantastically well because it figured out it didn't even have to do the blood and gore stuff. The book is not for the faint of heart, and "that's a very fine chardonnay you're not drinking."</p>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+-->	
+		</div>
+	</div>
+	
 
 	<!-- Fullscreen Gallery Modal -->
 	<div id="gallery-modal" class="gallery-overlay">

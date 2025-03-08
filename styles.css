@@ -4,13 +4,9 @@ body, html {
 	padding: 0;
 	padding-top: 56px; /* Adjust this value to match the navbar height */
 	font-family: 'Nunito', sans-serif;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 
 	background-color: #121212 !important; /* Force dark mode */
 	color: #e0e0e0 !important; /* Ensure all text remains light */
-
 }
 
 .container {
@@ -101,10 +97,125 @@ body, html {
 	display: block;
 }
 
-.close-btn {
+
+#lists-page (
+	margin-top: 56px; /* Below navbar */
+	padding: 20px;
+	width: 100%;
+	max-width: 800px; /* Keep it a reasonable width */
+	margin-left: auto;
+	margin-right: auto;
 	display: block;
+	
+	background-color: #121212;
+	color: #e0e0e0;
+)
+
+/* Make Explanation Text Dark Mode */
+.clickable {
+	text-align: left !important;
+	cursor: pointer;
+	font-weight: bold;
+	color: #e0e0e0;
+	background-color: #222;
+	margin-bottom: 5px; 
+}
+
+.clickable:hover {
+	background-color: #333;
+}
+
+.hidden {
+	display: none;
+}
+
+/* Make List Sections Dark */
+.list-section {
+	background: none !important;
+	padding: 15px;
 	margin-bottom: 10px;
 }
+
+/* Dark Mode for Expandable Sections */
+.list-header, .list-group-item {
+	background: none !important;
+	border: none !important;	
+	padding: 5px 0;
+	cursor: pointer;
+	font-weight: bold;
+}
+
+.list-header {
+	font-size: 1.4rem;
+	font-weight: bold;
+}
+
+.list-group-item {
+	margin-bottom: 2px; /* Reduce bottom margin */
+	padding: 5px 0; /* Ensure padding is minimal */
+}
+
+/* Dark Mode for List and Collapsible Item Descriptions */
+.list-description {
+	color: #b0b0b0 !important;
+}
+
+.item-description {
+	color: #b0b0b0 !important; /* Ensures readability */
+}
+
+.item-description {
+	background: none !important;
+	padding: 3px 0; /* Reduce vertical padding */
+	margin-bottom: 0; /* Remove extra bottom margin */
+	font-size: 0.9rem;
+	font-weight: normal;
+}
+
+/* Divider in Dark Mode */
+.divider {
+	height: 1px;
+	background: none !important;
+	margin: 5px 0;
+}
+
+/* Dark Mode for Bootstrap Collapsible Arrows */
+.toggle-arrow {
+	font-size: 14px;
+	color: #a0a0a0 !important;
+	transition: transform 0.3s ease-in-out;
+	display: inline-block;
+	transform: rotate(0deg);
+}
+
+.list-header[aria-expanded="true"] .toggle-arrow,
+.item-header[aria-expanded="true"] .toggle-arrow {
+	transform: rotate(180deg);
+}
+
+.item-header {
+	color: #e0e0e0 !important; /* ✅ Ensures text is visible */
+	cursor: pointer; /* ✅ Keeps it clickable */
+	font-weight: bold; /* ✅ Matches other headers */
+	padding: 5px 0; /* ✅ Keeps consistent spacing */
+}
+
+.item-header:hover {
+	color: #ffffff !important; /* ✅ Slightly brighter on hover */
+}
+
+/* Button Styling to Match Dark Mode */
+.btn-outline-secondary {
+	color: #e0e0e0;
+	border-color: #666;
+}
+
+.btn-outline-secondary:hover {
+	background-color: #444;
+	border-color: #777;
+}
+
+
 
 .cutive-mono-regular {
   font-family: "Cutive Mono", monospace;
@@ -114,11 +225,12 @@ body, html {
 
 .content {
 	width: 100vw;
-	height: 100vh;
-	display: flex;
+	height: auto;
+	/* height: 100vh; */
+	/* display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: center;
+	align-items: center; */
 	text-align: center;
 	padding: 0 10vw; /* Responsive padding based on the viewport width */
 	overflow: hidden; /* Prevents scrollbars from appearing */
