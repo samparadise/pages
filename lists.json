@@ -3,7 +3,7 @@
 	
 	"lists": {
 		
-		"Reading": {
+		"Read": {
 			"intro_md": "Another problem with lists is you want to keep them interesting. I shouldn’t have to tell you to read On the Road, for instance. Do I? So this list is gonna be about oldies-but-goodies when I dust them off, and new surprise ones I pick up that are great.",
 			"items": [
 				{
@@ -33,7 +33,7 @@
 				}
 			]
 		},
-		"Watching": {
+		"Watch": {
 			"intro_md": "It's a weird time in human history for watching stuff. Everything is scattered across streaming services, or else sudenly isn't anywhere. And I don't have a DVD player anymore. These are some of the ones that either I'm caught up in and loving right now or else I keep coming back to and re-watching (or trying to find again). Hopefully something in here you might not have discovered or seen yet.",
 			"items": [
 				{
