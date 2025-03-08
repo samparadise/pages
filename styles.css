@@ -155,6 +155,12 @@ body, html {
 	padding: 5px 0; /* Ensure padding is minimal */
 }
 
+.item-attrib {
+	font-size: 0.85rem;
+	color: #888;
+	font-weight: normal;
+}
+
 /* Dark Mode for List and Collapsible Item Descriptions */
 .list-description {
 	color: #b0b0b0 !important;

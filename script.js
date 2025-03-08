@@ -55,10 +55,12 @@ document.addEventListener("DOMContentLoaded", function () {
 	
 			listData.items.forEach((item, itemIndex) => {
 				let itemId = `${listId}-item-${itemIndex}`;
+				let attribHTML = item.attrib ? `<span class="item-attrib"> / ${item.attrib}</span>` : "";
+				
 				listHTML += `
 					<li class="list-group-item">
 						<div class="item-header" data-bs-toggle="collapse" data-bs-target="#${itemId}">
-							${item.title} <span class="toggle-arrow">▼</span>
+							${item.title}${attribHTML} <span class="toggle-arrow">▼</span>
 						</div>
 						<div id="${itemId}" class="collapse">
 							<div class="item-description">${marked.parse(item.info_md)}</div>
