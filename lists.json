@@ -1,25 +1,15 @@
 {
-	"intro_md": "A problem with lists is they quickly get long and unwieldy. I’m going to try to not let that happen here, which will mean that I’ll have to change things up periodically. Which means there’ll be a temporal element to these lists, and if you go away for too long you might miss something life-changing. Can’t say I didn’t warn you.",
+	"intro_md": "A problem with lists is they can get long and unwieldy. I’m not gonna let that happen here, which means I may have to change things up periodically. So there’ll be a temporal element to these lists, and if you go away for too long you might miss something life-changing. Can’t say I didn’t warn you.",
 	
 	"lists": {
 		
-		"Read": {
-			"intro_md": "Another problem with lists is you want to keep them interesting. I shouldn’t have to tell you to read On the Road, for instance. Do I? So this list is gonna be about oldies-but-goodies when I dust them off, and new surprise ones I pick up that are great.",
+		"Must Read": {
+			"intro_md": "This is my list of stuff I think everyone should read. Not just that, but the short list. I'm gonna try to limit it to 11 or so, but it won't get there until things come to me.",
 			"items": [
-				{
-					"title": "A Supposedly Fun Thing I'll Never Do Again",
-					"attrib": "David Foster Wallace",
-					"info_md": "I grabbed this book of one of those little mini-library things you see in parks and on street corners. A bunch of essays, incredibly fun to read. I started with the one about David Lynch since he just died recently, but the title essay (dealing with cruise ships) and the one about the Illinois State Fair are great. Check the closest mini-library and if not there then it's also at [Amazon](https://amzn.to/4icRv0j)"
-				},
 				{
 					"title": "The Soul of a Chef",
 					"attrib": "Michael Ruhlman",
 					"info_md": "Read 'Kitchen Confidential', of course, because Bourdain is a rock star and it's just a great no-nonsense book about running the kitchen at Les Halles in NYC, and it's super fun. Soul is different: it's four sections and four different stories and the one that I found so amazing was the profile of Thomas Keller and the French Laundry and just what an unbelievable perfectionist that guy is. [(Amazon)](https://amzn.to/4icRv0j)"
-				},
-				{
-					"title": "What Design Can't Do",
-					"attrib": "Silvio Lorusso",
-					"info_md": "\"Essays on Design and Disillusion\" and given to me as a gift, found at one of those indie bookstores in Brooklyn, I think. Every few days I read a little of it. It's a very cool glimpse into the design profession: what it wants to be, what it really is, and how it's changed over time. [(Set Margins')](https://www.setmargins.press/books/what-design-cant-do/)"
 				},
 				{
 					"title": "The Last Opium Den",
@@ -33,8 +23,8 @@
 				}
 			]
 		},
-		"Watch": {
-			"intro_md": "It's a weird time in human history for watching stuff. Everything is scattered across streaming services, or else sudenly isn't anywhere. And I don't have a DVD player anymore. These are some of the ones that either I'm caught up in and loving right now or else I keep coming back to and re-watching (or trying to find again). Hopefully something in here you might not have discovered or seen yet.",
+		"Must Watch": {
+			"intro_md": "It's a weird time in human history for watching stuff. Everything is scattered across streaming services, or else sudenly isn't anywhere. And I don't have a DVD player anymore. These are some of the ones that either I keep coming back to and re-watching or am trying to find again. A short list of some of the best and most interesting. Hopefully some you might not have discovered or seen yet.",
 			"items": [
 				{
 					"title": "American Psycho",
@@ -48,6 +38,21 @@
 					"title": "Wild at Heart",
 					"attrib": "apparently unavailable",
 					"info_md": "The Wizard of Oz retold by David Lynch starring Laura Dern, Willem Dafoe, and Nick Cage with his snakeskin jacket that was the inspiration for my own. It is a symnbol of his individuality, and his strong belief in personal freedom."
+				}
+			]
+		},
+		"Currently...": {
+			"intro_md": "Here's what I'm currently working on. If I didn't think it had great potential I wouldn't list it here. But none of it makes the \"must\" list yet.",
+			"items": [
+				{
+					"title": "A Supposedly Fun Thing I'll Never Do Again",
+					"attrib": "David Foster Wallace",
+					"info_md": "I grabbed this book of one of those little mini-library things you see in parks and on street corners. A bunch of essays, incredibly fun to read. I started with the one about David Lynch since he just died recently, but the title essay (dealing with cruise ships) and the one about the Illinois State Fair are great. Check the closest mini-library and if not there then it's also at [Amazon](https://amzn.to/4icRv0j)"
+				},
+				{
+					"title": "What Design Can't Do",
+					"attrib": "Silvio Lorusso",
+					"info_md": "\"Essays on Design and Disillusion\" and given to me as a gift, found at one of those indie bookstores in Brooklyn, I think. Every few days I read a little of it. It's a very cool glimpse into the design profession: what it wants to be, what it really is, and how it's changed over time. [(Set Margins')](https://www.setmargins.press/books/what-design-cant-do/)"
 				}
 			]
 		}

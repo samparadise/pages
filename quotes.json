@@ -128,5 +128,45 @@
 		"quote": "The suspense is terrible. I hope it will last.",
 		"author": "Oscar Wilde",
 		"id": "suspense"
+	},
+	{
+		"quote": "I am enought of an artist to draw freely upon my imagination. Imagination is more important than knowledge. Knowledge is limited. Imagination encircles the world.",
+		"author" : "Albert Einstein",
+		"id": "imagination"
+	},
+	{
+		"quote": "An evil man will burn his own nation to the ground to rule over the ashes.",
+		"author": "Sun Tzu",
+		"id": "evil"
+	},
+	{
+		"quote": "There is not outside of you. It's all an inside game.",
+		"author": "Adyashanti",
+		"id": "inside"
+	},
+	{
+		"quote": "Aiming at greateness is different than aiming at being better than someone else.",
+		"author": "Rick Rubin",
+		"id": "greatness"
+	},
+	{
+		"quote": "Any fool can know. The point is to understand.",
+		"author": "Albert Einstein",
+		"id": "understand"
+	},
+	{
+		"quote": "No artist tolerates reality.",
+		"author": "Nietzsche",
+		"id": "reality"
+	},
+	{
+		"quote": "You have brains in your head. You have feet in your shoes. You can steer yourself in any direction you choose.\n\nYou're on your own, and you know what you know. And you are the guy who'll decide where to go.",
+		"author": "Dr Seuss",
+		"id": "go"
+	},
+	{
+		"quote": "Don't cry because it's over. Smile because it happened.",
+		"author": "Dr Seuss",
+		"id": "smile"
 	}
 ]
