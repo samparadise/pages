@@ -1,12 +1,11 @@
 body, html {
-	height: 100%;
-	margin: 0;
-	padding: 0;
-	padding-top: 56px; /* Adjust this value to match the navbar height */
-	font-family: 'Nunito', sans-serif;
-
-	background-color: #121212 !important; /* Force dark mode */
-	color: #e0e0e0 !important; /* Ensure all text remains light */
+  height: 100%;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  font-family: 'Nunito', sans-serif;
+  background-color: #121212 !important;
+  color: #e0e0e0 !important;
 }
 
 .container {
@@ -238,7 +237,7 @@ body, html {
 	justify-content: center;
 	align-items: center; */
 	text-align: center;
-	padding: 0 10vw; /* Responsive padding based on the viewport width */
+	padding: 50px 10vw 0; /* Responsive padding based on the viewport width */
 	overflow: hidden; /* Prevents scrollbars from appearing */
 	box-sizing: border-box; /* Ensures padding is included in the width calculation */
 }
@@ -413,5 +412,94 @@ img {
 	.mobile-menu.show {
 		display: flex;
 	}
+    .contact-card {
+		width: auto;
+		max-width: 280px;
+	}
+	.contact-card .d-flex {
+		flex-direction: column !important;
+		align-items: center !important;
+		text-align: center !important;
+	}
+	.contact-card .card-avatar-img {
+		margin-bottom: 1rem;
+	}
+}
+@media (max-width: 400px) {
+	.contact-card {
+		width: auto;
+		max-width: 220px;
+	}
+}
+
+#contact-card {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.contact-wrapper {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  padding-top: 56px; /* Compensates for navbar height */
+  box-sizing: border-box;
+}
+/* Horizontal spacing on small screens */
+#contact-card .d-flex {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+/* Force dark mode card background and white border */
+.contact-card {
+  background-color: #2e2e2e !important;  /* force override of .card white */
+  color: #f1f1f1 !important;             /* global text color */
+  border: 2px solid #ffffff !important; /* force white border */
+  border-radius: 1rem;
+  max-width: 570px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+  padding: 2rem;
+  box-sizing: border-box;
+}
+
+/* Avatar image */
+.card-avatar-img {
+  width: 140px;
+  height: 140px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* Align contact labels */
+.contact-line {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: start;
+  margin-bottom: 0.5rem;
+  color: #f1f1f1;
+}
+.contact-line .label {
+  min-width: 70px;
+  text-align: right;
+  font-weight: 100;
+  color: #f1f1f1;
+}
+.contact-line .value a {
+  color: #f1f1f1;
+  text-decoration: none;
+}
+.contact-line .value a:hover {
+  text-decoration: underline;
+}
+
+/* Button */
+.contact-card .btn-outline-dark {
+  color: #f1f1f1;
+  border-color: #ccc;
+}
+.contact-card .btn-outline-dark:hover {
+  background-color: #444;
+  border-color: #eee;
 }
 
