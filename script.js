@@ -15,13 +15,33 @@ document.addEventListener("DOMContentLoaded", function () {
 	const explainerText = document.getElementById("explanation-text");
 	const listsContainer = document.querySelector(".lists-container");
 	
-	const contactPage = document.getElementById("contact-card");
+	// const contactPage = document.getElementById("contact-card");
+	// 
+	// document.getElementById("contact").addEventListener("click", function () {
+	// 	contactPage.classList.remove("d-none");
+	// 	listsPage.classList.add("d-none");
+	// 	mainContent.style.display = "none";
+	// })
 	
-	document.getElementById("contact").addEventListener("click", function () {
-		contactPage.classList.remove("d-none");
-		listsPage.classList.add("d-none");
-		mainContent.style.display = "none";
-	})
+	const contactTrigger = document.getElementById('contact');
+	const modal = document.getElementById('contact-modal');
+	const card = modal.querySelector('.contact-card');
+	
+	 contactTrigger.addEventListener('click', (e) => {
+		e.preventDefault();
+		modal.classList.remove('d-none');
+	});
+	
+	modal.addEventListener('click', (e) => {
+		if (!card.contains(e.target)) {
+			modal.classList.add('d-none');
+		}
+	});
+
+	
+	
+	
+	
 	// Show Lists Page
 	showListsButton.addEventListener("click", function (event) {
 		event.preventDefault();

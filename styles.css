@@ -429,30 +429,37 @@ img {
 }
 @media (max-width: 400px) {
 	.contact-card {
-		width: auto;
 		max-width: 220px;
 	}
 }
 
-#contact-card {
-  height: 100vh;
-  overflow: hidden;
+/* Modal overlay */
+.contact-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1050;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.contact-wrapper {
-	height: 100dvh;
-	height: 100vh;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	padding: 2rem 1rem;
-	padding-top: 56px; /* Compensates for navbar height */
-	box-sizing: border-box;
+/* Dimmed backdrop */
+.contact-modal-backdrop {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(4px);
+  z-index: 0;
 }
-/* Horizontal spacing on small screens */
-#contact-card .d-flex {
-  padding-left: 1rem;
-  padding-right: 1rem;
+
+/* Card wrapper */
+.contact-modal-content {
+  max-width: 90vw;
+  padding: 1rem;
+  z-index: 1;
 }
 /* Force dark mode card background and white border */
 .contact-card {
