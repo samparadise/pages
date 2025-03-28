@@ -15,14 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
 	const explainerText = document.getElementById("explanation-text");
 	const listsContainer = document.querySelector(".lists-container");
 	
-	// const contactPage = document.getElementById("contact-card");
-	// 
-	// document.getElementById("contact").addEventListener("click", function () {
-	// 	contactPage.classList.remove("d-none");
-	// 	listsPage.classList.add("d-none");
-	// 	mainContent.style.display = "none";
-	// })
-	
 	const contactTrigger = document.getElementById('contact');
 	const modal = document.getElementById('contact-modal');
 	const card = modal.querySelector('.contact-card');
@@ -46,7 +38,6 @@ document.addEventListener("DOMContentLoaded", function () {
 	showListsButton.addEventListener("click", function (event) {
 		event.preventDefault();
 		listsPage.classList.remove("d-none"); // Show lists
-		contactPage.classList.add("d-none");
 		mainContent.style.display = "none"; // Hide main content
 	});
 	// Tap on explanation text to hide it
