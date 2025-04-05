@@ -30,109 +30,105 @@ document.addEventListener("DOMContentLoaded", function () {
 		}
 	});
 
-	
-	
-	
-	
-	// Show Lists Page
-	showListsButton.addEventListener("click", function (event) {
-		event.preventDefault();
-		listsPage.classList.remove("d-none"); // Show lists
-		mainContent.style.display = "none"; // Hide main content
-	});
-	// Tap on explanation text to hide it
-	explainerDiv.addEventListener("click", function () {
-		this.classList.toggle("hidden");
-	});
-
-	fetch("lists.json")
-	.then(response => response.json())
-	.then(data => {
-		if (!data.lists || Object.keys(data.lists).length === 0) {
-			explainerText.classList.remove("clickable");
-			return;
-		}
-	
-		// Replace explanation text with markdown-rendered intro
-		explainerText.innerHTML = marked.parse(data.intro_md);
-	
-		// Generate lists dynamically
-		listsContainer.innerHTML = ""; // Clear existing content
-	
-		Object.entries(data.lists).forEach(([listTitle, listData], listIndex) => {
-			let listId = `list-${listIndex}`;
-	
-			let listHTML = `
-				<div class="list-section">
-					<div class="list-header" data-bs-toggle="collapse" data-bs-target="#${listId}">
-						${listTitle} <span class="toggle-arrow">▼</span>
-					</div>
-					<div id="${listId}" class="collapse">
-						<div class="list-description">${marked.parse(listData.intro_md)}</div>
-						<ul class="list-group">
-			`;
-	
-			listData.items.forEach((item, itemIndex) => {
-				let itemId = `${listId}-item-${itemIndex}`;
-				let attribHTML = item.attrib ? `<span class="item-attrib"> / ${item.attrib}</span>` : "";
-				
-				listHTML += `
-					<li class="list-group-item">
-						<div class="item-header" data-bs-toggle="collapse" data-bs-target="#${itemId}">
-							${item.title}${attribHTML} <span class="toggle-arrow">▼</span>
-						</div>
-						<div id="${itemId}" class="collapse">
-							<div class="item-description">${marked.parse(item.info_md)}</div>
-						</div>
-					</li>
-				`;
-			});
-	
-			listHTML += `</ul></div></div><hr class="divider">`;
-	
-			listsContainer.innerHTML += listHTML;
-		});
-	})
-	.catch(error => console.error("Error loading lists:", error));
-
-	// Attach event listeners to LIST headers only
-	document.querySelectorAll(".list-header").forEach(header => {
-		const arrow = header.querySelector(".toggle-arrow");
-		const collapseElement = document.querySelector(header.getAttribute("data-bs-target"));
-	
-		if (collapseElement && arrow) {
-			collapseElement.addEventListener("show.bs.collapse", function () {
-				arrow.style.transform = "rotate(180deg)"; // Expanded (arrow up)
-			});
-	
-			collapseElement.addEventListener("hide.bs.collapse", function () {
-				arrow.style.transform = "rotate(0deg)"; // Collapsed (arrow down)
-			});
-		}
-	});
-	
-	// Attach event listeners to ITEM headers only
-	document.querySelectorAll(".item-header").forEach(header => {
-		const arrow = header.querySelector(".toggle-arrow");
-		const collapseElement = document.querySelector(header.getAttribute("data-bs-target"));
-	
-		if (collapseElement && arrow) {
-			collapseElement.addEventListener("show.bs.collapse", function (event) {
-				arrow.style.transform = "rotate(180deg)"; // Expanded (arrow up)
-				event.stopPropagation(); // Prevent affecting list header
-			});
-	
-			collapseElement.addEventListener("hide.bs.collapse", function (event) {
-				arrow.style.transform = "rotate(0deg)"; // Collapsed (arrow down)
-				event.stopPropagation(); // Prevent affecting list header
-			});
-		}
-	
-		// Ensure clicking the item header does not affect the list header
-		header.addEventListener("click", function (event) {
-			event.stopPropagation(); // Prevent bubbling up
-		});
-	});
+// 	// Show Lists Page
+// 	showListsButton.addEventListener("click", function (event) {
+// 		event.preventDefault();
+// 		listsPage.classList.remove("d-none"); // Show lists
+// 		mainContent.style.display = "none"; // Hide main content
+// 	});
+// 	// Tap on explanation text to hide it
+// 	explainerDiv.addEventListener("click", function () {
+// 		this.classList.toggle("hidden");
+// 	});
+// 
+// 	fetch("lists.json")
+// 	.then(response => response.json())
+// 	.then(data => {
+// 		if (!data.lists || Object.keys(data.lists).length === 0) {
+// 			explainerText.classList.remove("clickable");
+// 			return;
+// 		}
+// 	
+// 		// Replace explanation text with markdown-rendered intro
+// 		explainerText.innerHTML = marked.parse(data.intro_md);
+// 	
+// 		// Generate lists dynamically
+// 		listsContainer.innerHTML = ""; // Clear existing content
+// 	
+// 		Object.entries(data.lists).forEach(([listTitle, listData], listIndex) => {
+// 			let listId = `list-${listIndex}`;
+// 	
+// 			let listHTML = `
+// 				<div class="list-section">
+// 					<div class="list-header" data-bs-toggle="collapse" data-bs-target="#${listId}">
+// 						${listTitle} <span class="toggle-arrow">▼</span>
+// 					</div>
+// 					<div id="${listId}" class="collapse">
+// 						<div class="list-description">${marked.parse(listData.intro_md)}</div>
+// 						<ul class="list-group">
+// 			`;
+// 	
+// 			listData.items.forEach((item, itemIndex) => {
+// 				let itemId = `${listId}-item-${itemIndex}`;
+// 				let attribHTML = item.attrib ? `<span class="item-attrib"> / ${item.attrib}</span>` : "";
+// 				
+// 				listHTML += `
+// 					<li class="list-group-item">
+// 						<div class="item-header" data-bs-toggle="collapse" data-bs-target="#${itemId}">
+// 							${item.title}${attribHTML} <span class="toggle-arrow">▼</span>
+// 						</div>
+// 						<div id="${itemId}" class="collapse">
+// 							<div class="item-description">${marked.parse(item.info_md)}</div>
+// 						</div>
+// 					</li>
+// 				`;
+// 			});
+// 	
+// 			listHTML += `</ul></div></div><hr class="divider">`;
+// 	
+// 			listsContainer.innerHTML += listHTML;
+// 		});
+// 	})
+// 	.catch(error => console.error("Error loading lists:", error));
+// 
+// 	// Attach event listeners to LIST headers only
+// 	document.querySelectorAll(".list-header").forEach(header => {
+// 		const arrow = header.querySelector(".toggle-arrow");
+// 		const collapseElement = document.querySelector(header.getAttribute("data-bs-target"));
+// 	
+// 		if (collapseElement && arrow) {
+// 			collapseElement.addEventListener("show.bs.collapse", function () {
+// 				arrow.style.transform = "rotate(180deg)"; // Expanded (arrow up)
+// 			});
+// 	
+// 			collapseElement.addEventListener("hide.bs.collapse", function () {
+// 				arrow.style.transform = "rotate(0deg)"; // Collapsed (arrow down)
+// 			});
+// 		}
+// 	});
+// 	
+// 	// Attach event listeners to ITEM headers only
+// 	document.querySelectorAll(".item-header").forEach(header => {
+// 		const arrow = header.querySelector(".toggle-arrow");
+// 		const collapseElement = document.querySelector(header.getAttribute("data-bs-target"));
+// 	
+// 		if (collapseElement && arrow) {
+// 			collapseElement.addEventListener("show.bs.collapse", function (event) {
+// 				arrow.style.transform = "rotate(180deg)"; // Expanded (arrow up)
+// 				event.stopPropagation(); // Prevent affecting list header
+// 			});
+// 	
+// 			collapseElement.addEventListener("hide.bs.collapse", function (event) {
+// 				arrow.style.transform = "rotate(0deg)"; // Collapsed (arrow down)
+// 				event.stopPropagation(); // Prevent affecting list header
+// 			});
+// 		}
+// 	
+// 		// Ensure clicking the item header does not affect the list header
+// 		header.addEventListener("click", function (event) {
+// 			event.stopPropagation(); // Prevent bubbling up
+// 		});
+// 	});
 		
 	let allQuotes = [];
 	let shownQuotes = [];
