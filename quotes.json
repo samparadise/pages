@@ -135,9 +135,19 @@
 		"id": "imagination"
 	},
 	{
-		"quote": "An evil man will burn his own nation to the ground to rule over the ashes.",
-		"author": "Sun Tzu",
-		"id": "evil"
+		"quote": "If I'm an advocate for anything, it's to move. As far as you can. Across the ocean, or simply across the river. The extent to which you can walk in someone else's shoes or at least eat their food, it's a plus for everybody.\n\nOpen your mind, get up off the couch, move.",
+		"author": "Anthony Bourdain",
+		"id": "move"
+	},
+	{
+		"quote": "I wanted adventures. I wanted to go up the Nung river to the heart of darkness in Cambodia. I wanted to ride out into a desert on camelback, sand and dunes in every direction, eat whole roasted lamb with my fingers. I wanted to kick snow off my boots in a Mafiya nightclub in Russia. I wanted to play with automatic weapons in Phnom Penh, recapture the past in a small oyster village in France, step into a seedy neon-lit pulqueria in rural Mexico...",
+		"author": "Anthony Bourdain",
+		"id": "adventures"
+	},
+	{
+		"quote": "Exceptional men do not hold their experiences to be out of the ordinary or of interest to anyone else. Unlike the trodden fungus-men, they are not so ignorantly and presumptuously self-absorbed. They are nobody and they know it. They shun notice. They are exceedingly rare.",
+		"author": "Nick Tosches",
+		"id": "exceptional"
 	},
 	{
 		"quote": "There is not outside of you. It's all an inside game.",
