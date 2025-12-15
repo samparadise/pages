@@ -37,19 +37,36 @@
 
 		.light {
 			position: absolute;
-			width: 14px;
-			height: 14px;
-			border-radius: 50%;
+			width: 12px;
+			height: 16px;
+			/* Oval/teardrop shape like Christmas tree lights */
+			border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
 			border: 2px solid rgba(255, 255, 255, 0.3);
 			background: currentColor;
 			box-shadow:
 				0 0 8px currentColor,
 				0 0 12px currentColor,
-				inset 0 0 4px rgba(255, 255, 255, 0.5);
+				inset 0 0 4px rgba(255, 255, 255, 0.5),
+				inset 0 2px 2px rgba(255, 255, 255, 0.3);
 			animation: twinkle 1.5s steps(2, end) infinite;
 			filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3));
 			/* Hand-drawn look */
-			transform-origin: center;
+			transform-origin: center bottom;
+		}
+
+		/* Add pointed bottom for teardrop effect */
+		.light::after {
+			content: '';
+			position: absolute;
+			bottom: -3px;
+			left: 50%;
+			transform: translateX(-50%);
+			width: 0;
+			height: 0;
+			border-left: 3px solid transparent;
+			border-right: 3px solid transparent;
+			border-top: 4px solid currentColor;
+			filter: drop-shadow(0 0 3px currentColor);
 		}
 
 		.light::before {
@@ -69,42 +86,52 @@
 		}
 
 		/* Top border lights - with slight position variations for hand-drawn look */
-		.light:nth-child(1) { top: 8px; left: 5%; animation-delay: 0s; animation-duration: 1.2s; color: #ff6b6b; }
-		.light:nth-child(2) { top: 12px; left: 15%; animation-delay: 0.3s; animation-duration: 1.8s; color: #4ecdc4; }
-		.light:nth-child(3) { top: 9px; left: 25%; animation-delay: 0.6s; animation-duration: 1.5s; color: #ffe66d; }
-		.light:nth-child(4) { top: 11px; left: 35%; animation-delay: 0.2s; animation-duration: 1.3s; color: #ff6b6b; }
-		.light:nth-child(5) { top: 10px; left: 45%; animation-delay: 0.8s; animation-duration: 1.7s; color: #95e1d3; }
-		.light:nth-child(6) { top: 12px; left: 55%; animation-delay: 0.1s; animation-duration: 1.4s; color: #ffe66d; }
-		.light:nth-child(7) { top: 9px; left: 65%; animation-delay: 0.5s; animation-duration: 1.6s; color: #ff6b6b; }
-		.light:nth-child(8) { top: 11px; left: 75%; animation-delay: 0.4s; animation-duration: 1.2s; color: #4ecdc4; }
-		.light:nth-child(9) { top: 10px; left: 85%; animation-delay: 0.7s; animation-duration: 1.9s; color: #ffe66d; }
-		.light:nth-child(10) { top: 8px; left: 95%; animation-delay: 0.2s; animation-duration: 1.3s; color: #ff6b6b; }
+		.light:nth-child(1) { top: 8px; left: 0%; animation-delay: 0s; animation-duration: 1.2s; color: #ff6b6b; }
+		.light:nth-child(2) { top: 10px; left: 8%; animation-delay: 0.3s; animation-duration: 1.8s; color: #4ecdc4; }
+		.light:nth-child(3) { top: 12px; left: 16%; animation-delay: 0.6s; animation-duration: 1.5s; color: #ffe66d; }
+		.light:nth-child(4) { top: 9px; left: 24%; animation-delay: 0.2s; animation-duration: 1.3s; color: #ff6b6b; }
+		.light:nth-child(5) { top: 11px; left: 32%; animation-delay: 0.8s; animation-duration: 1.7s; color: #95e1d3; }
+		.light:nth-child(6) { top: 10px; left: 40%; animation-delay: 0.1s; animation-duration: 1.4s; color: #ffe66d; }
+		.light:nth-child(7) { top: 12px; left: 48%; animation-delay: 0.5s; animation-duration: 1.6s; color: #ff6b6b; }
+		.light:nth-child(8) { top: 9px; left: 56%; animation-delay: 0.4s; animation-duration: 1.2s; color: #4ecdc4; }
+		.light:nth-child(9) { top: 11px; left: 64%; animation-delay: 0.7s; animation-duration: 1.9s; color: #ffe66d; }
+		.light:nth-child(10) { top: 10px; left: 72%; animation-delay: 0.2s; animation-duration: 1.3s; color: #ff6b6b; }
+		.light:nth-child(31) { top: 12px; left: 80%; animation-delay: 0.6s; animation-duration: 1.5s; color: #4ecdc4; }
+		.light:nth-child(32) { top: 9px; left: 88%; animation-delay: 0.3s; animation-duration: 1.7s; color: #ffe66d; }
+		.light:nth-child(33) { top: 8px; left: 96%; animation-delay: 0.1s; animation-duration: 1.4s; color: #ff6b6b; }
 
 		/* Right border lights */
-		.light:nth-child(11) { top: 15%; right: 8px; animation-delay: 0.4s; animation-duration: 1.5s; color: #4ecdc4; }
-		.light:nth-child(12) { top: 30%; right: 12px; animation-delay: 0.1s; animation-duration: 1.3s; color: #ffe66d; }
-		.light:nth-child(13) { top: 45%; right: 9px; animation-delay: 0.6s; animation-duration: 1.7s; color: #ff6b6b; }
-		.light:nth-child(14) { top: 60%; right: 11px; animation-delay: 0.3s; animation-duration: 1.4s; color: #95e1d3; }
-		.light:nth-child(15) { top: 75%; right: 10px; animation-delay: 0.8s; animation-duration: 1.6s; color: #ffe66d; }
+		.light:nth-child(11) { top: 12%; right: 8px; animation-delay: 0.4s; animation-duration: 1.5s; color: #4ecdc4; }
+		.light:nth-child(12) { top: 24%; right: 12px; animation-delay: 0.1s; animation-duration: 1.3s; color: #ffe66d; }
+		.light:nth-child(13) { top: 36%; right: 9px; animation-delay: 0.6s; animation-duration: 1.7s; color: #ff6b6b; }
+		.light:nth-child(14) { top: 48%; right: 11px; animation-delay: 0.3s; animation-duration: 1.4s; color: #95e1d3; }
+		.light:nth-child(15) { top: 60%; right: 10px; animation-delay: 0.8s; animation-duration: 1.6s; color: #ffe66d; }
+		.light:nth-child(16) { top: 72%; right: 8px; animation-delay: 0.2s; animation-duration: 1.3s; color: #ff6b6b; }
+		.light:nth-child(17) { top: 84%; right: 12px; animation-delay: 0.5s; animation-duration: 1.5s; color: #4ecdc4; }
 
 		/* Bottom border lights */
-		.light:nth-child(16) { bottom: 8px; left: 5%; animation-delay: 0.5s; animation-duration: 1.4s; color: #ff6b6b; }
-		.light:nth-child(17) { bottom: 12px; left: 15%; animation-delay: 0.2s; animation-duration: 1.6s; color: #4ecdc4; }
-		.light:nth-child(18) { bottom: 9px; left: 25%; animation-delay: 0.7s; animation-duration: 1.3s; color: #ffe66d; }
-		.light:nth-child(19) { bottom: 11px; left: 35%; animation-delay: 0.1s; animation-duration: 1.8s; color: #ff6b6b; }
-		.light:nth-child(20) { bottom: 10px; left: 45%; animation-delay: 0.4s; animation-duration: 1.5s; color: #95e1d3; }
-		.light:nth-child(21) { bottom: 12px; left: 55%; animation-delay: 0.6s; animation-duration: 1.2s; color: #ffe66d; }
-		.light:nth-child(22) { bottom: 9px; left: 65%; animation-delay: 0.3s; animation-duration: 1.7s; color: #ff6b6b; }
-		.light:nth-child(23) { bottom: 11px; left: 75%; animation-delay: 0.8s; animation-duration: 1.4s; color: #4ecdc4; }
-		.light:nth-child(24) { bottom: 10px; left: 85%; animation-delay: 0.2s; animation-duration: 1.6s; color: #ffe66d; }
-		.light:nth-child(25) { bottom: 8px; left: 95%; animation-delay: 0.5s; animation-duration: 1.3s; color: #ff6b6b; }
+		.light:nth-child(18) { bottom: 8px; left: 0%; animation-delay: 0.5s; animation-duration: 1.4s; color: #ff6b6b; }
+		.light:nth-child(19) { bottom: 10px; left: 8%; animation-delay: 0.2s; animation-duration: 1.6s; color: #4ecdc4; }
+		.light:nth-child(20) { bottom: 12px; left: 16%; animation-delay: 0.7s; animation-duration: 1.3s; color: #ffe66d; }
+		.light:nth-child(21) { bottom: 9px; left: 24%; animation-delay: 0.1s; animation-duration: 1.8s; color: #ff6b6b; }
+		.light:nth-child(22) { bottom: 11px; left: 32%; animation-delay: 0.4s; animation-duration: 1.5s; color: #95e1d3; }
+		.light:nth-child(23) { bottom: 10px; left: 40%; animation-delay: 0.6s; animation-duration: 1.2s; color: #ffe66d; }
+		.light:nth-child(24) { bottom: 12px; left: 48%; animation-delay: 0.3s; animation-duration: 1.7s; color: #ff6b6b; }
+		.light:nth-child(25) { bottom: 9px; left: 56%; animation-delay: 0.8s; animation-duration: 1.4s; color: #4ecdc4; }
+		.light:nth-child(26) { bottom: 11px; left: 64%; animation-delay: 0.2s; animation-duration: 1.6s; color: #ffe66d; }
+		.light:nth-child(27) { bottom: 10px; left: 72%; animation-delay: 0.5s; animation-duration: 1.3s; color: #ff6b6b; }
+		.light:nth-child(28) { bottom: 12px; left: 80%; animation-delay: 0.1s; animation-duration: 1.5s; color: #4ecdc4; }
+		.light:nth-child(29) { bottom: 9px; left: 88%; animation-delay: 0.4s; animation-duration: 1.7s; color: #ffe66d; }
+		.light:nth-child(30) { bottom: 8px; left: 96%; animation-delay: 0.3s; animation-duration: 1.4s; color: #ff6b6b; }
 
 		/* Left border lights */
-		.light:nth-child(26) { top: 15%; left: 8px; animation-delay: 0.3s; animation-duration: 1.6s; color: #4ecdc4; }
-		.light:nth-child(27) { top: 30%; left: 12px; animation-delay: 0.7s; animation-duration: 1.2s; color: #ffe66d; }
-		.light:nth-child(28) { top: 45%; left: 9px; animation-delay: 0.1s; animation-duration: 1.8s; color: #ff6b6b; }
-		.light:nth-child(29) { top: 60%; left: 11px; animation-delay: 0.5s; animation-duration: 1.4s; color: #95e1d3; }
-		.light:nth-child(30) { top: 75%; left: 10px; animation-delay: 0.2s; animation-duration: 1.7s; color: #ffe66d; }
+		.light:nth-child(34) { top: 12%; left: 8px; animation-delay: 0.3s; animation-duration: 1.6s; color: #4ecdc4; }
+		.light:nth-child(35) { top: 24%; left: 12px; animation-delay: 0.7s; animation-duration: 1.2s; color: #ffe66d; }
+		.light:nth-child(36) { top: 36%; left: 9px; animation-delay: 0.1s; animation-duration: 1.8s; color: #ff6b6b; }
+		.light:nth-child(37) { top: 48%; left: 11px; animation-delay: 0.5s; animation-duration: 1.4s; color: #95e1d3; }
+		.light:nth-child(38) { top: 60%; left: 10px; animation-delay: 0.2s; animation-duration: 1.7s; color: #ffe66d; }
+		.light:nth-child(39) { top: 72%; left: 8px; animation-delay: 0.6s; animation-duration: 1.3s; color: #ff6b6b; }
+		.light:nth-child(40) { top: 84%; left: 12px; animation-delay: 0.4s; animation-duration: 1.5s; color: #4ecdc4; }
 
 		@keyframes twinkle {
 			0%, 49% {
@@ -113,11 +140,12 @@
 				box-shadow:
 					0 0 8px currentColor,
 					0 0 12px currentColor,
-					inset 0 0 4px rgba(255, 255, 255, 0.5);
+					inset 0 0 4px rgba(255, 255, 255, 0.5),
+					inset 0 2px 2px rgba(255, 255, 255, 0.3);
 			}
 			50%, 100% {
 				opacity: 0.15;
-				transform: scale(0.85);
+				transform: scale(0.9);
 				box-shadow:
 					0 0 2px currentColor,
 					0 0 4px currentColor,
@@ -128,51 +156,59 @@
 		/* Hand-drawn wire connecting lights */
 		.wire {
 			position: absolute;
-			background: #2a2a2a;
-			opacity: 0.4;
-			/* Hand-drawn wavy effect */
-			border-radius: 1px;
+			background: #ffffff;
+			opacity: 0.7;
+			/* Hand-drawn squiggly effect */
+			border-radius: 2px;
 			box-shadow:
-				0 1px 0 rgba(0, 0, 0, 0.3),
-				0 -1px 0 rgba(255, 255, 255, 0.1);
+				0 0 2px rgba(255, 255, 255, 0.8),
+				0 1px 1px rgba(0, 0, 0, 0.2);
 		}
 
 		.wire-top {
 			top: 16px;
 			left: 0;
 			width: 100%;
-			height: 3px;
-			/* Slight wavy effect */
+			height: 2px;
+			/* More pronounced squiggly effect */
 			clip-path: polygon(
-				0% 50%, 2% 45%, 4% 50%, 6% 55%, 8% 50%,
-				10% 45%, 12% 50%, 14% 55%, 16% 50%, 18% 45%,
-				20% 50%, 22% 55%, 24% 50%, 26% 45%, 28% 50%,
-				30% 55%, 32% 50%, 34% 45%, 36% 50%, 38% 55%,
-				40% 50%, 42% 45%, 44% 50%, 46% 55%, 48% 50%,
-				50% 45%, 52% 50%, 54% 55%, 56% 50%, 58% 45%,
-				60% 50%, 62% 55%, 64% 50%, 66% 45%, 68% 50%,
-				70% 55%, 72% 50%, 74% 45%, 76% 50%, 78% 55%,
-				80% 50%, 82% 45%, 84% 50%, 86% 55%, 88% 50%,
-				90% 45%, 92% 50%, 94% 55%, 96% 50%, 98% 45%, 100% 50%
+				0% 50%, 1.5% 40%, 3% 55%, 4.5% 45%, 6% 50%,
+				7.5% 60%, 9% 40%, 10.5% 55%, 12% 45%, 13.5% 50%,
+				15% 60%, 16.5% 40%, 18% 55%, 19.5% 45%, 21% 50%,
+				22.5% 60%, 24% 40%, 25.5% 55%, 27% 45%, 28.5% 50%,
+				30% 60%, 31.5% 40%, 33% 55%, 34.5% 45%, 36% 50%,
+				37.5% 60%, 39% 40%, 40.5% 55%, 42% 45%, 43.5% 50%,
+				45% 60%, 46.5% 40%, 48% 55%, 49.5% 45%, 51% 50%,
+				52.5% 60%, 54% 40%, 55.5% 55%, 57% 45%, 58.5% 50%,
+				60% 60%, 61.5% 40%, 63% 55%, 64.5% 45%, 66% 50%,
+				67.5% 60%, 69% 40%, 70.5% 55%, 72% 45%, 73.5% 50%,
+				75% 60%, 76.5% 40%, 78% 55%, 79.5% 45%, 81% 50%,
+				82.5% 60%, 84% 40%, 85.5% 55%, 87% 45%, 88.5% 50%,
+				90% 60%, 91.5% 40%, 93% 55%, 94.5% 45%, 96% 50%,
+				97.5% 60%, 99% 40%, 100% 50%
 			);
 		}
 
 		.wire-right {
 			top: 0;
 			right: 16px;
-			width: 3px;
+			width: 2px;
 			height: 100%;
 			clip-path: polygon(
-				50% 0%, 45% 2%, 50% 4%, 55% 6%, 50% 8%,
-				45% 10%, 50% 12%, 55% 14%, 50% 16%, 45% 18%,
-				50% 20%, 55% 22%, 50% 24%, 45% 26%, 50% 28%,
-				55% 30%, 50% 32%, 45% 34%, 50% 36%, 55% 38%,
-				50% 40%, 45% 42%, 50% 44%, 55% 46%, 50% 48%,
-				45% 50%, 50% 52%, 55% 54%, 50% 56%, 45% 58%,
-				50% 60%, 55% 62%, 50% 64%, 45% 66%, 50% 68%,
-				55% 70%, 50% 72%, 45% 74%, 50% 76%, 55% 78%,
-				50% 80%, 45% 82%, 50% 84%, 55% 86%, 50% 88%,
-				45% 90%, 50% 92%, 55% 94%, 50% 96%, 45% 98%, 50% 100%
+				50% 0%, 40% 1.5%, 55% 3%, 45% 4.5%, 50% 6%,
+				60% 7.5%, 40% 9%, 55% 10.5%, 45% 12%, 50% 13.5%,
+				60% 15%, 40% 16.5%, 55% 18%, 45% 19.5%, 50% 21%,
+				60% 22.5%, 40% 24%, 55% 25.5%, 45% 27%, 50% 28.5%,
+				60% 30%, 40% 31.5%, 55% 33%, 45% 34.5%, 50% 36%,
+				60% 37.5%, 40% 39%, 55% 40.5%, 45% 42%, 50% 43.5%,
+				60% 45%, 40% 46.5%, 55% 48%, 45% 49.5%, 50% 51%,
+				60% 52.5%, 40% 54%, 55% 55.5%, 45% 57%, 50% 58.5%,
+				60% 60%, 40% 61.5%, 55% 63%, 45% 64.5%, 50% 66%,
+				60% 67.5%, 40% 69%, 55% 70.5%, 45% 72%, 50% 73.5%,
+				60% 75%, 40% 76.5%, 55% 78%, 45% 79.5%, 50% 81%,
+				60% 82.5%, 40% 84%, 55% 85.5%, 45% 87%, 50% 88.5%,
+				60% 90%, 40% 91.5%, 55% 93%, 45% 94.5%, 50% 96%,
+				60% 97.5%, 40% 99%, 50% 100%
 			);
 		}
 
@@ -180,37 +216,45 @@
 			bottom: 16px;
 			left: 0;
 			width: 100%;
-			height: 3px;
+			height: 2px;
 			clip-path: polygon(
-				0% 50%, 2% 55%, 4% 50%, 6% 45%, 8% 50%,
-				10% 55%, 12% 50%, 14% 45%, 16% 50%, 18% 55%,
-				20% 50%, 22% 45%, 24% 50%, 26% 55%, 28% 50%,
-				30% 45%, 32% 50%, 34% 55%, 36% 50%, 38% 45%,
-				40% 50%, 42% 55%, 44% 50%, 46% 45%, 48% 50%,
-				50% 55%, 52% 50%, 54% 45%, 56% 50%, 58% 55%,
-				60% 50%, 62% 45%, 64% 50%, 66% 55%, 68% 50%,
-				70% 45%, 72% 50%, 74% 55%, 76% 50%, 78% 45%,
-				80% 50%, 82% 55%, 84% 50%, 86% 45%, 88% 50%,
-				90% 55%, 92% 50%, 94% 45%, 96% 50%, 98% 55%, 100% 50%
+				0% 50%, 1.5% 60%, 3% 40%, 4.5% 55%, 6% 45%,
+				7.5% 50%, 9% 60%, 10.5% 40%, 12% 55%, 13.5% 45%,
+				15% 50%, 16.5% 60%, 18% 40%, 19.5% 55%, 21% 45%,
+				22.5% 50%, 24% 60%, 25.5% 40%, 27% 55%, 28.5% 45%,
+				30% 50%, 31.5% 60%, 33% 40%, 34.5% 55%, 36% 45%,
+				37.5% 50%, 39% 60%, 40.5% 40%, 42% 55%, 43.5% 45%,
+				45% 50%, 46.5% 60%, 48% 40%, 49.5% 55%, 51% 45%,
+				52.5% 50%, 54% 60%, 55.5% 40%, 57% 55%, 58.5% 45%,
+				60% 50%, 61.5% 60%, 63% 40%, 64.5% 55%, 66% 45%,
+				67.5% 50%, 69% 60%, 70.5% 40%, 72% 55%, 73.5% 45%,
+				75% 50%, 76.5% 60%, 78% 40%, 79.5% 55%, 81% 45%,
+				82.5% 50%, 84% 60%, 85.5% 40%, 87% 55%, 88.5% 45%,
+				90% 50%, 91.5% 60%, 93% 40%, 94.5% 55%, 96% 45%,
+				97.5% 50%, 99% 60%, 100% 50%
 			);
 		}
 
 		.wire-left {
 			top: 0;
 			left: 16px;
-			width: 3px;
+			width: 2px;
 			height: 100%;
 			clip-path: polygon(
-				50% 0%, 55% 2%, 50% 4%, 45% 6%, 50% 8%,
-				55% 10%, 50% 12%, 45% 14%, 50% 16%, 55% 18%,
-				50% 20%, 45% 22%, 50% 24%, 55% 26%, 50% 28%,
-				45% 30%, 50% 32%, 55% 34%, 50% 36%, 45% 38%,
-				50% 40%, 55% 42%, 50% 44%, 45% 46%, 50% 48%,
-				55% 50%, 50% 52%, 45% 54%, 50% 56%, 55% 58%,
-				50% 60%, 45% 62%, 50% 64%, 55% 66%, 50% 68%,
-				45% 70%, 50% 72%, 55% 74%, 50% 76%, 45% 78%,
-				50% 80%, 55% 82%, 50% 84%, 45% 86%, 50% 88%,
-				55% 90%, 50% 92%, 45% 94%, 50% 96%, 55% 98%, 50% 100%
+				50% 0%, 60% 1.5%, 40% 3%, 55% 4.5%, 45% 6%,
+				50% 7.5%, 60% 9%, 40% 10.5%, 55% 12%, 45% 13.5%,
+				50% 15%, 60% 16.5%, 40% 18%, 55% 19.5%, 45% 21%,
+				50% 22.5%, 60% 24%, 40% 25.5%, 55% 27%, 45% 28.5%,
+				50% 30%, 60% 31.5%, 40% 33%, 55% 34.5%, 45% 36%,
+				50% 37.5%, 60% 39%, 40% 40.5%, 55% 42%, 45% 43.5%,
+				50% 45%, 60% 46.5%, 40% 48%, 55% 49.5%, 45% 51%,
+				50% 52.5%, 60% 54%, 40% 55.5%, 55% 57%, 45% 58.5%,
+				50% 60%, 60% 61.5%, 40% 63%, 55% 64.5%, 45% 66%,
+				50% 67.5%, 60% 69%, 40% 70.5%, 55% 72%, 45% 73.5%,
+				50% 75%, 60% 76.5%, 40% 78%, 55% 79.5%, 45% 81%,
+				50% 82.5%, 60% 84%, 40% 85.5%, 55% 87%, 45% 88.5%,
+				50% 90%, 60% 91.5%, 40% 93%, 55% 94.5%, 45% 96%,
+				50% 97.5%, 60% 99%, 50% 100%
 			);
 		}
 
@@ -288,12 +332,19 @@
 
 			.light {
 				width: 10px;
-				height: 10px;
+				height: 13px;
 			}
 
 			.light::before {
 				height: 6px;
 				top: -6px;
+			}
+
+			.light::after {
+				bottom: -2px;
+				border-left: 2px solid transparent;
+				border-right: 2px solid transparent;
+				border-top: 3px solid currentColor;
 			}
 		}
 
@@ -316,26 +367,10 @@
 		<div class="wire wire-bottom"></div>
 		<div class="wire wire-left"></div>
 
-		<!-- Top lights -->
+		<!-- Top lights (13 total) -->
 		<div class="light"></div>
 		<div class="light"></div>
 		<div class="light"></div>
-		<div class="light"></div>
-		<div class="light"></div>
-		<div class="light"></div>
-		<div class="light"></div>
-		<div class="light"></div>
-		<div class="light"></div>
-		<div class="light"></div>
-
-		<!-- Right lights -->
-		<div class="light"></div>
-		<div class="light"></div>
-		<div class="light"></div>
-		<div class="light"></div>
-		<div class="light"></div>
-
-		<!-- Bottom lights -->
 		<div class="light"></div>
 		<div class="light"></div>
 		<div class="light"></div>
@@ -347,7 +382,33 @@
 		<div class="light"></div>
 		<div class="light"></div>
 
-		<!-- Left lights -->
+		<!-- Right lights (7 total) -->
+		<div class="light"></div>
+		<div class="light"></div>
+		<div class="light"></div>
+		<div class="light"></div>
+		<div class="light"></div>
+		<div class="light"></div>
+		<div class="light"></div>
+
+		<!-- Bottom lights (13 total) -->
+		<div class="light"></div>
+		<div class="light"></div>
+		<div class="light"></div>
+		<div class="light"></div>
+		<div class="light"></div>
+		<div class="light"></div>
+		<div class="light"></div>
+		<div class="light"></div>
+		<div class="light"></div>
+		<div class="light"></div>
+		<div class="light"></div>
+		<div class="light"></div>
+		<div class="light"></div>
+
+		<!-- Left lights (7 total) -->
+		<div class="light"></div>
+		<div class="light"></div>
 		<div class="light"></div>
 		<div class="light"></div>
 		<div class="light"></div>
@@ -367,8 +428,7 @@
 		<div class="message">
 			<h1>Happy Holidays!</h1>
 			<p>Wishing you joy, laughter, and wonderful moments this holiday season and throughout the new year.</p>
-			<p>Thank you for being part of our journey in 2025!</p>
-			<div class="signature">- Sam & Family</div>
+			<div class="signature">-- Sam (left), Charlie (right), Jaz, Rosie, Emily, and Sam</div>
 		</div>
 	</div>
 </body>
