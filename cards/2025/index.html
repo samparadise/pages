@@ -37,120 +37,133 @@
 
 		.light {
 			position: absolute;
-			width: 12px;
-			height: 16px;
-			/* Oval/teardrop shape like Christmas tree lights */
+			width: 16px;
+			height: 20px;
+			/* Hand-drawn sketchy bulb outline */
+			border: 2px solid currentColor;
+			background: transparent;
+			/* Rough, hand-drawn oval/teardrop shape */
 			border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-			border: 2px solid rgba(255, 255, 255, 0.3);
-			background: currentColor;
-			box-shadow:
-				0 0 8px currentColor,
-				0 0 12px currentColor,
-				inset 0 0 4px rgba(255, 255, 255, 0.5),
-				inset 0 2px 2px rgba(255, 255, 255, 0.3);
 			animation: twinkle 1.5s steps(2, end) infinite;
-			filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3));
-			/* Hand-drawn look */
+			filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.4));
 			transform-origin: center bottom;
+			/* Hand-drawn sketchy appearance */
+			box-shadow:
+				0 0 0 0.5px rgba(0, 0, 0, 0.2) inset;
 		}
 
-		/* Add pointed bottom for teardrop effect */
+		/* Inner glowing sphere - simple circle */
 		.light::after {
 			content: '';
 			position: absolute;
-			bottom: -3px;
+			top: 25%;
 			left: 50%;
-			transform: translateX(-50%);
-			width: 0;
-			height: 0;
-			border-left: 3px solid transparent;
-			border-right: 3px solid transparent;
-			border-top: 4px solid currentColor;
-			filter: drop-shadow(0 0 3px currentColor);
+			transform: translate(-50%, -50%);
+			width: 7px;
+			height: 7px;
+			border-radius: 50%;
+			background: currentColor;
+			box-shadow:
+				0 0 8px currentColor,
+				0 0 12px currentColor;
+			opacity: 1;
+			animation: twinkleInner 1.5s steps(2, end) infinite;
 		}
 
+		/* Base/socket of bulb */
 		.light::before {
 			content: '';
 			position: absolute;
-			top: -10px;
+			bottom: -2px;
 			left: 50%;
 			transform: translateX(-50%);
-			width: 3px;
-			height: 10px;
-			background: #2a2a2a;
-			border-radius: 2px;
-			/* Hand-drawn wire look */
-			box-shadow:
-				1px 0 0 rgba(0, 0, 0, 0.2),
-				-1px 0 0 rgba(0, 0, 0, 0.2);
+			width: 8px;
+			height: 4px;
+			background: currentColor;
+			border-radius: 2px 2px 0 0;
+			opacity: 0.8;
 		}
 
-		/* Top border lights - with slight position variations for hand-drawn look */
-		.light:nth-child(1) { top: 8px; left: 0%; animation-delay: 0s; animation-duration: 1.2s; color: #ff6b6b; }
-		.light:nth-child(2) { top: 10px; left: 8%; animation-delay: 0.3s; animation-duration: 1.8s; color: #4ecdc4; }
-		.light:nth-child(3) { top: 12px; left: 16%; animation-delay: 0.6s; animation-duration: 1.5s; color: #ffe66d; }
-		.light:nth-child(4) { top: 9px; left: 24%; animation-delay: 0.2s; animation-duration: 1.3s; color: #ff6b6b; }
-		.light:nth-child(5) { top: 11px; left: 32%; animation-delay: 0.8s; animation-duration: 1.7s; color: #95e1d3; }
-		.light:nth-child(6) { top: 10px; left: 40%; animation-delay: 0.1s; animation-duration: 1.4s; color: #ffe66d; }
-		.light:nth-child(7) { top: 12px; left: 48%; animation-delay: 0.5s; animation-duration: 1.6s; color: #ff6b6b; }
-		.light:nth-child(8) { top: 9px; left: 56%; animation-delay: 0.4s; animation-duration: 1.2s; color: #4ecdc4; }
-		.light:nth-child(9) { top: 11px; left: 64%; animation-delay: 0.7s; animation-duration: 1.9s; color: #ffe66d; }
-		.light:nth-child(10) { top: 10px; left: 72%; animation-delay: 0.2s; animation-duration: 1.3s; color: #ff6b6b; }
-		.light:nth-child(31) { top: 12px; left: 80%; animation-delay: 0.6s; animation-duration: 1.5s; color: #4ecdc4; }
-		.light:nth-child(32) { top: 9px; left: 88%; animation-delay: 0.3s; animation-duration: 1.7s; color: #ffe66d; }
-		.light:nth-child(33) { top: 8px; left: 96%; animation-delay: 0.1s; animation-duration: 1.4s; color: #ff6b6b; }
+		/* Top border lights - with spacing from edge and random angles */
+		.light:nth-child(1) { top: 25px; left: 3%; transform: rotate(-8deg); animation-delay: 0s; animation-duration: 1.2s; color: #ff6b6b; }
+		.light:nth-child(2) { top: 28px; left: 10%; transform: rotate(12deg); animation-delay: 0.3s; animation-duration: 1.8s; color: #4ecdc4; }
+		.light:nth-child(3) { top: 26px; left: 17%; transform: rotate(-5deg); animation-delay: 0.6s; animation-duration: 1.5s; color: #ffe66d; }
+		.light:nth-child(4) { top: 27px; left: 24%; transform: rotate(15deg); animation-delay: 0.2s; animation-duration: 1.3s; color: #ff6b6b; }
+		.light:nth-child(5) { top: 25px; left: 31%; transform: rotate(-10deg); animation-delay: 0.8s; animation-duration: 1.7s; color: #95e1d3; }
+		.light:nth-child(6) { top: 28px; left: 38%; transform: rotate(8deg); animation-delay: 0.1s; animation-duration: 1.4s; color: #ffe66d; }
+		.light:nth-child(7) { top: 26px; left: 45%; transform: rotate(-12deg); animation-delay: 0.5s; animation-duration: 1.6s; color: #ff6b6b; }
+		.light:nth-child(8) { top: 27px; left: 52%; transform: rotate(6deg); animation-delay: 0.4s; animation-duration: 1.2s; color: #4ecdc4; }
+		.light:nth-child(9) { top: 25px; left: 59%; transform: rotate(-15deg); animation-delay: 0.7s; animation-duration: 1.9s; color: #ffe66d; }
+		.light:nth-child(10) { top: 28px; left: 66%; transform: rotate(10deg); animation-delay: 0.2s; animation-duration: 1.3s; color: #ff6b6b; }
+		.light:nth-child(31) { top: 26px; left: 73%; transform: rotate(-7deg); animation-delay: 0.6s; animation-duration: 1.5s; color: #4ecdc4; }
+		.light:nth-child(32) { top: 27px; left: 80%; transform: rotate(13deg); animation-delay: 0.3s; animation-duration: 1.7s; color: #ffe66d; }
+		.light:nth-child(33) { top: 25px; left: 87%; transform: rotate(-9deg); animation-delay: 0.1s; animation-duration: 1.4s; color: #ff6b6b; }
+		.light:nth-child(41) { top: 28px; left: 94%; transform: rotate(11deg); animation-delay: 0.4s; animation-duration: 1.6s; color: #4ecdc4; }
 
-		/* Right border lights */
-		.light:nth-child(11) { top: 12%; right: 8px; animation-delay: 0.4s; animation-duration: 1.5s; color: #4ecdc4; }
-		.light:nth-child(12) { top: 24%; right: 12px; animation-delay: 0.1s; animation-duration: 1.3s; color: #ffe66d; }
-		.light:nth-child(13) { top: 36%; right: 9px; animation-delay: 0.6s; animation-duration: 1.7s; color: #ff6b6b; }
-		.light:nth-child(14) { top: 48%; right: 11px; animation-delay: 0.3s; animation-duration: 1.4s; color: #95e1d3; }
-		.light:nth-child(15) { top: 60%; right: 10px; animation-delay: 0.8s; animation-duration: 1.6s; color: #ffe66d; }
-		.light:nth-child(16) { top: 72%; right: 8px; animation-delay: 0.2s; animation-duration: 1.3s; color: #ff6b6b; }
-		.light:nth-child(17) { top: 84%; right: 12px; animation-delay: 0.5s; animation-duration: 1.5s; color: #4ecdc4; }
+		/* Right border lights - with spacing and random angles */
+		.light:nth-child(11) { top: 12%; right: 25px; transform: rotate(85deg); animation-delay: 0.4s; animation-duration: 1.5s; color: #4ecdc4; }
+		.light:nth-child(12) { top: 24%; right: 28px; transform: rotate(95deg); animation-delay: 0.1s; animation-duration: 1.3s; color: #ffe66d; }
+		.light:nth-child(13) { top: 36%; right: 26px; transform: rotate(88deg); animation-delay: 0.6s; animation-duration: 1.7s; color: #ff6b6b; }
+		.light:nth-child(14) { top: 48%; right: 27px; transform: rotate(92deg); animation-delay: 0.3s; animation-duration: 1.4s; color: #95e1d3; }
+		.light:nth-child(15) { top: 60%; right: 25px; transform: rotate(87deg); animation-delay: 0.8s; animation-duration: 1.6s; color: #ffe66d; }
+		.light:nth-child(16) { top: 72%; right: 28px; transform: rotate(93deg); animation-delay: 0.2s; animation-duration: 1.3s; color: #ff6b6b; }
+		.light:nth-child(17) { top: 84%; right: 26px; transform: rotate(90deg); animation-delay: 0.5s; animation-duration: 1.5s; color: #4ecdc4; }
 
-		/* Bottom border lights */
-		.light:nth-child(18) { bottom: 8px; left: 0%; animation-delay: 0.5s; animation-duration: 1.4s; color: #ff6b6b; }
-		.light:nth-child(19) { bottom: 10px; left: 8%; animation-delay: 0.2s; animation-duration: 1.6s; color: #4ecdc4; }
-		.light:nth-child(20) { bottom: 12px; left: 16%; animation-delay: 0.7s; animation-duration: 1.3s; color: #ffe66d; }
-		.light:nth-child(21) { bottom: 9px; left: 24%; animation-delay: 0.1s; animation-duration: 1.8s; color: #ff6b6b; }
-		.light:nth-child(22) { bottom: 11px; left: 32%; animation-delay: 0.4s; animation-duration: 1.5s; color: #95e1d3; }
-		.light:nth-child(23) { bottom: 10px; left: 40%; animation-delay: 0.6s; animation-duration: 1.2s; color: #ffe66d; }
-		.light:nth-child(24) { bottom: 12px; left: 48%; animation-delay: 0.3s; animation-duration: 1.7s; color: #ff6b6b; }
-		.light:nth-child(25) { bottom: 9px; left: 56%; animation-delay: 0.8s; animation-duration: 1.4s; color: #4ecdc4; }
-		.light:nth-child(26) { bottom: 11px; left: 64%; animation-delay: 0.2s; animation-duration: 1.6s; color: #ffe66d; }
-		.light:nth-child(27) { bottom: 10px; left: 72%; animation-delay: 0.5s; animation-duration: 1.3s; color: #ff6b6b; }
-		.light:nth-child(28) { bottom: 12px; left: 80%; animation-delay: 0.1s; animation-duration: 1.5s; color: #4ecdc4; }
-		.light:nth-child(29) { bottom: 9px; left: 88%; animation-delay: 0.4s; animation-duration: 1.7s; color: #ffe66d; }
-		.light:nth-child(30) { bottom: 8px; left: 96%; animation-delay: 0.3s; animation-duration: 1.4s; color: #ff6b6b; }
+		/* Bottom border lights - with spacing and random angles (upside down) */
+		.light:nth-child(18) { bottom: 25px; left: 3%; transform: rotate(172deg); animation-delay: 0.5s; animation-duration: 1.4s; color: #ff6b6b; }
+		.light:nth-child(19) { bottom: 28px; left: 10%; transform: rotate(188deg); animation-delay: 0.2s; animation-duration: 1.6s; color: #4ecdc4; }
+		.light:nth-child(20) { bottom: 26px; left: 17%; transform: rotate(175deg); animation-delay: 0.7s; animation-duration: 1.3s; color: #ffe66d; }
+		.light:nth-child(21) { bottom: 27px; left: 24%; transform: rotate(195deg); animation-delay: 0.1s; animation-duration: 1.8s; color: #ff6b6b; }
+		.light:nth-child(22) { bottom: 25px; left: 31%; transform: rotate(170deg); animation-delay: 0.4s; animation-duration: 1.5s; color: #95e1d3; }
+		.light:nth-child(23) { bottom: 28px; left: 38%; transform: rotate(188deg); animation-delay: 0.6s; animation-duration: 1.2s; color: #ffe66d; }
+		.light:nth-child(24) { bottom: 26px; left: 45%; transform: rotate(168deg); animation-delay: 0.3s; animation-duration: 1.7s; color: #ff6b6b; }
+		.light:nth-child(25) { bottom: 27px; left: 52%; transform: rotate(186deg); animation-delay: 0.8s; animation-duration: 1.4s; color: #4ecdc4; }
+		.light:nth-child(26) { bottom: 25px; left: 59%; transform: rotate(165deg); animation-delay: 0.2s; animation-duration: 1.6s; color: #ffe66d; }
+		.light:nth-child(27) { bottom: 28px; left: 66%; transform: rotate(190deg); animation-delay: 0.5s; animation-duration: 1.3s; color: #ff6b6b; }
+		.light:nth-child(28) { bottom: 26px; left: 73%; transform: rotate(173deg); animation-delay: 0.1s; animation-duration: 1.5s; color: #4ecdc4; }
+		.light:nth-child(29) { bottom: 27px; left: 80%; transform: rotate(193deg); animation-delay: 0.4s; animation-duration: 1.7s; color: #ffe66d; }
+		.light:nth-child(30) { bottom: 25px; left: 87%; transform: rotate(171deg); animation-delay: 0.3s; animation-duration: 1.4s; color: #ff6b6b; }
+		.light:nth-child(42) { bottom: 28px; left: 94%; transform: rotate(191deg); animation-delay: 0.6s; animation-duration: 1.6s; color: #4ecdc4; }
 
-		/* Left border lights */
-		.light:nth-child(34) { top: 12%; left: 8px; animation-delay: 0.3s; animation-duration: 1.6s; color: #4ecdc4; }
-		.light:nth-child(35) { top: 24%; left: 12px; animation-delay: 0.7s; animation-duration: 1.2s; color: #ffe66d; }
-		.light:nth-child(36) { top: 36%; left: 9px; animation-delay: 0.1s; animation-duration: 1.8s; color: #ff6b6b; }
-		.light:nth-child(37) { top: 48%; left: 11px; animation-delay: 0.5s; animation-duration: 1.4s; color: #95e1d3; }
-		.light:nth-child(38) { top: 60%; left: 10px; animation-delay: 0.2s; animation-duration: 1.7s; color: #ffe66d; }
-		.light:nth-child(39) { top: 72%; left: 8px; animation-delay: 0.6s; animation-duration: 1.3s; color: #ff6b6b; }
-		.light:nth-child(40) { top: 84%; left: 12px; animation-delay: 0.4s; animation-duration: 1.5s; color: #4ecdc4; }
+		/* Left border lights - with spacing and random angles */
+		.light:nth-child(34) { top: 12%; left: 25px; transform: rotate(265deg); animation-delay: 0.3s; animation-duration: 1.6s; color: #4ecdc4; }
+		.light:nth-child(35) { top: 24%; left: 28px; transform: rotate(275deg); animation-delay: 0.7s; animation-duration: 1.2s; color: #ffe66d; }
+		.light:nth-child(36) { top: 36%; left: 26px; transform: rotate(268deg); animation-delay: 0.1s; animation-duration: 1.8s; color: #ff6b6b; }
+		.light:nth-child(37) { top: 48%; left: 27px; transform: rotate(272deg); animation-delay: 0.5s; animation-duration: 1.4s; color: #95e1d3; }
+		.light:nth-child(38) { top: 60%; left: 25px; transform: rotate(267deg); animation-delay: 0.2s; animation-duration: 1.7s; color: #ffe66d; }
+		.light:nth-child(39) { top: 72%; left: 28px; transform: rotate(273deg); animation-delay: 0.6s; animation-duration: 1.3s; color: #ff6b6b; }
+		.light:nth-child(40) { top: 84%; left: 26px; transform: rotate(270deg); animation-delay: 0.4s; animation-duration: 1.5s; color: #4ecdc4; }
 
 		@keyframes twinkle {
 			0%, 49% {
 				opacity: 1;
-				transform: scale(1);
+				border-color: currentColor;
+			}
+			50%, 100% {
+				opacity: 0.2;
+				border-color: currentColor;
+			}
+		}
+
+		@keyframes twinkleInner {
+			0%, 49% {
+				opacity: 1;
+				transform: translate(-50%, -50%) scale(1);
 				box-shadow:
 					0 0 8px currentColor,
-					0 0 12px currentColor,
-					inset 0 0 4px rgba(255, 255, 255, 0.5),
-					inset 0 2px 2px rgba(255, 255, 255, 0.3);
+					0 0 12px currentColor;
 			}
 			50%, 100% {
 				opacity: 0.15;
-				transform: scale(0.9);
+				transform: translate(-50%, -50%) scale(0.6);
 				box-shadow:
 					0 0 2px currentColor,
-					0 0 4px currentColor,
-					inset 0 0 2px rgba(255, 255, 255, 0.2);
+					0 0 4px currentColor;
 			}
+		}
+
+		.light::after {
+			animation: twinkleInner 1.5s steps(2, end) infinite;
 		}
 
 		/* Hand-drawn wire connecting lights */
@@ -166,7 +179,7 @@
 		}
 
 		.wire-top {
-			top: 16px;
+			top: 35px;
 			left: 0;
 			width: 100%;
 			height: 2px;
@@ -191,7 +204,7 @@
 
 		.wire-right {
 			top: 0;
-			right: 16px;
+			right: 35px;
 			width: 2px;
 			height: 100%;
 			clip-path: polygon(
@@ -213,7 +226,7 @@
 		}
 
 		.wire-bottom {
-			bottom: 16px;
+			bottom: 35px;
 			left: 0;
 			width: 100%;
 			height: 2px;
@@ -237,7 +250,7 @@
 
 		.wire-left {
 			top: 0;
-			left: 16px;
+			left: 35px;
 			width: 2px;
 			height: 100%;
 			clip-path: polygon(
@@ -268,6 +281,8 @@
 			flex-direction: column;
 			align-items: center;
 			text-align: center;
+			padding: 20px;
+			margin: 70px 60px; /* Space from bulbs on all sides */
 		}
 
 		/* Video container */
@@ -367,7 +382,8 @@
 		<div class="wire wire-bottom"></div>
 		<div class="wire wire-left"></div>
 
-		<!-- Top lights (13 total) -->
+		<!-- Top lights (14 total) -->
+		<div class="light"></div>
 		<div class="light"></div>
 		<div class="light"></div>
 		<div class="light"></div>
@@ -391,7 +407,8 @@
 		<div class="light"></div>
 		<div class="light"></div>
 
-		<!-- Bottom lights (13 total) -->
+		<!-- Bottom lights (14 total) -->
+		<div class="light"></div>
 		<div class="light"></div>
 		<div class="light"></div>
 		<div class="light"></div>
