@@ -99,7 +99,7 @@ body, html {
 }
 
 
-#lists-page (
+#lists-page {
 	margin-top: 56px; /* Below navbar */
 	padding: 20px;
 	width: 100%;
@@ -107,10 +107,10 @@ body, html {
 	margin-left: auto;
 	margin-right: auto;
 	display: block;
-	
+
 	background-color: #121212;
 	color: #e0e0e0;
-)
+}
 
 /* Make Explanation Text Dark Mode */
 .clickable {
@@ -119,7 +119,7 @@ body, html {
 	font-weight: bold;
 	color: #e0e0e0;
 	background-color: #222;
-	margin-bottom: 5px; 
+	margin-bottom: 5px;
 }
 
 .clickable:hover {
@@ -140,7 +140,7 @@ body, html {
 /* Dark Mode for Expandable Sections */
 .list-header, .list-group-item {
 	background: none !important;
-	border: none !important;	
+	border: none !important;
 	padding: 5px 0;
 	cursor: pointer;
 	font-weight: bold;
@@ -406,11 +406,11 @@ img {
 	.menu {
 		display: none; /* Hide desktop menu on small screens */
 	}
-	
+
 	.hamburger {
 		display: block; /* Show hamburger */
 	}
-	
+
 	.mobile-menu.show {
 		display: flex;
 	}
