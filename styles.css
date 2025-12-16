@@ -301,7 +301,8 @@ img {
 }
 
 #refresh-quote.show {
-	opacity: 1; /* Smooth fade-in */
+	opacity: 1 !important; /* Smooth fade-in - force on mobile */
+	visibility: visible !important; /* Ensure visible on iOS */
 	animation: subtlePulse 3s ease-in-out infinite;
 }
 
@@ -511,6 +512,16 @@ img {
 		font-size: 1.1rem; /* Keep it proportional */
 		padding-right: 5px; /* Slightly reduce padding */
 		margin-top: 5px; /* Closer to the quote */
+	}
+	/* Make refresh icon larger and more visible on mobile */
+	#refresh-quote {
+		padding: 12px; /* Larger touch target (44x44px minimum for iOS) */
+		margin-top: 15px;
+		background: rgba(108, 117, 125, 0.2); /* More visible background */
+	}
+	#refresh-quote svg {
+		width: 24px; /* Larger icon on mobile */
+		height: 24px;
 	}
 	.menu {
 		display: none; /* Hide desktop menu on small screens */
