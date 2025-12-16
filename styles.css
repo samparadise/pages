@@ -291,7 +291,7 @@ img {
 	padding: 8px;
 	margin-top: 10px;
 	border-radius: 50%;
-	background: rgba(149, 225, 211, 0.15); /* More visible teal background */
+	background: rgba(149, 225, 211, 0.08); /* Darker, more subtle teal background */
 }
 
 #refresh-quote:hover {
@@ -508,7 +508,7 @@ img {
 	#refresh-quote {
 		padding: 12px; /* Larger touch target (44x44px minimum for iOS) */
 		margin-top: 15px;
-		background: rgba(149, 225, 211, 0.25); /* More visible teal background */
+		background: rgba(149, 225, 211, 0.08); /* Darker, more subtle teal background */
 		color: #95e1d3 !important; /* Brighter teal color on mobile */
 	}
 	#refresh-quote svg {
