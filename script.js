@@ -223,6 +223,13 @@ document.addEventListener("DOMContentLoaded", function () {
 			let newQuote = selectNewQuote();
 			let allDone = (shownQuotes.length === allQuotes.length);
 
+			// Reset the refresh link
+			refreshQuoteLink.classList.remove("show");
+			refreshQuoteLink.style.opacity = "0";
+			refreshQuoteLink.style.visibility = "hidden";
+			refreshQuoteLink.style.pointerEvents = ""; // Re-enable clicking
+			refreshQuoteLink.style.color = ""; // Reset color
+
 			quoteTextElement.innerHTML = "";
 			quoteAuthorElement.innerHTML = "";
 
