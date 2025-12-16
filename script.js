@@ -476,9 +476,9 @@ function typeQuote(quote, author, quoteElement, authorElement, refreshLink, done
 									refreshLink.classList.add("show"); // Apply fade-in effect
 									refreshLink.style.opacity = "1";
 								}, 50);
-							}, 4200); // Adjust delay as needed
+							}, 2100); // Half the original delay
 
-						}, 1000);
+						}, 500); // Half the original delay
 					}
 				}
 			}
