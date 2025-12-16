@@ -1,3 +1,4 @@
+// Gallery updated to tile grid layout - v2
 function toggleMenu() {
 	document.querySelector(".mobile-menu").classList.toggle("show");
 }
@@ -12,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	const subPage = document.getElementById("subPage");
 	const subPageContent = document.getElementById("subPageContent");
 	const subPageOverlay = document.getElementById("subPageOverlay");
+	const mainContent = document.querySelector(".content");
 
 	function openSubPage(title) {
 		const item = document.querySelector(`.menu-link[data-item="${title}"]`);
@@ -22,8 +24,10 @@ document.addEventListener("DOMContentLoaded", function () {
 	switch (path.toLowerCase()) {
 		case "/photo":
 		case "/photos":
-			document.getElementById("gallery-page").classList.remove("d-none");
-			document.querySelector(".content").style.display = "none";
+			if (galleryPage) {
+				galleryPage.classList.remove("d-none");
+				if (mainContent) mainContent.style.display = "none";
+			}
 			break;
 
 		case "/contact":
@@ -345,39 +349,51 @@ document.addEventListener("DOMContentLoaded", function () {
 	const expandedDescription = document.getElementById("expanded-description");
 
 	// === Load Gallery Images ===
-	fetch("images.json")
-		.then(response => response.json())
-		.then(images => {
-			if (!galleryGrid) return;
+	if (galleryGrid) {
+		fetch("images.json")
+			.then(response => {
+				if (!response.ok) {
+					throw new Error(`HTTP error! status: ${response.status}`);
+				}
+				return response.json();
+			})
+			.then(images => {
+				if (!galleryGrid) {
+					console.error("Gallery grid not found");
+					return;
+				}
 
-			images.forEach((image, index) => {
-				// Create tile container
-				let tile = document.createElement("div");
-				tile.classList.add("gallery-tile");
+				images.forEach((image, index) => {
+					// Create tile container
+					let tile = document.createElement("div");
+					tile.classList.add("gallery-tile");
 
-				// Create image
-				let img = document.createElement("img");
-				img.src = `photos/${image.filename}`;
-				img.alt = image.description;
-				img.setAttribute("data-description", image.description);
-				img.setAttribute("data-full-src", `photos/${image.filename}`);
+					// Create image
+					let img = document.createElement("img");
+					img.src = `photos/${image.filename}`;
+					img.alt = image.description;
+					img.setAttribute("data-description", image.description);
+					img.setAttribute("data-full-src", `photos/${image.filename}`);
 
-				tile.appendChild(img);
-				galleryGrid.appendChild(tile);
+					tile.appendChild(img);
+					galleryGrid.appendChild(tile);
 
-				// Click handler to expand image
-				tile.addEventListener("click", function (e) {
-					e.stopPropagation();
-					if (expandedImage && expandedDescription && expandedOverlay) {
-						expandedImage.src = img.getAttribute("data-full-src");
-						expandedDescription.textContent = img.getAttribute("data-description");
-						expandedOverlay.classList.remove("d-none");
-						document.body.style.overflow = "hidden"; // Prevent background scrolling
-					}
+					// Click handler to expand image
+					tile.addEventListener("click", function (e) {
+						e.stopPropagation();
+						if (expandedImage && expandedDescription && expandedOverlay) {
+							expandedImage.src = img.getAttribute("data-full-src");
+							expandedDescription.textContent = img.getAttribute("data-description");
+							expandedOverlay.classList.remove("d-none");
+							document.body.style.overflow = "hidden"; // Prevent background scrolling
+						}
+					});
 				});
-			});
-		})
-		.catch(error => console.error("Error loading images:", error));
+			})
+			.catch(error => console.error("Error loading images:", error));
+	} else {
+		console.warn("Gallery grid element not found - gallery images will not load");
+	}
 
 	// === Open Gallery Page ===
 	if (openGallery) {
