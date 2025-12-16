@@ -282,7 +282,7 @@ img {
 
 #refresh-quote {
 	display: inline-block;
-	color: #6c757d; /* Subtle color */
+	color: #95e1d3; /* Teal color - more visible */
 	text-decoration: none;
 	opacity: 0; /* Initially hidden */
 	visibility: hidden;
@@ -291,28 +291,19 @@ img {
 	padding: 8px;
 	margin-top: 10px;
 	border-radius: 50%;
-	background: rgba(108, 117, 125, 0.1);
+	background: rgba(149, 225, 211, 0.15); /* More visible teal background */
 }
 
 #refresh-quote:hover {
-	color: #95e1d3; /* Teal color on hover */
-	background: rgba(149, 225, 211, 0.15);
+	color: #ffe66d; /* Yellow on hover for contrast */
+	background: rgba(255, 230, 109, 0.2);
 	transform: scale(1.1);
 }
 
 #refresh-quote.show {
-	opacity: 1 !important; /* Smooth fade-in - force on mobile */
-	visibility: visible !important; /* Ensure visible on iOS */
-	animation: subtlePulse 3s ease-in-out infinite;
-}
-
-@keyframes subtlePulse {
-	0%, 100% {
-		opacity: 0.7;
-	}
-	50% {
-		opacity: 1;
-	}
+	opacity: 1 !important; /* Smooth fade-in - force visibility */
+	visibility: visible !important; /* Ensure visible */
+	/* Removed pulse animation - keep it consistently visible */
 }
 
 #refresh-quote svg {
@@ -517,11 +508,20 @@ img {
 	#refresh-quote {
 		padding: 12px; /* Larger touch target (44x44px minimum for iOS) */
 		margin-top: 15px;
-		background: rgba(108, 117, 125, 0.2); /* More visible background */
+		background: rgba(149, 225, 211, 0.25); /* More visible teal background */
+		color: #95e1d3 !important; /* Brighter teal color on mobile */
 	}
 	#refresh-quote svg {
 		width: 24px; /* Larger icon on mobile */
 		height: 24px;
+	}
+	/* Simplify animation on mobile - no pulse, just continuous rotation */
+	#refresh-quote.show {
+		opacity: 1 !important;
+		animation: none; /* Remove pulse animation on mobile */
+	}
+	#refresh-quote.show svg {
+		animation: subtleRotate 4s linear infinite !important;
 	}
 	.menu {
 		display: none; /* Hide desktop menu on small screens */
