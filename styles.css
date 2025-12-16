@@ -383,6 +383,9 @@ img {
 	cursor: pointer;
 	background: #222;
 	transition: transform 0.3s ease, box-shadow 0.3s ease;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .gallery-tile:hover {
@@ -394,6 +397,8 @@ img {
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
+	object-position: center;
+	display: block;
 	transition: transform 0.3s ease;
 }
 
@@ -475,6 +480,18 @@ img {
 	#expanded-description {
 		font-size: 0.95rem;
 		margin-top: 15px;
+	}
+
+	/* Ensure images fill tiles properly on mobile and resize on orientation change */
+	.gallery-tile {
+		min-height: 0; /* Allow aspect-ratio to work properly */
+	}
+
+	.gallery-tile img {
+		min-width: 100%;
+		min-height: 100%;
+		object-fit: cover;
+		object-position: center;
 	}
 }
 
