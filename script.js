@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	// Handle direct paths like /photo, /contact, etc.
 	const path = window.location.pathname.replace(/\/$/, ""); // Remove trailing slash
-	const galleryModal = document.getElementById("gallery-modal");
+	const galleryPage = document.getElementById("gallery-page");
 	const contactModal = document.getElementById("contact-modal");
 	const contactCard = contactModal?.querySelector(".contact-card");
 	const subPage = document.getElementById("subPage");
@@ -22,7 +22,8 @@ document.addEventListener("DOMContentLoaded", function () {
 	switch (path.toLowerCase()) {
 		case "/photo":
 		case "/photos":
-			galleryModal.style.display = "flex";
+			document.getElementById("gallery-page").classList.remove("d-none");
+			document.querySelector(".content").style.display = "none";
 			break;
 
 		case "/contact":
@@ -324,69 +325,93 @@ document.addEventListener("DOMContentLoaded", function () {
 		return string.charAt(0).toUpperCase() + string.slice(1);
 	}
 
+	// === Return to main page from gallery ===
+	const navbarBrand = document.querySelector(".navbar-brand");
+	if (navbarBrand && mainContent) {
+		navbarBrand.addEventListener("click", function (e) {
+			if (galleryPage && !galleryPage.classList.contains("d-none")) {
+				e.preventDefault();
+				galleryPage.classList.add("d-none");
+				mainContent.style.display = "";
+				window.scrollTo(0, 0);
+			}
+		});
+	}
+
 	const openGallery = document.getElementById("open-gallery");
-	const closeGallery = document.querySelector(".close-gallery");
-	const modalDescription = document.getElementById("modal-description");
-	let currentImage = null;
+	const galleryGrid = document.getElementById("gallery-grid");
+	const expandedOverlay = document.getElementById("expanded-overlay");
+	const expandedImage = document.getElementById("expanded-image");
+	const expandedDescription = document.getElementById("expanded-description");
 
 	// === Load Gallery Images ===
 	fetch("images.json")
 		.then(response => response.json())
 		.then(images => {
-			const carouselInner = document.getElementById("carousel-images");
+			if (!galleryGrid) return;
 
 			images.forEach((image, index) => {
-				let div = document.createElement("div");
-				div.classList.add("carousel-item");
-				if (index === 0) div.classList.add("active");
+				// Create tile container
+				let tile = document.createElement("div");
+				tile.classList.add("gallery-tile");
 
+				// Create image
 				let img = document.createElement("img");
 				img.src = `photos/${image.filename}`;
-				img.classList.add("d-block", "w-100");
 				img.alt = image.description;
 				img.setAttribute("data-description", image.description);
+				img.setAttribute("data-full-src", `photos/${image.filename}`);
 
-				div.appendChild(img);
-				carouselInner.appendChild(div);
+				tile.appendChild(img);
+				galleryGrid.appendChild(tile);
 
-				// Toggle description on click
-				img.addEventListener("click", function () {
-					if (currentImage === this) {
-						modalDescription.style.display = modalDescription.style.display === "none" ? "block" : "none";
-					} else {
-						modalDescription.textContent = this.getAttribute("data-description");
-						modalDescription.style.display = "block";
-						currentImage = this;
+				// Click handler to expand image
+				tile.addEventListener("click", function (e) {
+					e.stopPropagation();
+					if (expandedImage && expandedDescription && expandedOverlay) {
+						expandedImage.src = img.getAttribute("data-full-src");
+						expandedDescription.textContent = img.getAttribute("data-description");
+						expandedOverlay.classList.remove("d-none");
+						document.body.style.overflow = "hidden"; // Prevent background scrolling
 					}
 				});
-			});
-
-			// Hide description when image changes (Bootstrap event)
-			document.getElementById("carouselExample").addEventListener("slid.bs.carousel", function () {
-				modalDescription.style.display = "none";
-				currentImage = null;
 			});
 		})
 		.catch(error => console.error("Error loading images:", error));
 
-	// === Open/Close Gallery ===
-	openGallery.addEventListener("click", (event) => {
-		event.preventDefault();
-		galleryModal.style.display = "flex";
-	});
+	// === Open Gallery Page ===
+	if (openGallery) {
+		openGallery.addEventListener("click", (event) => {
+			event.preventDefault();
+			if (galleryPage) {
+				galleryPage.classList.remove("d-none");
+				if (mainContent) mainContent.style.display = "none";
+				// Scroll to top
+				window.scrollTo(0, 0);
+			}
+		});
+	}
 
-	closeGallery.addEventListener("click", () => {
-		console.log("Close button clicked!");
-		galleryModal.style.display = "none";
-		modalDescription.style.display = "none";
-	});
+	// === Close Expanded Image ===
+	if (expandedOverlay) {
+		expandedOverlay.addEventListener("click", function (event) {
+			if (event.target === expandedOverlay) {
+				expandedOverlay.classList.add("d-none");
+				document.body.style.overflow = ""; // Restore scrolling
+			}
+		});
 
-	galleryModal.addEventListener("click", (event) => {
-		if (event.target === galleryModal) {
-			galleryModal.style.display = "none";
-			modalDescription.style.display = "none";
+		// Also allow clicking the image itself to close
+		if (expandedImage) {
+			expandedImage.addEventListener("click", function (event) {
+				event.stopPropagation();
+				if (expandedOverlay) {
+					expandedOverlay.classList.add("d-none");
+					document.body.style.overflow = "";
+				}
+			});
 		}
-	});
+	}
 });
 
 function typeQuote(quote, author, quoteElement, authorElement, refreshLink, done) {

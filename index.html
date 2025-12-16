@@ -21,7 +21,7 @@
 		<div class="container">
 
 			<a class="navbar-brand" href="/">Samparadise</a>
-		
+
 			<!-- Hamburger Toggle -->
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
 				aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,17 +40,17 @@
 					<li class="nav-item">
 						<a class="nav-link" href="#" id="show-lists">Lists</a>
 					</li> -->
-					
+
 					<!-- Contact page -->
 					<li class="nav-item">
 						<a class="nav-link" href="#" id="contact">Contact</a>
 					</li>
-					
+
 				</ul>
 			</div>
 		</div>
-	</nav>	
-	
+	</nav>
+
 	<!-- Background overlay for clicking outside -->
 	<div id="subPageOverlay" class="sub-page-overlay"></div>
 
@@ -58,10 +58,10 @@
 	<div id="subPage" class="sub-page">
 		<div id="subPageContent"></div>
 	</div>
-	
+
 	<div class="content">
 		<img src="img/sam-trans.png" alt="Sam J.">
-		
+
 		<div id="frontpage-quote">
 			<blockquote class="cutive-mono-regular">
 				<span id="quote-text"></span>
@@ -74,7 +74,7 @@
 
 	<!-- Lists Page (Initially Hidden) -->
 	<div id="lists-page" class="container d-none pt-3 pt-md-5 mt-3 mt-md-5">
-		
+
 		<!-- Explanation Text -->
 		<div id="explanation-container">
 			<div id="explanation-text" class="p-3 clickable">
@@ -82,32 +82,25 @@
 			</div>
 			<hr class="divider">
 		</div>
-	
+
 		<!-- Lists Container (dynamically-generated) -->
 		<div class="lists-container"></div>
 	</div>
-	
 
-	<!-- Fullscreen Gallery Modal -->
-	<div id="gallery-modal" class="gallery-overlay">
-		<div class="gallery-content">
-			<button class="close-gallery">&times;</button>
 
-			<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
-				<div class="carousel-inner" id="carousel-images"></div>
-	
-				<!-- Left & Right Controls -->
-				<button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
-				</button>
-				<button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-					<span class="carousel-control-next-icon" aria-hidden="true"></span>
-				</button>
+	<!-- Photography Gallery -->
+	<div id="gallery-page" class="gallery-page d-none">
+		<div class="gallery-grid" id="gallery-grid"></div>
+
+		<!-- Expanded Image Overlay -->
+		<div id="expanded-overlay" class="expanded-overlay d-none">
+			<div class="expanded-image-container">
+				<img id="expanded-image" src="" alt="">
+				<p id="expanded-description"></p>
 			</div>
-			<p id="modal-description"></p> <!-- Description appears here -->
 		</div>
 	</div>
-	
+
 	<!-- Contact Card Modal -->
 	<div id="contact-modal" class="contact-modal-overlay d-none">
 		<div class="contact-modal-content">
@@ -117,7 +110,7 @@
 					<div>
 						<img src="img/sam-trans.png" alt="Sam's Avatar" class="card-avatar-img">
 					</div>
-	
+
 					<!-- Contact Info -->
 					<div>
 						<h5 class="mb-3">Sam Johnson</h5>
@@ -129,13 +122,9 @@
 							<span class="label">mobile:</span>
 							<span class="value"><a href="tel:6462474444">646-247-4444</a></span>
 						</div>
-						<div class="contact-line">
-							<span class="label">calendar:</span>
-							<span class="value"><a href="https://calendar.app.google/Y6B5TEHbgTzSt9p2A" target="_blank" rel="noopener noreferrer">schedule time</a></span>
-						</div>
 					</div>
 		  		</div>
-	
+
 				<!-- VCF Download -->
 				<div class="text-center mt-4">
 					<a href="files/sam-contact.vcf" download class="btn btn-outline-dark">Download My Contact (.vcf)</a>
@@ -143,12 +132,12 @@
 			</div>
 		</div>
 	</div>
-			
+
 	<!-- Bootstrap JS (for responsive toggles) -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Load marked.js for markdown rendering -->
 	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-	
+
 	<script src="script.js"></script>
 </body>
 </html>
