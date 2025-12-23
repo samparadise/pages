@@ -37,6 +37,7 @@
 			margin-bottom: 15px;
 			flex-wrap: wrap;
 			justify-content: center;
+			align-items: center;
 		}
 
 		.view-btn {
@@ -58,6 +59,42 @@
 		.view-btn.active {
 			background: rgba(149, 225, 211, 0.3);
 			border-color: #95e1d3;
+			color: #fff;
+		}
+
+		.date-input {
+			padding: 8px 12px;
+			background: rgba(255, 255, 255, 0.1);
+			color: #e0e0e0;
+			border: 1px solid rgba(149, 225, 211, 0.3);
+			border-radius: 4px;
+			font-size: 0.9rem;
+			width: 150px;
+		}
+
+		.date-input:focus {
+			outline: none;
+			border-color: #95e1d3;
+			background: rgba(255, 255, 255, 0.15);
+		}
+
+		.copy-link-btn {
+			padding: 8px 16px;
+			background: rgba(149, 225, 211, 0.15);
+			color: #95e1d3;
+			border: 1px solid rgba(149, 225, 211, 0.3);
+			border-radius: 4px;
+			cursor: pointer;
+			font-size: 0.9rem;
+			transition: all 0.3s ease;
+		}
+
+		.copy-link-btn:hover {
+			background: rgba(149, 225, 211, 0.25);
+		}
+
+		.copy-link-btn.copied {
+			background: rgba(149, 225, 211, 0.4);
 			color: #fff;
 		}
 
@@ -119,8 +156,9 @@
 			<div class="view-controls">
 				<button class="view-btn" data-mode="MONTH">Month</button>
 				<button class="view-btn" data-mode="WEEK">Week</button>
-				<button class="view-btn" data-mode="DAY">Day</button>
 				<button class="view-btn" data-mode="AGENDA">Agenda</button>
+				<input type="date" id="date-picker" class="date-input" title="Jump to specific date">
+				<button class="copy-link-btn" id="copy-link-btn" title="Copy current page URL">Copy Link</button>
 			</div>
 			<iframe
 				id="calendar-iframe"
@@ -153,6 +191,28 @@
 				};
 			}
 
+			// Format date as YYYYMMDD
+			function formatDate(date) {
+				const year = date.getFullYear();
+				const month = String(date.getMonth() + 1).padStart(2, '0');
+				const day = String(date.getDate()).padStart(2, '0');
+				return `${year}${month}${day}`;
+			}
+
+			// Parse date from YYYYMMDD or YYYY-MM-DD
+			function parseDate(dateStr) {
+				if (!dateStr) return null;
+				// Handle YYYYMMDD format
+				if (dateStr.length === 8 && /^\d+$/.test(dateStr)) {
+					const year = parseInt(dateStr.substring(0, 4));
+					const month = parseInt(dateStr.substring(4, 6)) - 1;
+					const day = parseInt(dateStr.substring(6, 8));
+					return new Date(year, month, day);
+				}
+				// Handle YYYY-MM-DD format
+				return new Date(dateStr);
+			}
+
 			// Build calendar URL
 			function buildCalendarUrl(params) {
 				let url = `https://calendar.google.com/calendar/embed?src=${encodeURIComponent(calendarId)}&ctz=${encodeURIComponent(timezone)}`;
@@ -164,31 +224,25 @@
 				if (params.dates) {
 					url += `&dates=${params.dates}`;
 				} else if (params.date) {
-					// Convert single date to date range for week view
-					if (params.mode === 'WEEK') {
-						const date = new Date(params.date);
+					const date = parseDate(params.date);
+					if (!date || isNaN(date.getTime())) {
+						// Invalid date, skip
+					} else if (params.mode === 'WEEK') {
+						// Convert single date to week range (Sunday to Saturday)
 						const start = new Date(date);
-						start.setDate(date.getDate() - date.getDay()); // Start of week (Sunday)
+						const dayOfWeek = start.getDay();
+						start.setDate(start.getDate() - dayOfWeek); // Start of week (Sunday)
 						const end = new Date(start);
-						end.setDate(start.getDate() + 6); // End of week
-
-						const formatDate = (d) => {
-							const year = d.getFullYear();
-							const month = String(d.getMonth() + 1).padStart(2, '0');
-							const day = String(d.getDate()).padStart(2, '0');
-							return `${year}${month}${day}`;
-						};
-
+						end.setDate(start.getDate() + 6); // End of week (Saturday)
 						url += `&dates=${formatDate(start)}/${formatDate(end)}`;
 					} else if (params.mode === 'DAY') {
-						const date = new Date(params.date);
-						const formatDate = (d) => {
-							const year = d.getFullYear();
-							const month = String(d.getMonth() + 1).padStart(2, '0');
-							const day = String(d.getDate()).padStart(2, '0');
-							return `${year}${month}${day}`;
-						};
+						// Day view needs same date for start and end
 						url += `&dates=${formatDate(date)}/${formatDate(date)}`;
+					} else if (params.mode === 'MONTH') {
+						// Month view - use first and last day of month
+						const start = new Date(date.getFullYear(), date.getMonth(), 1);
+						const end = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+						url += `&dates=${formatDate(start)}/${formatDate(end)}`;
 					}
 				}
 
@@ -240,18 +294,84 @@
 					const params = getUrlParams();
 					params.mode = mode;
 
-					// Clear date/dates when switching views (let calendar show current date)
-					params.date = null;
-					params.dates = null;
+					// Keep existing date if set, otherwise clear
+					if (!params.date && !params.dates) {
+						params.date = null;
+						params.dates = null;
+					}
 
 					updateUrl(params);
 					initCalendar();
 				});
 			});
 
+			// Handle date picker
+			const datePicker = document.getElementById('date-picker');
+			datePicker.addEventListener('change', function() {
+				if (this.value) {
+					const params = getUrlParams();
+					// Convert YYYY-MM-DD to YYYYMMDD format
+					params.date = this.value.replace(/-/g, '');
+					params.dates = null; // Clear dates if set
+					updateUrl(params);
+					initCalendar();
+				}
+			});
+
+			// Set date picker value from URL on load
+			const params = getUrlParams();
+			if (params.date) {
+				const date = parseDate(params.date);
+				if (date && !isNaN(date.getTime())) {
+					// Convert YYYYMMDD to YYYY-MM-DD for date input
+					const dateStr = params.date;
+					if (dateStr.length === 8) {
+						datePicker.value = `${dateStr.substring(0, 4)}-${dateStr.substring(4, 6)}-${dateStr.substring(6, 8)}`;
+					}
+				}
+			}
+
+			// Copy link button
+			const copyLinkBtn = document.getElementById('copy-link-btn');
+			copyLinkBtn.addEventListener('click', function() {
+				const url = window.location.href;
+				navigator.clipboard.writeText(url).then(() => {
+					this.textContent = 'Copied!';
+					this.classList.add('copied');
+					setTimeout(() => {
+						this.textContent = 'Copy Link';
+						this.classList.remove('copied');
+					}, 2000);
+				}).catch(() => {
+					// Fallback for older browsers
+					const textarea = document.createElement('textarea');
+					textarea.value = url;
+					document.body.appendChild(textarea);
+					textarea.select();
+					document.execCommand('copy');
+					document.body.removeChild(textarea);
+					this.textContent = 'Copied!';
+					this.classList.add('copied');
+					setTimeout(() => {
+						this.textContent = 'Copy Link';
+						this.classList.remove('copied');
+					}, 2000);
+				});
+			});
+
 			// Handle browser back/forward
 			window.addEventListener('popstate', function() {
 				initCalendar();
+				// Update date picker
+				const params = getUrlParams();
+				if (params.date) {
+					const dateStr = params.date;
+					if (dateStr.length === 8) {
+						datePicker.value = `${dateStr.substring(0, 4)}-${dateStr.substring(4, 6)}-${dateStr.substring(6, 8)}`;
+					}
+				} else {
+					datePicker.value = '';
+				}
 			});
 
 			// Initialize on page load
