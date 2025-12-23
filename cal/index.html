@@ -318,7 +318,7 @@
 				}
 			});
 
-			// Set date picker value from URL on load
+			// Set date picker value from URL on load, or default to today
 			const params = getUrlParams();
 			if (params.date) {
 				const date = parseDate(params.date);
@@ -329,6 +329,13 @@
 						datePicker.value = `${dateStr.substring(0, 4)}-${dateStr.substring(4, 6)}-${dateStr.substring(6, 8)}`;
 					}
 				}
+			} else {
+				// Set to today's date if no date in URL
+				const today = new Date();
+				const year = today.getFullYear();
+				const month = String(today.getMonth() + 1).padStart(2, '0');
+				const day = String(today.getDate()).padStart(2, '0');
+				datePicker.value = `${year}-${month}-${day}`;
 			}
 
 			// Copy link button
