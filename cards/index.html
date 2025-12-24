@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Holiday Cards</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: 'Georgia', serif;
+			background: #121212;
+			color: #e0e0e0;
+			min-height: 100vh;
+			padding: 40px 20px;
+		}
+
+		.container {
+			max-width: 800px;
+			margin: 0 auto;
+		}
+
+		h1 {
+			font-size: 2.5rem;
+			margin-bottom: 40px;
+			color: #ffe66d;
+			text-align: center;
+		}
+
+		.card-list {
+			list-style: none;
+		}
+
+		.card-item {
+			margin-bottom: 30px;
+		}
+
+		.card-item a {
+			display: block;
+			font-size: 1.5rem;
+			font-weight: bold;
+			color: #95e1d3;
+			text-decoration: none;
+			margin-bottom: 8px;
+			transition: color 0.3s ease;
+		}
+
+		.card-item a:hover {
+			color: #ffe66d;
+		}
+
+		.card-description {
+			font-size: 1rem;
+			color: #b0b0b0;
+			line-height: 1.5;
+		}
+
+		@media (max-width: 600px) {
+			h1 {
+				font-size: 2rem;
+			}
+
+			.card-item a {
+				font-size: 1.3rem;
+			}
+
+			.card-description {
+				font-size: 0.95rem;
+			}
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<h1>Holiday Cards</h1>
+		<ul class="card-list">
+			<li class="card-item">
+				<a href="2025_holidays/">Happy Holidays 2025</a>
+				<div class="card-description">Wishing you joy, laughter, and wonderful moments this holiday season and throughout the new year.</div>
+			</li>
+			<li class="card-item">
+				<a href="2021_holidays/">Happy Holidays 2021</a>
+				<div class="card-description">2021 in Tulsa - A feature-length video celebrating the year.</div>
+			</li>
+		</ul>
+	</div>
+</body>
+</html>
+
