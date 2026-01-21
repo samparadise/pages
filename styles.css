@@ -461,6 +461,101 @@ img {
 	border-radius: 4px;
 }
 
+/* Stuff Page */
+.stuff-page {
+	position: relative;
+	width: 100%;
+	min-height: calc(100vh - 56px);
+	padding: 80px 20px 40px;
+	margin-top: 56px;
+	background-color: #121212;
+}
+
+.stuff-section {
+	margin-bottom: 50px;
+}
+
+.stuff-section-title {
+	font-size: 2rem;
+	font-weight: bold;
+	color: #ffe66d;
+	margin-bottom: 30px;
+	padding-bottom: 10px;
+	border-bottom: 2px solid #333;
+}
+
+.stuff-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+	gap: 30px;
+	max-width: 1400px;
+	margin: 0 auto;
+}
+
+.stuff-tile {
+	background: #222;
+	border-radius: 8px;
+	overflow: hidden;
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+	cursor: pointer;
+	text-decoration: none;
+	color: inherit;
+	display: block;
+}
+
+.stuff-tile:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+	text-decoration: none;
+	color: inherit;
+}
+
+.stuff-tile-image-container {
+	width: 100%;
+	aspect-ratio: 1 / 1;
+	background: #1a1a1a;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	overflow: hidden;
+	position: relative;
+}
+
+.stuff-tile-image {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+	transition: transform 0.3s ease;
+}
+
+.stuff-tile:hover .stuff-tile-image {
+	transform: scale(1.05);
+}
+
+.stuff-tile-content {
+	padding: 20px;
+}
+
+.stuff-tile-name {
+	font-size: 1.2rem;
+	font-weight: bold;
+	color: #e0e0e0;
+	margin-bottom: 10px;
+	line-height: 1.3;
+}
+
+.stuff-tile-description {
+	font-size: 0.95rem;
+	color: #b0b0b0;
+	line-height: 1.5;
+}
+
+#stuff-container {
+	max-width: 1400px;
+	margin: 0 auto;
+}
+
 /* Mobile adjustments */
 @media (max-width: 600px) {
 	.gallery-grid {
@@ -471,6 +566,32 @@ img {
 
 	.gallery-page {
 		padding: 70px 10px 30px;
+	}
+
+	.stuff-page {
+		padding: 70px 10px 30px;
+	}
+
+	.stuff-grid {
+		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+		gap: 20px;
+	}
+
+	.stuff-section-title {
+		font-size: 1.5rem;
+		margin-bottom: 20px;
+	}
+
+	.stuff-tile-content {
+		padding: 15px;
+	}
+
+	.stuff-tile-name {
+		font-size: 1.1rem;
+	}
+
+	.stuff-tile-description {
+		font-size: 0.9rem;
 	}
 
 	.expanded-image-container {

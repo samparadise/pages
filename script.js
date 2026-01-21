@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	// Handle direct paths like /photo, /contact, etc.
 	const path = window.location.pathname.replace(/\/$/, ""); // Remove trailing slash
 	const galleryPage = document.getElementById("gallery-page");
+	const stuffPage = document.getElementById("stuff-page");
 	const contactModal = document.getElementById("contact-modal");
 	const contactCard = contactModal?.querySelector(".contact-card");
 	const subPage = document.getElementById("subPage");
@@ -26,6 +27,13 @@ document.addEventListener("DOMContentLoaded", function () {
 		case "/photos":
 			if (galleryPage) {
 				galleryPage.classList.remove("d-none");
+				if (mainContent) mainContent.style.display = "none";
+			}
+			break;
+
+		case "/stuff":
+			if (stuffPage) {
+				stuffPage.classList.remove("d-none");
 				if (mainContent) mainContent.style.display = "none";
 			}
 			break;
@@ -336,13 +344,19 @@ document.addEventListener("DOMContentLoaded", function () {
 		return string.charAt(0).toUpperCase() + string.slice(1);
 	}
 
-	// === Return to main page from gallery ===
+	// === Return to main page from gallery/stuff ===
 	const navbarBrand = document.querySelector(".navbar-brand");
 	if (navbarBrand && mainContent) {
 		navbarBrand.addEventListener("click", function (e) {
 			if (galleryPage && !galleryPage.classList.contains("d-none")) {
 				e.preventDefault();
 				galleryPage.classList.add("d-none");
+				mainContent.style.display = "";
+				window.scrollTo(0, 0);
+			}
+			if (stuffPage && !stuffPage.classList.contains("d-none")) {
+				e.preventDefault();
+				stuffPage.classList.add("d-none");
 				mainContent.style.display = "";
 				window.scrollTo(0, 0);
 			}
@@ -434,6 +448,170 @@ document.addEventListener("DOMContentLoaded", function () {
 				}
 			});
 		}
+	}
+
+	// === Stuff Page ===
+	const openStuff = document.getElementById("open-stuff");
+	const stuffContainer = document.getElementById("stuff-container");
+
+	// Helper function to extract ASIN from Amazon URL and construct image URL
+	function getAmazonImageUrl(amazonUrl) {
+		console.log('getAmazonImageUrl called with:', amazonUrl);
+		if (!amazonUrl) {
+			console.log('  → No URL provided, returning null');
+			return null;
+		}
+
+		// Try to extract ASIN from various Amazon URL formats
+		let asin = null;
+		const patterns = [
+			/dp\/([A-Z0-9]{10})/,           // /dp/B00XXXXXXXX/
+			/product\/([A-Z0-9]{10})/,      // /product/B00XXXXXXXX/
+			/gp\/product\/([A-Z0-9]{10})/,  // /gp/product/B00XXXXXXXX/
+			/[?&]asin=([A-Z0-9]{10})/,      // ?asin=B00XXXXXXXX
+			/[?&]ASIN=([A-Z0-9]{10})/,      // ?ASIN=B00XXXXXXXX
+			/\/p\/([A-Z0-9]{10})/          // /p/B00XXXXXXXX/
+		];
+
+		for (const pattern of patterns) {
+			const match = amazonUrl.match(pattern);
+			if (match && match[1]) {
+				asin = match[1];
+				console.log('  → Extracted ASIN:', asin, 'using pattern:', pattern);
+				break;
+			}
+		}
+
+		if (asin) {
+			// Amazon image URL pattern - try different formats
+			// Note: Amazon image URLs are complex and ASIN doesn't directly map to image URL
+			// The format below may not work for all products
+			const imageUrl = `https://m.media-amazon.com/images/I/${asin}._AC_SL1500_.jpg`;
+			console.log('  → Constructed image URL:', imageUrl);
+			console.log('  → WARNING: Amazon image URLs cannot be reliably constructed from ASIN alone.');
+			console.log('  → Consider adding image_url manually to your JSON for reliable images.');
+			return imageUrl;
+		}
+
+		console.log('  → No ASIN found, returning null');
+		return null;
+	}
+
+	// === Load Stuff Items ===
+	if (stuffContainer) {
+		fetch("stuff.json")
+			.then(response => {
+				if (!response.ok) {
+					throw new Error(`HTTP error! status: ${response.status}`);
+				}
+				return response.json();
+			})
+			.then(data => {
+				if (!stuffContainer) {
+					console.error("Stuff container not found");
+					return;
+				}
+
+				stuffContainer.innerHTML = ""; // Clear container
+
+				// Iterate through each section
+				Object.entries(data).forEach(([sectionName, items]) => {
+					// Create section container
+					const sectionDiv = document.createElement("div");
+					sectionDiv.classList.add("stuff-section");
+
+					// Create section title
+					const sectionTitle = document.createElement("h2");
+					sectionTitle.classList.add("stuff-section-title");
+					sectionTitle.textContent = sectionName.charAt(0).toUpperCase() + sectionName.slice(1);
+					sectionDiv.appendChild(sectionTitle);
+
+					// Create grid for items
+					const grid = document.createElement("div");
+					grid.classList.add("stuff-grid");
+
+					items.forEach(item => {
+						// Create tile
+						const tile = document.createElement("a");
+						tile.classList.add("stuff-tile");
+						// Use associate_link if available, otherwise fall back to url
+						tile.href = item.associate_link || item.url;
+						tile.target = "_blank";
+						tile.rel = "noopener noreferrer";
+
+						// Image container
+						const imageContainer = document.createElement("div");
+						imageContainer.classList.add("stuff-tile-image-container");
+
+						const img = document.createElement("img");
+						img.classList.add("stuff-tile-image");
+						img.alt = item.name;
+
+						// Get image URL from the url field (prefer manual image_url if provided)
+						console.log('Processing item:', item.name);
+						console.log('  - item.url:', item.url);
+						console.log('  - item.image_url:', item.image_url);
+
+						let imageUrl = item.image_url || getAmazonImageUrl(item.url);
+						console.log('  - Final imageUrl:', imageUrl);
+
+						if (imageUrl) {
+							img.src = imageUrl;
+							img.onerror = function() {
+								console.log('  - Image failed to load:', imageUrl);
+								// Fallback if image fails to load
+								this.style.display = "none";
+							};
+							img.onload = function() {
+								console.log('  - Image loaded successfully:', imageUrl);
+							};
+						} else {
+							console.log('  - No image URL, hiding image');
+							// No image available - hide image
+							img.style.display = "none";
+						}
+
+						imageContainer.appendChild(img);
+						tile.appendChild(imageContainer);
+
+						// Content container
+						const content = document.createElement("div");
+						content.classList.add("stuff-tile-content");
+
+						const name = document.createElement("div");
+						name.classList.add("stuff-tile-name");
+						name.textContent = item.name;
+						content.appendChild(name);
+
+						const description = document.createElement("div");
+						description.classList.add("stuff-tile-description");
+						description.textContent = item.description;
+						content.appendChild(description);
+
+						tile.appendChild(content);
+						grid.appendChild(tile);
+					});
+
+					sectionDiv.appendChild(grid);
+					stuffContainer.appendChild(sectionDiv);
+				});
+			})
+			.catch(error => console.error("Error loading stuff:", error));
+	} else {
+		console.warn("Stuff container element not found - stuff items will not load");
+	}
+
+	// === Open Stuff Page ===
+	if (openStuff) {
+		openStuff.addEventListener("click", (event) => {
+			event.preventDefault();
+			if (stuffPage) {
+				stuffPage.classList.remove("d-none");
+				if (mainContent) mainContent.style.display = "none";
+				// Scroll to top
+				window.scrollTo(0, 0);
+			}
+		});
 	}
 });
 
