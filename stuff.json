@@ -2,10 +2,18 @@
     "outdoors": [
         {
             "name": "Jealous Devil Firestarters",
-            "description": "They look like little bombs and work really well",
+            "description": "They look like tiny little bombs and work great!",
             "url": "https://www.amazon.com/dp/B0C6S4J9TS",
             "associate_link": "https://amzn.to/4jZPGpu",
             "image_url": "https://m.media-amazon.com/images/I/91syF8kNmpL._AC_SL1500_.jpg"
+        }
+    ],
+    "kitchen": [
+        {
+            "name": "Global Chef's Knife",
+            "description": "An Anthony Bourdain favorite. Gets used every single day.",
+            "associate_link": "https://amzn.to/4bMeOxH",
+            "image_url": "https://m.media-amazon.com/images/I/51kjpXqTsbL._AC_SL1000_.jpg"
         }
     ]
 }
