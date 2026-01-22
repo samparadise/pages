@@ -4,6 +4,8 @@ function toggleMenu() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+	console.log("[SCRIPT LOADED] script.js version with getJsonPath -", new Date().toISOString());
+	console.log("[SCRIPT LOADED] Current pathname:", window.location.pathname);
 
 	// Handle direct paths like /photo, /contact, etc.
 	const path = window.location.pathname.replace(/\/$/, ""); // Remove trailing slash
@@ -15,6 +17,16 @@ document.addEventListener("DOMContentLoaded", function () {
 	const subPageContent = document.getElementById("subPageContent");
 	const subPageOverlay = document.getElementById("subPageOverlay");
 	const mainContent = document.querySelector(".content");
+
+	// Helper function to get correct path for JSON files based on current location
+	function getJsonPath(filename) {
+		const pathname = window.location.pathname;
+		// Check if we're in /stuff directory (handles /stuff, /stuff/, /stuff/index.html)
+		const isStuffPage = pathname.includes('/stuff');
+		const path = isStuffPage ? `../${filename}` : filename;
+		console.log(`[getJsonPath] filename=${filename}, pathname=${pathname}, isStuffPage=${isStuffPage}, returning=${path}`);
+		return path;
+	}
 
 	function openSubPage(title) {
 		const item = document.querySelector(`.menu-link[data-item="${title}"]`);
@@ -32,6 +44,8 @@ document.addEventListener("DOMContentLoaded", function () {
 			break;
 
 		case "/stuff":
+		case "/stuff/":
+		case "/stuff/index.html":
 			if (stuffPage) {
 				stuffPage.classList.remove("d-none");
 				if (mainContent) mainContent.style.display = "none";
@@ -184,7 +198,8 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 
 	const dynamicMenu = document.getElementById("dynamicMenu");
-	const exploringMenuItem = document.getElementById("open-gallery").parentElement;
+	const openGalleryElement = document.getElementById("open-gallery");
+	const exploringMenuItem = openGalleryElement ? openGalleryElement.parentElement : null;
 
 //	const navbarNav = document.getElementById("navbarNav");
 	const navbarToggler = document.querySelector(".navbar-toggler");
@@ -198,7 +213,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		});
 	});
 
-	fetch("quotes.json")
+	fetch(getJsonPath("quotes.json"))
 		.then(response => response.json())
 		.then(quotes => {
 			allQuotes = [...quotes];
@@ -257,14 +272,28 @@ document.addEventListener("DOMContentLoaded", function () {
 		}
 
 	// === Load Menu Items from JSON ===
-	fetch("menu.json")
-		.then(response => response.json())
+	fetch(getJsonPath("menu.json"))
+		.then(response => {
+			if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
+			}
+			return response.json();
+		})
 		.then(menuData => {
+			console.log('Menu data loaded successfully');
 			insertMenuItems(menuData);
 		})
-		.catch(error => console.error("Error loading menu:", error));
+		.catch(error => {
+			console.error("Error loading menu:", error);
+			console.error("Attempted to load from:", getJsonPath("menu.json"));
+		});
 
 	function insertMenuItems(menuData) {
+		if (!dynamicMenu) {
+			console.error("Dynamic menu element not found");
+			return;
+		}
+
 		Object.keys(menuData).reverse().forEach(category => {
 			let dropdown = document.createElement("li");
 			dropdown.classList.add("nav-item", "dropdown");
@@ -286,7 +315,12 @@ document.addEventListener("DOMContentLoaded", function () {
 			});
 
 			dropdown.appendChild(dropdownMenu);
-			dynamicMenu.insertBefore(dropdown, exploringMenuItem);
+			// Insert before exploringMenuItem if it exists, otherwise append to end
+			if (exploringMenuItem) {
+				dynamicMenu.insertBefore(dropdown, exploringMenuItem);
+			} else {
+				dynamicMenu.appendChild(dropdown);
+			}
 		});
 
 		attachMenuEventListeners(menuData);
@@ -348,6 +382,13 @@ document.addEventListener("DOMContentLoaded", function () {
 	const navbarBrand = document.querySelector(".navbar-brand");
 	if (navbarBrand && mainContent) {
 		navbarBrand.addEventListener("click", function (e) {
+			// If we're on the /stuff page, navigate to root
+			if (window.location.pathname.includes('/stuff')) {
+				e.preventDefault();
+				window.location.href = '/';
+				return;
+			}
+
 			if (galleryPage && !galleryPage.classList.contains("d-none")) {
 				e.preventDefault();
 				galleryPage.classList.add("d-none");
@@ -371,7 +412,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	// === Load Gallery Images ===
 	if (galleryGrid) {
-		fetch("images.json")
+		fetch(getJsonPath("images.json"))
 			.then(response => {
 				if (!response.ok) {
 					throw new Error(`HTTP error! status: ${response.status}`);
@@ -451,16 +492,11 @@ document.addEventListener("DOMContentLoaded", function () {
 	}
 
 	// === Stuff Page ===
-	const openStuff = document.getElementById("open-stuff");
 	const stuffContainer = document.getElementById("stuff-container");
 
 	// Helper function to extract ASIN from Amazon URL and construct image URL
 	function getAmazonImageUrl(amazonUrl) {
-		console.log('getAmazonImageUrl called with:', amazonUrl);
-		if (!amazonUrl) {
-			console.log('  → No URL provided, returning null');
-			return null;
-		}
+		if (!amazonUrl) return null;
 
 		// Try to extract ASIN from various Amazon URL formats
 		let asin = null;
@@ -477,7 +513,6 @@ document.addEventListener("DOMContentLoaded", function () {
 			const match = amazonUrl.match(pattern);
 			if (match && match[1]) {
 				asin = match[1];
-				console.log('  → Extracted ASIN:', asin, 'using pattern:', pattern);
 				break;
 			}
 		}
@@ -486,20 +521,20 @@ document.addEventListener("DOMContentLoaded", function () {
 			// Amazon image URL pattern - try different formats
 			// Note: Amazon image URLs are complex and ASIN doesn't directly map to image URL
 			// The format below may not work for all products
-			const imageUrl = `https://m.media-amazon.com/images/I/${asin}._AC_SL1500_.jpg`;
-			console.log('  → Constructed image URL:', imageUrl);
-			console.log('  → WARNING: Amazon image URLs cannot be reliably constructed from ASIN alone.');
-			console.log('  → Consider adding image_url manually to your JSON for reliable images.');
-			return imageUrl;
+			return `https://m.media-amazon.com/images/I/${asin}._AC_SL1500_.jpg`;
 		}
 
-		console.log('  → No ASIN found, returning null');
 		return null;
 	}
 
 	// === Load Stuff Items ===
 	if (stuffContainer) {
-		fetch("stuff.json")
+		const stuffJsonPath = getJsonPath("stuff.json");
+
+		console.log('Loading stuff items from:', stuffJsonPath);
+		console.log('Stuff container found:', !!stuffContainer);
+
+		fetch(stuffJsonPath)
 			.then(response => {
 				if (!response.ok) {
 					throw new Error(`HTTP error! status: ${response.status}`);
@@ -507,6 +542,7 @@ document.addEventListener("DOMContentLoaded", function () {
 				return response.json();
 			})
 			.then(data => {
+				console.log('Stuff data loaded:', data);
 				if (!stuffContainer) {
 					console.error("Stuff container not found");
 					return;
@@ -516,6 +552,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 				// Iterate through each section
 				Object.entries(data).forEach(([sectionName, items]) => {
+					console.log('Processing section:', sectionName, 'with', items.length, 'items');
 					// Create section container
 					const sectionDiv = document.createElement("div");
 					sectionDiv.classList.add("stuff-section");
@@ -548,25 +585,15 @@ document.addEventListener("DOMContentLoaded", function () {
 						img.alt = item.name;
 
 						// Get image URL from the url field (prefer manual image_url if provided)
-						console.log('Processing item:', item.name);
-						console.log('  - item.url:', item.url);
-						console.log('  - item.image_url:', item.image_url);
-
 						let imageUrl = item.image_url || getAmazonImageUrl(item.url);
-						console.log('  - Final imageUrl:', imageUrl);
 
 						if (imageUrl) {
 							img.src = imageUrl;
 							img.onerror = function() {
-								console.log('  - Image failed to load:', imageUrl);
 								// Fallback if image fails to load
 								this.style.display = "none";
 							};
-							img.onload = function() {
-								console.log('  - Image loaded successfully:', imageUrl);
-							};
 						} else {
-							console.log('  - No image URL, hiding image');
 							// No image available - hide image
 							img.style.display = "none";
 						}
@@ -599,19 +626,6 @@ document.addEventListener("DOMContentLoaded", function () {
 			.catch(error => console.error("Error loading stuff:", error));
 	} else {
 		console.warn("Stuff container element not found - stuff items will not load");
-	}
-
-	// === Open Stuff Page ===
-	if (openStuff) {
-		openStuff.addEventListener("click", (event) => {
-			event.preventDefault();
-			if (stuffPage) {
-				stuffPage.classList.remove("d-none");
-				if (mainContent) mainContent.style.display = "none";
-				// Scroll to top
-				window.scrollTo(0, 0);
-			}
-		});
 	}
 });
 

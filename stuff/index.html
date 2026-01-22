@@ -3,9 +3,9 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Samparadise</title>
-	<link rel="icon" type="image/png" href="img/sam-ico.png">
-	<link rel="stylesheet" href="styles.css">
+	<title>Stuff - Samparadise</title>
+	<link rel="icon" type="image/png" href="../img/sam-ico.png">
+	<link rel="stylesheet" href="../styles.css">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -20,7 +20,7 @@
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 		<div class="container">
 
-			<a class="navbar-brand" href="/">Samparadise</a>
+			<a class="navbar-brand" href="../">Samparadise</a>
 
 			<!-- Hamburger Toggle -->
 			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -36,10 +36,6 @@
 					<li class="nav-item">
 						<a class="nav-link" href="#" id="open-gallery">Photography</a>
 					</li>
-					<!-- <!-- Lists page -- >
-					<li class="nav-item">
-						<a class="nav-link" href="#" id="show-lists">Lists</a>
-					</li> -->
 
 					<!-- Stuff page -->
 					<li class="nav-item">
@@ -64,8 +60,8 @@
 		<div id="subPageContent"></div>
 	</div>
 
-	<div class="content">
-		<img src="img/sam-trans.png" alt="Sam J.">
+	<div class="content" style="display: none;">
+		<img src="../img/sam-trans.png" alt="Sam J.">
 
 		<div id="frontpage-quote">
 			<blockquote class="cutive-mono-regular">
@@ -111,7 +107,7 @@
 	</div>
 
 	<!-- Stuff Page -->
-	<div id="stuff-page" class="stuff-page d-none">
+	<div id="stuff-page" class="stuff-page">
 		<div id="stuff-container"></div>
 	</div>
 
@@ -122,7 +118,7 @@
 				<div class="d-flex flex-column flex-md-row align-items-center align-items-md-start text-center text-md-start gap-4">
 					<!-- Avatar -->
 					<div>
-						<img src="img/sam-trans.png" alt="Sam's Avatar" class="card-avatar-img">
+						<img src="../img/sam-trans.png" alt="Sam's Avatar" class="card-avatar-img">
 					</div>
 
 					<!-- Contact Info -->
@@ -141,7 +137,7 @@
 
 				<!-- VCF Download -->
 				<div class="text-center mt-4">
-					<a href="files/sam-contact.vcf" download class="btn btn-outline-dark">Download My Contact (.vcf)</a>
+					<a href="../files/sam-contact.vcf" download class="btn btn-outline-dark">Download My Contact (.vcf)</a>
 				</div>
 			</div>
 		</div>
@@ -152,6 +148,6 @@
 	<!-- Load marked.js for markdown rendering -->
 	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
-	<script src="script.js?v=2"></script>
+	<script src="../script.js?v=2"></script>
 </body>
 </html>
