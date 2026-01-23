@@ -49,6 +49,10 @@ document.addEventListener("DOMContentLoaded", function () {
 			if (stuffPage) {
 				stuffPage.classList.remove("d-none");
 				if (mainContent) mainContent.style.display = "none";
+				// Clear any hash from URL (quote hash)
+				if (window.location.hash) {
+					window.history.replaceState(null, '', window.location.pathname);
+				}
 			}
 			break;
 
@@ -234,33 +238,37 @@ document.addEventListener("DOMContentLoaded", function () {
 				window.location.replace(`#${selectedQuote.id}`);
 			}
 
-			// Display the quote
-			typeQuote(selectedQuote.quote, selectedQuote.author, quoteTextElement, quoteAuthorElement, refreshQuoteLink);
+			// Display the quote (only if elements exist)
+			if (quoteTextElement && quoteAuthorElement && refreshQuoteLink) {
+				typeQuote(selectedQuote.quote, selectedQuote.author, quoteTextElement, quoteAuthorElement, refreshQuoteLink);
+			}
 		})
 		.catch(error => console.error("Error loading quotes:", error));
 
 		// Handle "Show me another one!" click
-		refreshQuoteLink.addEventListener("click", function (event) {
-			event.preventDefault(); // Prevent the default link behavior
+		if (refreshQuoteLink) {
+			refreshQuoteLink.addEventListener("click", function (event) {
+				event.preventDefault(); // Prevent the default link behavior
 
-			let newQuote = selectNewQuote();
-			let allDone = (shownQuotes.length === allQuotes.length);
+				let newQuote = selectNewQuote();
+				let allDone = (shownQuotes.length === allQuotes.length);
 
-			// Reset the refresh link
-			refreshQuoteLink.classList.remove("show");
-			refreshQuoteLink.style.opacity = "0";
-			refreshQuoteLink.style.visibility = "hidden";
-			refreshQuoteLink.style.pointerEvents = ""; // Re-enable clicking
-			refreshQuoteLink.style.color = ""; // Reset color
+				// Reset the refresh link
+				refreshQuoteLink.classList.remove("show");
+				refreshQuoteLink.style.opacity = "0";
+				refreshQuoteLink.style.visibility = "hidden";
+				refreshQuoteLink.style.pointerEvents = ""; // Re-enable clicking
+				refreshQuoteLink.style.color = ""; // Reset color
 
-			quoteTextElement.innerHTML = "";
-			quoteAuthorElement.innerHTML = "";
+				quoteTextElement.innerHTML = "";
+				quoteAuthorElement.innerHTML = "";
 
-			typeQuote(newQuote.quote, newQuote.author, quoteTextElement, quoteAuthorElement, refreshQuoteLink, allDone);
+				typeQuote(newQuote.quote, newQuote.author, quoteTextElement, quoteAuthorElement, refreshQuoteLink, allDone);
 
-			// Update hash-based URL without preventing re-randomization on refresh
-			window.location.replace(`#${newQuote.id}`);
-		});
+				// Update hash-based URL without preventing re-randomization on refresh
+				window.location.replace(`#${newQuote.id}`);
+			});
+		}
 
 		function selectNewQuote() {
 
@@ -470,6 +478,22 @@ document.addEventListener("DOMContentLoaded", function () {
 		});
 	}
 
+	// === Open Stuff Page ===
+	const openStuff = document.querySelector('a[href="/stuff"]');
+	if (openStuff) {
+		openStuff.addEventListener("click", (event) => {
+			event.preventDefault();
+			if (stuffPage) {
+				stuffPage.classList.remove("d-none");
+				if (mainContent) mainContent.style.display = "none";
+				// Update URL without reload
+				window.history.pushState({}, '', '/stuff');
+				// Scroll to top
+				window.scrollTo(0, 0);
+			}
+		});
+	}
+
 	// === Close Expanded Image ===
 	if (expandedOverlay) {
 		expandedOverlay.addEventListener("click", function (event) {
@@ -493,6 +517,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	// === Stuff Page ===
 	const stuffContainer = document.getElementById("stuff-container");
+	console.log('[STUFF DEBUG] Querying for stuff-container, found:', !!stuffContainer);
+	console.log('[STUFF DEBUG] All elements with id containing "stuff":', Array.from(document.querySelectorAll('[id*="stuff"]')).map(el => el.id));
 
 	// Helper function to extract ASIN from Amazon URL and construct image URL
 	function getAmazonImageUrl(amazonUrl) {
@@ -530,9 +556,10 @@ document.addEventListener("DOMContentLoaded", function () {
 	// === Load Stuff Items ===
 	if (stuffContainer) {
 		const stuffJsonPath = getJsonPath("stuff.json");
-
-		console.log('Loading stuff items from:', stuffJsonPath);
-		console.log('Stuff container found:', !!stuffContainer);
+		console.log('[STUFF] Loading stuff items from:', stuffJsonPath);
+		console.log('[STUFF] Current pathname:', window.location.pathname);
+		console.log('[STUFF] Stuff container found:', !!stuffContainer);
+		console.log('[STUFF] Stuff container element:', stuffContainer);
 
 		fetch(stuffJsonPath)
 			.then(response => {
@@ -542,9 +569,10 @@ document.addEventListener("DOMContentLoaded", function () {
 				return response.json();
 			})
 			.then(data => {
-				console.log('Stuff data loaded:', data);
+				console.log('[STUFF] Data loaded successfully:', data);
+				console.log('[STUFF] Number of sections:', Object.keys(data).length);
 				if (!stuffContainer) {
-					console.error("Stuff container not found");
+					console.error("[STUFF] Stuff container not found");
 					return;
 				}
 
@@ -623,7 +651,11 @@ document.addEventListener("DOMContentLoaded", function () {
 					stuffContainer.appendChild(sectionDiv);
 				});
 			})
-			.catch(error => console.error("Error loading stuff:", error));
+			.catch(error => {
+				console.error("[STUFF] Error loading stuff:", error);
+				console.error("[STUFF] Attempted path:", stuffJsonPath);
+				console.error("[STUFF] Current pathname:", window.location.pathname);
+			});
 	} else {
 		console.warn("Stuff container element not found - stuff items will not load");
 	}
@@ -658,23 +690,26 @@ function typeQuote(quote, author, quoteElement, authorElement, refreshLink, done
 						// quoteElement.innerHTML = quote + cursor; // Full quote with blinking cursor
 						quoteElement.innerHTML = quote.replace(/\n/g, "<br>") + cursor; // Preserve line breaks
 						setTimeout(() => {
-							document.querySelector(".cursor").style.display = "inline-block"; // Keep cursor
+							const cursorEl = document.querySelector(".cursor");
+							if (cursorEl) cursorEl.style.display = "inline-block"; // Keep cursor
 							authorElement.innerHTML = author; // Show author after delay
 
 							setTimeout(() => {
-								if (done) {
-									refreshLink.innerText = "that's all so far...";
-									refreshLink.style.pointerEvents = "none"; // Disable clicking
-									refreshLink.style.color = "#555"; // Make it look disabled
-									refreshLink.style.display = "block"; // Ensure it's visible
+								if (refreshLink) {
+									if (done) {
+										refreshLink.innerText = "that's all so far...";
+										refreshLink.style.pointerEvents = "none"; // Disable clicking
+										refreshLink.style.color = "#555"; // Make it look disabled
+										refreshLink.style.display = "block"; // Ensure it's visible
+									}
+
+									refreshLink.style.visibility = "visible";
+
+									setTimeout(() => {
+										refreshLink.classList.add("show"); // Apply fade-in effect
+										refreshLink.style.opacity = "1";
+									}, 50);
 								}
-
-								refreshLink.style.visibility = "visible";
-
-								setTimeout(() => {
-									refreshLink.classList.add("show"); // Apply fade-in effect
-									refreshLink.style.opacity = "1";
-								}, 50);
 							}, 2100); // Half the original delay
 
 						}, 500); // Half the original delay

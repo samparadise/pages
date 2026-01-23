@@ -8,146 +8,57 @@
 	<link rel="stylesheet" href="../styles.css">
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-	<!-- Bootstrap CSS -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
 	<link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Homemade+Apple&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
 </head>
 <body>
-
 	<!-- Bootstrap Navbar -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 		<div class="container">
-
 			<a class="navbar-brand" href="../">Samparadise</a>
-
-			<!-- Hamburger Toggle -->
-			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-				aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-
-			<!-- Navbar Links -->
 			<div class="collapse navbar-collapse" id="navbarNav">
 				<ul class="navbar-nav ms-auto" id="dynamicMenu">
-
-					<!-- Exploring (gallery) -->
-					<li class="nav-item">
-						<a class="nav-link" href="#" id="open-gallery">Photography</a>
-					</li>
-
-					<!-- Stuff page -->
-					<li class="nav-item">
-						<a class="nav-link" href="/stuff">Stuff</a>
-					</li>
-
-					<!-- Contact page -->
-					<li class="nav-item">
-						<a class="nav-link" href="#" id="contact">Contact</a>
-					</li>
-
+					<li class="nav-item"><a class="nav-link" href="#" id="open-gallery">Photography</a></li>
+					<li class="nav-item"><a class="nav-link" href="/stuff">Stuff</a></li>
+					<li class="nav-item"><a class="nav-link" href="#" id="contact">Contact</a></li>
 				</ul>
 			</div>
 		</div>
 	</nav>
 
-	<!-- Background overlay for clicking outside -->
 	<div id="subPageOverlay" class="sub-page-overlay"></div>
+	<div id="subPage" class="sub-page"><div id="subPageContent"></div></div>
+	<div class="content" style="display: none;"></div>
 
-	<!-- Sub-page container -->
-	<div id="subPage" class="sub-page">
-		<div id="subPageContent"></div>
-	</div>
-
-	<div class="content" style="display: none;">
-		<img src="../img/sam-trans.png" alt="Sam J.">
-
-		<div id="frontpage-quote">
-			<blockquote class="cutive-mono-regular">
-				<span id="quote-text"></span>
-				<span id="quote-author"></span>
-			</blockquote>
-			<p><a href="#" id="refresh-quote" class="refresh-icon" aria-label="Get another quote">
-				<svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M4 4V9H4.58152M19.9381 11C19.446 7.05369 16.0796 4 12 4C8.64262 4 5.76829 6.06817 4.58152 9M4.58152 9H9M20 20V15H19.4185M19.4185 15C18.2317 17.9318 15.3574 20 12 20C7.92038 20 4.55399 16.9463 4.06189 13M19.4185 15H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-				</svg>
-			</a></p>
-		</div>
-	</div>
-
-
-	<!-- Lists Page (Initially Hidden) -->
-	<div id="lists-page" class="container d-none pt-3 pt-md-5 mt-3 mt-md-5">
-
-		<!-- Explanation Text -->
-		<div id="explanation-container">
-			<div id="explanation-text" class="p-3 clickable">
-				<p>This is a page for lists. If there's nothing here, then I guess come back another time?</p>
-			</div>
-			<hr class="divider">
-		</div>
-
-		<!-- Lists Container (dynamically-generated) -->
-		<div class="lists-container"></div>
-	</div>
-
-
-	<!-- Photography Gallery -->
-	<div id="gallery-page" class="gallery-page d-none">
-		<div class="gallery-grid" id="gallery-grid"></div>
-
-		<!-- Expanded Image Overlay -->
-		<div id="expanded-overlay" class="expanded-overlay d-none">
-			<div class="expanded-image-container">
-				<img id="expanded-image" src="" alt="">
-				<p id="expanded-description"></p>
-			</div>
-		</div>
-	</div>
-
-	<!-- Stuff Page -->
+	<!-- Stuff Page (visible by default) -->
 	<div id="stuff-page" class="stuff-page">
+		<div id="explanation-text" class="p-3 clickable">
+			<p>The most valuable resource? Time. Think of this page as me saving you time by sharing a list of stuff most people probably need. Click a tile, get it on Amazon, and I'll earn probably about $0.02 towards electricity for this site.</p>
+		</div>
 		<div id="stuff-container"></div>
 	</div>
 
-	<!-- Contact Card Modal -->
 	<div id="contact-modal" class="contact-modal-overlay d-none">
 		<div class="contact-modal-content">
 			<div class="contact-card card p-4">
 				<div class="d-flex flex-column flex-md-row align-items-center align-items-md-start text-center text-md-start gap-4">
-					<!-- Avatar -->
-					<div>
-						<img src="../img/sam-trans.png" alt="Sam's Avatar" class="card-avatar-img">
-					</div>
-
-					<!-- Contact Info -->
+					<div><img src="../img/sam-trans.png" alt="Sam's Avatar" class="card-avatar-img"></div>
 					<div>
 						<h5 class="mb-3">Sam Johnson</h5>
-						<div class="contact-line">
-							<span class="label">email:</span>
-							<span class="value"><a href="mailto:sammyj@gmail.com">sammyj@gmail.com</a></span>
-						</div>
-						<div class="contact-line">
-							<span class="label">mobile:</span>
-							<span class="value"><a href="tel:6462474444">646-247-4444</a></span>
-						</div>
+						<div class="contact-line"><span class="label">email:</span><span class="value"><a href="mailto:sammyj@gmail.com">sammyj@gmail.com</a></span></div>
+						<div class="contact-line"><span class="label">mobile:</span><span class="value"><a href="tel:6462474444">646-247-4444</a></span></div>
 					</div>
-		  		</div>
-
-				<!-- VCF Download -->
-				<div class="text-center mt-4">
-					<a href="../files/sam-contact.vcf" download class="btn btn-outline-dark">Download My Contact (.vcf)</a>
 				</div>
+				<div class="text-center mt-4"><a href="../files/sam-contact.vcf" download class="btn btn-outline-dark">Download My Contact (.vcf)</a></div>
 			</div>
 		</div>
 	</div>
 
-	<!-- Bootstrap JS (for responsive toggles) -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-	<!-- Load marked.js for markdown rendering -->
 	<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
 	<script src="../script.js?v=2"></script>
 </body>
 </html>
