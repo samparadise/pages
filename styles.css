@@ -630,8 +630,18 @@ img {
 	}
 
 	.stuff-grid {
-		grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+		grid-template-columns: 1fr;
 		gap: 20px;
+		max-width: 100%;
+	}
+
+	.stuff-tile {
+		width: 100%;
+	}
+
+	.stuff-tile-image-container {
+		aspect-ratio: 1 / 1;
+		width: 100%;
 	}
 
 	.stuff-section-title {
