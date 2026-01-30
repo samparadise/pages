@@ -479,7 +479,7 @@ img {
 	max-width: 1400px;
 	margin-left: auto;
 	margin-right: auto;
-	padding: 0 20px;
+	padding: 15px 20px;
 	background-color: transparent !important;
 }
 
@@ -490,6 +490,11 @@ img {
 	margin-right: auto;
 }
 
+.stuff-section-header {
+	cursor: pointer;
+	user-select: none;
+}
+
 .stuff-section-title {
 	font-size: 2rem;
 	font-weight: bold;
@@ -497,6 +502,28 @@ img {
 	margin-bottom: 30px;
 	padding-bottom: 10px;
 	border-bottom: 2px solid #333;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.stuff-section-count {
+	font-size: 1.2rem;
+	color: #888;
+	font-weight: normal;
+}
+
+.stuff-section-header .toggle-arrow {
+	font-size: 14px;
+	color: #a0a0a0;
+	transition: transform 0.3s ease-in-out;
+	display: inline-block;
+	transform: rotate(0deg);
+	margin-left: auto;
+}
+
+.stuff-section-header[aria-expanded="true"] .toggle-arrow {
+	transform: rotate(180deg);
 }
 
 .stuff-grid {
@@ -591,8 +618,7 @@ img {
 	.stuff-page #explanation-text {
 		margin-top: 15px;
 		margin-bottom: 20px;
-		padding: 0 10px;
-		background-color: transparent !important;
+		padding: 12px 10px;
 	}
 
 	#stuff-container {
@@ -611,6 +637,10 @@ img {
 	.stuff-section-title {
 		font-size: 1.5rem;
 		margin-bottom: 20px;
+	}
+
+	.stuff-section-count {
+		font-size: 1rem;
 	}
 
 	.stuff-tile-content {

@@ -28,6 +28,17 @@ document.addEventListener("DOMContentLoaded", function () {
 		return path;
 	}
 
+	// Helper function to get correct path for image URLs
+	// Converts relative paths to absolute paths (starting with /) to work from any directory
+	function getImagePath(imagePath) {
+		// If it's already an absolute URL (http/https) or absolute path (starts with /), return as-is
+		if (imagePath.startsWith('http://') || imagePath.startsWith('https://') || imagePath.startsWith('/')) {
+			return imagePath;
+		}
+		// Convert relative path to absolute path
+		return `/${imagePath}`;
+	}
+
 	function openSubPage(title) {
 		const item = document.querySelector(`.menu-link[data-item="${title}"]`);
 		if (item) item.click(); // Simulate click to trigger existing logic
@@ -349,7 +360,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 					// If an image is provided, include it
 					if (menuEntry.image) {
-						contentHTML += `<img src="${menuEntry.image}" alt="${menuEntry.item}" class="sub-page-image">`;
+						const imagePath = getImagePath(menuEntry.image);
+						contentHTML += `<img src="${imagePath}" alt="${menuEntry.item}" class="sub-page-image">`;
 					}
 
 					// Add the markdown content
@@ -579,17 +591,33 @@ document.addEventListener("DOMContentLoaded", function () {
 				stuffContainer.innerHTML = ""; // Clear container
 
 				// Iterate through each section
-				Object.entries(data).forEach(([sectionName, items]) => {
+				Object.entries(data).forEach(([sectionName, items], sectionIndex) => {
 					console.log('Processing section:', sectionName, 'with', items.length, 'items');
+					const sectionId = `stuff-section-${sectionIndex}`;
+
 					// Create section container
 					const sectionDiv = document.createElement("div");
 					sectionDiv.classList.add("stuff-section");
 
-					// Create section title
+					// Create section title header (clickable)
+					const sectionHeader = document.createElement("div");
+					sectionHeader.classList.add("stuff-section-header");
+					sectionHeader.setAttribute("data-bs-toggle", "collapse");
+					sectionHeader.setAttribute("data-bs-target", `#${sectionId}`);
+					sectionHeader.setAttribute("aria-expanded", "false");
+					sectionHeader.setAttribute("aria-controls", sectionId);
+
 					const sectionTitle = document.createElement("h2");
 					sectionTitle.classList.add("stuff-section-title");
-					sectionTitle.textContent = sectionName.charAt(0).toUpperCase() + sectionName.slice(1);
-					sectionDiv.appendChild(sectionTitle);
+					const capitalizedName = sectionName.charAt(0).toUpperCase() + sectionName.slice(1);
+					sectionTitle.innerHTML = `${capitalizedName} <span class="stuff-section-count">(${items.length})</span> <span class="toggle-arrow">▼</span>`;
+					sectionHeader.appendChild(sectionTitle);
+					sectionDiv.appendChild(sectionHeader);
+
+					// Create collapsible grid container
+					const gridContainer = document.createElement("div");
+					gridContainer.id = sectionId;
+					gridContainer.classList.add("collapse");
 
 					// Create grid for items
 					const grid = document.createElement("div");
@@ -643,12 +671,29 @@ document.addEventListener("DOMContentLoaded", function () {
 						description.textContent = item.description;
 						content.appendChild(description);
 
-						tile.appendChild(content);
-						grid.appendChild(tile);
-					});
+					tile.appendChild(content);
+					grid.appendChild(tile);
+				});
 
-					sectionDiv.appendChild(grid);
+					gridContainer.appendChild(grid);
+					sectionDiv.appendChild(gridContainer);
 					stuffContainer.appendChild(sectionDiv);
+				});
+
+				// Attach event listeners to section headers for arrow rotation
+				document.querySelectorAll(".stuff-section-header").forEach(header => {
+					const arrow = header.querySelector(".toggle-arrow");
+					const collapseElement = document.querySelector(header.getAttribute("data-bs-target"));
+
+					if (collapseElement && arrow) {
+						collapseElement.addEventListener("show.bs.collapse", function () {
+							arrow.style.transform = "rotate(180deg)"; // Expanded (arrow up)
+						});
+
+						collapseElement.addEventListener("hide.bs.collapse", function () {
+							arrow.style.transform = "rotate(0deg)"; // Collapsed (arrow down)
+						});
+					}
 				});
 			})
 			.catch(error => {
@@ -659,6 +704,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	} else {
 		console.warn("Stuff container element not found - stuff items will not load");
 	}
+
 });
 
 function typeQuote(quote, author, quoteElement, authorElement, refreshLink, done) {

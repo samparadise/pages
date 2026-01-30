@@ -1,5 +1,5 @@
 {
-    "outdoors": [
+    "The Great Outdoors": [
         {
             "name": "Jealous Devil Firestarters",
             "description": "They look like tiny little bombs and work great!",
@@ -8,12 +8,26 @@
             "image_url": "https://m.media-amazon.com/images/I/91syF8kNmpL._AC_SL1500_.jpg"
         }
     ],
-    "kitchen": [
+    "In the Kitchen": [
         {
             "name": "Global Chef's Knife",
             "description": "An Anthony Bourdain favorite. Gets used every single day.",
             "associate_link": "https://amzn.to/4bMeOxH",
             "image_url": "https://m.media-amazon.com/images/I/51kjpXqTsbL._AC_SL1000_.jpg"
+        },
+        {
+            "name": "Picardie Tumblers",
+            "description": "There are some utilitarian things I get pretty worked up about, and drinking glasses is one of them. These are about perfect, and also iconic.",
+            "associate_link": "https://www.amazon.com/dp/B00186098I?tag=tulsagirldad-20",
+            "image_url": "https://m.media-amazon.com/images/I/81nVtejFLAL._AC_SL1500_.jpg"
+        }
+    ],
+    "Other Necessities": [
+        {
+            "name": "Mr Bubble Bubble Bath",
+            "description": "I'm not telling you where to get the t-shirt because I don't want anyone else wearing it. But everyone should take bubble baths.",
+            "associate_link": "https://www.amazon.com/gp/product/B0C3F7L8X4?tag=tulsagirldad-20",
+            "image_url": "https://m.media-amazon.com/images/I/61G2XScFqfL._AC_SL1000_.jpg"
         }
     ]
 }
