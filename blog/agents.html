@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Mini Agents — Samparadise</title>
+	<link rel="icon" type="image/png" href="/img/sam-ico.png">
+	<link rel="stylesheet" href="/styles.css">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&family=Homemade+Apple&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="/">Samparadise</a>
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+				aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarNav">
+				<ul class="navbar-nav ms-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="/stuff">Stuff</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div class="blog-page">
+
+		<a href="/" class="back-link">← samparadise.com</a>
+
+		<p class="blog-meta">June 2025</p>
+		<h1 class="blog-title">The Special Ops Team<br/>Crammed Inside a Mac Mini<br/>On my Office Shelf</h1>
+
+		<!-- Intro text — appears before the hero image -->
+		<p class="blog-subtitle">
+			<!-- lede / intro paragraph here -->
+			About 10 years ago I had an idea of a personal digital assistant that would communicate via SMS, research things like restaurants and bars and travel, and evolve to an understanding of personal preferences and relationships over time. At that time, natural language dialog was tough to teach to computers and graph databases were a new thing. I started a company and we took a run at this and got a surprising amount of it right, but eventually some non-technical obstacles, starting with Covid, got in our way and set that company on a different course. 
+		</p>
+
+		<img src="/img/sardine-agents.png" alt="Mini Agents" class="blog-hero-img">
+
+		<!-- Text between image and main body sections -->
+		<p class="blog-intro">
+			<!-- text after the image, before section headers -->
+			Today, ten years later, I have a team of specialist AI agents I hatched inside a little silver Mac mini box on my office desk. They do things for me like hunt for lakefront properties and happy hours, coach me through workouts and training programs (well, hypothetically) and research travel. Soon I’ll have them coordinating my calendar, reminding me about stuff I need to do, and triaging all the gmail I otherwise wouldn’t look at. Throwing something together like this during spare cycles over a couple weeks was not possible even one year ago.</p>
+		<p class="blog-intro">	
+			This paper is about how I got to where I’m at, in case you’re as fascinated by this stuff as I am.
+		</p>
+
+		<hr class="blog-divider">
+
+		<div class="blog-body">
+
+			<!-- ============================================================
+			     PASTE YOUR CONTENT BELOW — use <h2> for sections,
+			     <h3> for subsections, <p> for paragraphs, <ul>/<ol> for lists
+			     ============================================================ -->
+
+			<h2>Primordial Soup</h2>
+			<p class="blog-epigraph">
+				In the beginning, there was nothing.<br>
+				Then there was something.<br>
+				No one knows why.</p>
+				
+			<p>
+				I started playing with ChatGPT the minute it was publicly available. The girls and I used it to create drawings of mythical creatures like circlehoppers. It wasn’t very good at current events at first, but I knew from day one the tech was gonna change the world.</p>
+			<p>
+				It was all the noise around OpenClaw that got me thinking maybe I should get a Mac Mini and try setting something up myself. It wasn’t OpenClaw I ended up with, though, for some good reasons I won’t bore you with. Here’s the p-soup recipe I landed on which contains all the ingredients needed to support life:</p>
+				
+			<div class="blog-recipe">
+				<div class="blog-recipe-col">
+					<h3>Ingredients</h3>
+					<ul>
+						<li><span class="recipe-num">1</span> <span><strong>Mac mini</strong>, pretty well-equipped: M4 Pro 48 Gb / 500 Gb</span></li>
+						<li><span class="recipe-num">1</span> <span><strong>Tailscale</strong> account</span></li>
+						<li><span class="recipe-num">1</span> <span><strong>Claude</strong> Pro account</span></li>
+						<li><span class="recipe-num">1</span> <span><strong>Telegram</strong> account</span></li>
+						<li><span class="recipe-num">1</span> <span><strong>GitHub.com</strong> account</span></li>
+						<li><span class="recipe-num">1</span> <span><strong>Obsidian</strong> account</span></li>
+					</ul>
+				</div>
+				<div class="blog-recipe-col">
+					<h3>Directions</h3>
+					<ol>
+						<li><span class="recipe-num-plain">1</span><span>Install <strong>Tailscale</strong>. This is what will make the mini remotely accessible.</span></li>
+						<li><span class="recipe-num-plain">2</span><span>Install <strong>Claude CLI</strong>. <em>Get a long-expiring (1 year) access token and thank me later.</em></span></li>
+						<li><span class="recipe-num-plain">3</span><span>Create a <strong>GitHub.com</strong> repo to make working on agents and skills way easier.</span></li>
+						<li><span class="recipe-num-plain">4</span><span>Install <strong>Obsidian</strong> because it makes reading and working with markdown files way easier.</span></li>
+					</ol>
+				</div>
+			</div>
+			
+			<p>
+				That’s all you need to set up the right circumstances for life. There’s one key thing missing that catalyzes everything. It’s the lightning for my Frankenstein monster, and it’s a python script registered as a service on the mini which does the following, tirelessly:</p>
+			
+			<ol>
+				<li>Listen for inbound Telegram messages from me;</li>
+				<li>Acknowledge receipt, via Telegram. This is important because Telegram sessions timeout after about 5 minutes and sometimes Claude takes longer than that for more difficult tasks;</li>
+				<li>Pass the inbound messages to Claude, along with any relevant context (more on that later);
+			Wait for Claude to respond;</li> 
+				<li>Pass the response back to me as a Telegram message.</li>
+			</ol>
+			
+			<p> 
+				And that’s how I set up a little machine I could talk to from anywhere. It wasn’t really always “alive” — more like almost-always “dormant” …but it was always available to wake up and respond. That’s a giant leap towards where I was wanting to get to.</p>
+			
+			<h2>The Starting Lineup</h2>
+			<p class="blog-epigraph">
+				None of us is as smart as all of us.</p>
+			
+			<p>
+				<!-- body text here -->
+				I’ll say it before you do: what I’d got so far was a setup that’ll do basically the same thing as if I typed a query into Claude on my phone, just way more expensive. (Many friends were quick to point this out.) So what’s the objective? Specialization, and context. I wanted a team of specialists that had skills and were dialed in to what I wanted and liked and didn’t want and didn’t like. Here’s the team I’ve got so far: 
+			</p>
+
+			<dl class="blog-terms">
+				<dt>eats</dt>
+				<dd>is a restaurant and bar hunter: <em>"You are a foodie and an expert wine and cocktails enthusiast with deep knowledge of finding the best restaurants, focusing on food and drink quality and interesting, out of the way lesser-known gems."</em></dd>
+			
+				<dt>tripp</dt>
+				<dd>is a travel researcher: <em>"You are an expert travel planner with deep knowledge of finding the best travel deals, accommodations, and experiences."</em></dd>
+			
+				<dt>landman</dt>
+				<dd>is a real estate guy: <em>"You are an expert real estate researcher. You handle property searches anywhere in the world — Oklahoma markets are your home turf but you research any location Sam asks about with equal rigor."</em></dd>
+			
+				<dt>coach</dt>
+				<dd>is, well, a coach. His mandate is a little less simple — he tracks progress over time, makes suggestions, berates me relentlessly when I don't show up.</dd>
+			</dl>
+			
+			<p>
+				The idea is that queries and tasks get delegated to specialist sub-agents. This can be explicit or implicit, and both have their place. If I want to check in with coach I can say “coach: how’s my progress so far” and if I want general questions passed to the right specialist I can expect that <em>“find me a margarita spot downtown Tulsa right now”</em> gets passed along to <span class="blog-term">eats</span>.</p>
+			
+			<h2>Hive Mind</h2>
+			<p class="blog-epigraph">
+				The self the system didn't know it needed.</p>
+			
+			<p>
+				Specialist agents specialize based on the instructions and context given to them explicitly. What they need to do is build on that context through interactions. Learn. But since each specialist agent sees only a part of the whole picture, it misses the bigger picture context. The solution to this is a shared brain that all agents can contribute to and learn from.</p>
+			<p>
+				brain is an agent unto itself. It manages a knowledge graph of contextual stuff all the agents need to remember. I can tell it stuff explicitly, or I can count on agents to feed it with important info they’ll want to know in the future.</p>
+			<p>
+				When an agent goes to work, it first checks with brain to gather context. The reason for running Obsidian is that it’s great for reading markdown (the format for all the agent files) and browsing graph maps of wikis (the way brain organizes its thoughts).</p>
+
+			<h2>Their Own Free Will</h2>
+			<p class="blog-epigraph">
+				Between stimulus and response there is a space.<br/>
+				In that space is our power to choose.</p>
+			
+			<p>
+				Up to this point, the setup was all reactive: send a query via Telegram, get a response back. This is great, and better than just a Claude Chat session, but still restricted by the async nature of the whole thing. The real power in all of this should come from giving the agents the ability to operate on their own in the background. </p>
+			<p>
+				As anyone who is alive and has a heart knows, the key to this is a heartbeat.</p>
+			<p>
+				At the end of the day, every seemingly autonomous task winds up being orchestrated by some kind of heartbeat: snap to action on some schedule, check if there’s anything to do, do it if there is, go back to sleep. Repeat.</p>
+			<p>
+				The heartbeat is a mini service that runs on a clock — every 15 minutes or so — and snaps folks into action when necessary. The orchestrator agent maintains a schedule in the form of a JSON file describing tasks, scheduled times, etc. This lets me do things like tell coach to wake me up every Monday morning with an assessment of the previous week’s progress and some direction for the upcoming week, and request an ongoing hunt for reasonably-priced Megan Moroney floor tickets for the sold-out concert at BOK:</p>
+			
+			<div class="blog-dialog">
+				<p class="blog-dialog-prompt">I'm after 4 Megan Moroney tickets at BOK in Tulsa this summer. Seats together, ideally on the floor GA. Don't want to pay more than $150 each. The concert is sold out, so we'll have to check secondary markets periodically to find something. Can you check every day and if/when you find something that looks good send me a message with details and a link to purchase?</p>
+				<p class="blog-dialog-response">Done. I've set up a daily search task. Each day it'll scan StubHub, SeatGeek, Vivid Seats, TicketIQ and similar secondary markets for 4 together at ≤$150/each (floor GA priority). If something turns up, you'll get a message.</p>
+			</div>
+			
+			<h2>The Talking Cure</h2>
+			<p class="blog-epigraph">
+				The act of speech is itself a kind of thinking.</p>
+
+			<p>
+				The one disadvantage of a setup like this versus Claude in an app, ironically, is that because of the way this all hangs together each dialog turn is its own little context and is lost immediately. There’s no continuity. You have to go back and re-build that. The reason is technical and I won’t go down a rabbit hole here but it makes sense. Yet it’s problematic.</p>
+			<p>
+				When you have a 1:1 person-agent relationship the problem is not that tough: the agent must remember what happened previously to inform his context for what happens next. That’s what Claude does in the app. Cool.</p>
+			<p>
+				The problem compounds, though, when you’re trying to wrangle a bunch of agents. A query comes in, gets passed along to a sub-agent, the sub-agent responds. Another query comes in — might be a followup to what that sub-agent said, or might be a whole new topic. Gotta keep track of all that. Make it flow for the user (me).</p>
+			<p> 
+				This problem manifested itself first when, for instance, coach would tell me stuff and end with a question. If I responded with an answer to the question, all context was lost: the orchestrator recognized my answer as a new query, and coach likely never saw it. So annoying.</p>
+			<p>
+				The solution here is that each agent maintains a persistent context it can refer back to, and the orchestrator agent maintains an uber-context similarly, as well as a temporality — if I say something within a few minutes of a previous response from a sub-agent, gotta check to see if I’m responding to a question before you treat my query as a new prompt. This one is tricky.</p>
+				
+			<h2>Self-Care</h2>
+			<p class="blog-epigraph">
+				Ghosts in the prompt.</p>
+				
+			<p>
+				The key — the coolness — to all this is that ultimately it should be about teaching not coding. You code the agent scripts and the mini services. You could keep going back and modifying that code to make it incrementally better. But ideally you don’t have to. Ideally you can discuss with the agents what’s not working and help them help themselves.</p>
+			<p>	
+				Part of an agent’s setup is its access and limitations. Someday I’ll want to give some of these agents access to stuff like email, calendars, …who knows what else. For now I give them access to to their own configurations and instructions. A recent example:</p>
+				
+			<div class="blog-dialog">
+				<p class="blog-dialog-prompt">I told you about Alidoro and I see it in the graph but you didn't mention it when I asked you about restaurants I've mentioned. Where's the disconnect?</p>
+				<p class="blog-dialog-response">The disconnect: Alidoro was saved to the brain wiki but never indexed in auto-memory, so it was invisible to me in conversation. Fixed — it's now in the memory index and will show up going forward.</p>
+				<p class="blog-dialog-prompt">Is this a systemic problem that needs fixing: that when I tell brain specifically to remember something it might not surface in auto-memory?</p>
+				<p class="blog-dialog-response">Yes, confirmed systemic problem. The two systems are completely separate: ...</p>
+			</div>
+				
+			<p>
+			...and then a dialog about options for fixing it, which it will eventually do to itself.</p>
+				
+			<h2>Caveat Emptor</h2>
+			<p class="blog-epigraph">
+				Here be dragons.</p>
+				
+			<p>
+				I hope I’ve made this all sound pretty fun. It is fun. The only thing that it is more of than fun is frustrating. These models get confused. The more rope they’re given in terms of writing their own code or manifesting their own destiny, the less control you have over it all. When they get tangled up and confused and start running around in circles, if you don’t understand what’s been done it can be a nightmare to untangle.</p>
+			<p>
+				My best results have come from understanding and managing the code myself, and letting the models help me with pieces. Keeping them in check. That said, setting up the right structure initially goes a very long way.</p>
+			
+			<h2>Next Up</h2>
+			<p class="blog-epigraph">
+				Further down the rabbit hole.</p>
+				
+			<p>
+				Next up I think is calendars and emails. I have too many calendars and too many email accounts. I don’t want to miss important stuff but I can’t possibly keep up with everything. This is a great opportunity for the team to help out.</p>
+			<p>
+				At my real work I use Claude Cowork and Claude Code to scan and summarize hundreds of Slack messages across tens of channels, and square the content with project trackers in AirTable, Confluence, and Google Docs. This is less autonomous-agent-team and more work-sandbox-task stuff. But it gets bigger and more critical each week that goes by.</p>
+			<p>
+				I’m looking forward to the day when my agents will book plane tickets and hotel rooms and send me cancel-within-24-hours links and I won’t cancel because they’ll be spot-on. I’m hoping that Megan Moroney pans out.</p>
+			<p>
+				Ten years ago I started a company to build this thing and couldn't quite get there. A few weeks ago I got pretty close on a Tuesday night. That's the world we're in now. Might as well play.</p>
+		
+		</div>
+
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

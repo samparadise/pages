@@ -842,3 +842,247 @@ img {
   border-color: #eee;
 }
 
+/* =====================
+   Blog / Writing pages
+   ===================== */
+
+.blog-page {
+	max-width: 760px;
+	margin: 0 auto;
+	padding: 96px 24px 80px;
+}
+
+.blog-hero-img {
+	width: 100%;
+	max-width: 100%;
+	height: auto;
+	max-height: none;
+	border-radius: 8px;
+	margin-bottom: 40px;
+	filter: brightness(0.9) contrast(1.1);
+}
+
+.blog-meta {
+	font-size: 0.85rem;
+	color: #888;
+	margin-bottom: 8px;
+	font-family: "Cutive Mono", monospace;
+}
+
+.blog-title {
+	font-size: 2.4rem;
+	font-weight: 800;
+	color: #ffe66d;
+	line-height: 1.2;
+	margin-bottom: 12px;
+	text-align: center;
+}
+
+.blog-subtitle {
+	font-size: 1.15rem;
+	color: #b0b0b0;
+	margin-bottom: 40px;
+	line-height: 1.6;
+}
+
+.blog-intro {
+	font-size: 1.05rem;
+	color: #d0d0d0;
+	line-height: 1.8;
+	margin-bottom: 32px;
+}
+
+.blog-divider {
+	border: none;
+	border-top: 1px solid #333;
+	margin: 36px 0;
+}
+
+.blog-epigraph {
+	margin: 16px 0 28px 24px;
+	padding-left: 16px;
+	border-left: 2px solid #444;
+	font-size: 0.9rem;
+	font-weight: 700;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	color: #888;
+	line-height: 1.7;
+}
+
+.blog-recipe {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 32px;
+	margin: 32px 0;
+}
+
+.blog-recipe-col h3 {
+	font-size: 1.15rem;
+	font-weight: 700;
+	color: #ffe66d;
+	margin-bottom: 16px;
+	padding-bottom: 8px;
+	border-bottom: 1px solid #333;
+}
+
+.blog-recipe .blog-recipe-col ul,
+.blog-recipe .blog-recipe-col ol {
+	padding-left: 0;
+	margin: 0;
+	list-style: none;
+}
+
+.blog-recipe .blog-recipe-col li {
+	color: #d0d0d0;
+	font-size: 1rem;
+	line-height: 1.7;
+	margin-bottom: 10px;
+	display: flex;
+	gap: 12px;
+	align-items: baseline;
+}
+
+.blog-recipe .blog-recipe-col li .recipe-num {
+	font-weight: 700;
+	color: #ffe66d;
+	min-width: 16px;
+	flex-shrink: 0;
+}
+
+.blog-recipe .blog-recipe-col li .recipe-num-plain {
+	font-weight: 400;
+	color: #d0d0d0;
+	min-width: 16px;
+	flex-shrink: 0;
+}
+
+@media (max-width: 600px) {
+	.blog-recipe {
+		grid-template-columns: 1fr;
+	}
+}
+
+.blog-terms {
+	display: grid;
+	grid-template-columns: max-content 1fr;
+	gap: 10px 24px;
+	margin: 24px 0;
+}
+
+.blog-dialog {
+	margin: 24px 0 24px 24px;
+	border-left: 2px solid #333;
+	padding-left: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+
+.blog-dialog-prompt {
+	color: #95e1d3;
+	font-size: 1rem;
+	line-height: 1.7;
+}
+
+.blog-dialog-response {
+	color: #a0a0a0;
+	font-size: 1rem;
+	line-height: 1.7;
+	font-style: italic;
+}
+
+.blog-term {
+	font-weight: 700;
+	color: #ffe66d;
+}
+
+.blog-terms dt {
+	font-weight: 700;
+	color: #ffe66d;
+	padding-top: 2px;
+	white-space: nowrap;
+}
+
+.blog-terms dd {
+	margin: 0;
+	color: #d0d0d0;
+	font-size: 1.05rem;
+	line-height: 1.7;
+}
+
+.blog-body h2 {
+	font-size: 1.5rem;
+	font-weight: 700;
+	color: #95e1d3;
+	margin-top: 48px;
+	margin-bottom: 16px;
+}
+
+.blog-body h3 {
+	font-size: 1.15rem;
+	font-weight: 700;
+	color: #e0e0e0;
+	margin-top: 32px;
+	margin-bottom: 12px;
+}
+
+.blog-body p {
+	font-size: 1.05rem;
+	color: #d0d0d0;
+	line-height: 1.8;
+	margin-bottom: 20px;
+}
+
+.blog-body ul, .blog-body ol {
+	color: #d0d0d0;
+	font-size: 1.05rem;
+	line-height: 1.8;
+	padding-left: 1.5rem;
+	margin-bottom: 20px;
+}
+
+.blog-body li {
+	margin-bottom: 8px;
+}
+
+.blog-body blockquote {
+	border-left: 3px solid #ffe66d;
+	padding-left: 20px;
+	margin: 28px 0;
+	color: #b0b0b0;
+	font-style: italic;
+	font-size: 1.05rem;
+}
+
+.blog-body code {
+	background: #222;
+	color: #95e1d3;
+	padding: 2px 6px;
+	border-radius: 4px;
+	font-family: "Cutive Mono", monospace;
+	font-size: 0.95em;
+}
+
+.back-link {
+	display: inline-block;
+	margin-bottom: 40px;
+	color: #95e1d3;
+	text-decoration: none;
+	font-size: 0.9rem;
+	font-family: "Cutive Mono", monospace;
+}
+
+.back-link:hover {
+	color: #ffe66d;
+}
+
+@media (max-width: 600px) {
+	.blog-page {
+		padding: 80px 16px 60px;
+	}
+	.blog-title {
+		font-size: 1.8rem;
+	}
+}
+

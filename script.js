@@ -329,7 +329,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 			menuData[category].forEach(entry => {
 				let menuItem = document.createElement("li");
-				menuItem.innerHTML = `<a class="dropdown-item menu-link" href="#" data-category="${category}" data-item="${entry.item}">${entry.item}</a>`;
+				if (entry.link) {
+					menuItem.innerHTML = `<a class="dropdown-item" href="${entry.link}">${entry.item}</a>`;
+				} else {
+					menuItem.innerHTML = `<a class="dropdown-item menu-link" href="#" data-category="${category}" data-item="${entry.item}">${entry.item}</a>`;
+				}
 				dropdownMenu.appendChild(menuItem);
 			});
 
@@ -355,6 +359,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
 				const menuEntry = menuData[category].find(entry => entry.item === itemName);
 				if (menuEntry) {
+
+					// If the entry has a direct link, navigate there instead of opening the sub-panel
+					if (menuEntry.link) {
+						window.location.href = menuEntry.link;
+						return;
+					}
 
 					let contentHTML = `<div class="sub-page-content-wrapper">`;
 

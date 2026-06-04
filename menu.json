@@ -8,6 +8,11 @@
 	],
 	"writing": [
 		{
+			"item": "Mini Agents",
+			"image": "img/sardine-agents.png",
+			"link": "/blog/agents.html"
+		},
+		{
 			"item": "Ironman 70.3 Phuket",
 			"image": "img/thai-flower.png",
 			"overview_md": "The first and most fantastical of all my triathlon experiences. Transformative for a few reasons: the distance, the terrain, the weather. I was fired up enough when it was all over I felt the need to write it all down.\n\nOn Medium: [Ironman 70.3 Phuket](https://medium.com/@samparadise/ironman-70-3-phuket-5df29bacfb73)"
