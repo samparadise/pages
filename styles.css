@@ -1011,6 +1011,23 @@ img {
 	line-height: 1.7;
 }
 
+/* Phones: stack each term above its description */
+@media (max-width: 600px) {
+	.blog-terms {
+		grid-template-columns: 1fr;
+		gap: 0;
+	}
+
+	.blog-terms dt {
+		white-space: normal;
+		padding-top: 0;
+	}
+
+	.blog-terms dd {
+		margin-bottom: 18px;
+	}
+}
+
 .blog-body h2 {
 	font-size: 1.5rem;
 	font-weight: 700;
