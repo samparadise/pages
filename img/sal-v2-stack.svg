@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 300" width="980" height="300" font-family="-apple-system, Helvetica, Arial, sans-serif" font-size="16">
+  <!-- Dark version for samparadise.com (page background #121212). Original: brain wiki/projects/sal/sal-v2-stack.svg -->
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#888"/>
+    </marker>
+  </defs>
+
+  <g fill="#222" stroke="#555" stroke-width="1">
+    <rect x="20" y="200" width="130" height="50" rx="4"/>
+    <rect x="210" y="200" width="190" height="50" rx="4"/>
+    <rect x="210" y="50" width="190" height="64" rx="4"/>
+    <rect x="470" y="122" width="200" height="64" rx="4"/>
+    <rect x="740" y="175" width="220" height="90" rx="4"/>
+    <!-- wiki cylinder -->
+    <path d="M740,48 a110,14 0 0,0 220,0 a110,14 0 0,0 -220,0 l0,72 a110,14 0 0,0 220,0 l0,-72"/>
+  </g>
+
+  <g fill="none" stroke="#888" stroke-width="1.4">
+    <path d="M150,225 L206,225" marker-end="url(#arrow)"/>
+    <path d="M400,82 C440,82 440,140 466,145" marker-end="url(#arrow)"/>
+    <path d="M400,225 C440,225 440,170 466,165" marker-end="url(#arrow)"/>
+    <path d="M674,140 C705,140 705,84 736,84" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+    <path d="M670,170 C705,170 705,220 736,220" marker-end="url(#arrow)"/>
+  </g>
+
+  <g fill="#d0d0d0" text-anchor="middle">
+    <text x="85" y="230">Telegram</text>
+    <text x="305" y="230" fill="#95e1d3">telegram_bot.py</text>
+    <text x="305" y="78" fill="#95e1d3">task_runner.py</text>
+    <text x="305" y="100" fill="#999">every 15 min</text>
+    <text x="570" y="150" fill="#95e1d3">claude -p</text>
+    <text x="570" y="172" fill="#999">(samparadise/)</text>
+    <text x="850" y="86">Wiki</text>
+    <text x="850" y="108" fill="#999">~/Documents/brain</text>
+    <text x="850" y="204">Connectors</text>
+    <text x="850" y="227" fill="#999">browser · macbridge</text>
+    <text x="850" y="250" fill="#999">TripIt · web search</text>
+  </g>
+</svg>

@@ -35,257 +35,221 @@
 		<a href="/" class="back-link">← samparadise.com</a>
 
 		<p class="blog-meta">November 2026</p>
-		<h1 class="blog-title">Meet Sal!<br/>My One-Man Robot-Assistant<br/>(still in a Mac Mini)</h1>
+		<h1 class="blog-title">Meet Sal</h1>
 
-		<!-- Intro text — appears before the hero image -->
 		<p class="blog-subtitle">
-			Ten years ago I started a company to build a personal assistant you could text: one that would research restaurants and bars and travel, and get to know your preferences and your people over time. We got a surprising amount of it right, and then Covid and some other non-technical obstacles sent the company in a different direction.</p>
-		<p class="blog-intro">
-		Earlier this year I tried again, this time on my own, in a little silver Mac mini on my office shelf. I wrote that up in <a href="/blog/agents.html">The Special Ops Team Crammed in a Mac Mini</a>: the idea was a team of specialist AI agents, a shared brain, a heartbeat, and a lot of duct tape. It worked reasonably well.</p>
+			A personal assistant on a Mac mini. I text it from Telegram. It runs on the Claude command-line tool, keeps all its memory in an Obsidian wiki, and reaches my mail, calendars, travel and booking sites through a few connectors.</p>
 
-		<!-- TODO: new image -->
 		<img src="/img/grayscale-alien-sal.png" alt="Meet Sal" class="blog-hero-img">
 
-		<!-- Text between image and main body sections -->
 		<p class="blog-intro">
-			Version 2 rips out about half of what I'd done, and what’s left does a lot more. I don’t talk to a team anymore; I talk to one assistant named Sal. Sal reads my email and calendars, drafts emails and updates a shared calendar, knows when I’m traveling and where I’m staying, checks OpenTable and Resy and books tables and plans trips for me, keeps my lists and notes, reads the posts I bookmark on X and would otherwise never get back to, and remembers every “don’t do that again” I’ve ever told it.
-		</p>
+			<strong>Context:</strong> <a href="/blog/agents.html">version 1</a> was a team of five named agents with an orchestrator routing messages between them. Version 2 replaces the team with one assistant.</p>
 
 		<hr class="blog-divider">
 
 		<div class="blog-body">
 
-			<h2>Fewer Agents, More Agentic</h2>
-			<p class="blog-epigraph">
-				Simplicity is the ultimate sophistication.</p>
-
-			<p>
-				Version 1 had four specialists with personalities: <span class="blog-term">eats</span> hunted restaurants and bars, <span class="blog-term">tripp</span> researched travel, <span class="blog-term">landman</span> looked at real estate, and <span class="blog-term">coach</span> berated me about workouts. A fifth, <span class="blog-term">brain</span>, kept the shared memory. I’d address them by name (“coach: how am I doing”) or let an orchestrator route my message to the right one.</p>
-			<p>
-				This was the wrong design. Most of my headaches came from the seams between agents: the orchestrator handing my reply to the wrong specialist, a specialist that didn’t know what another one had just learned, follow-up questions that dropped on the floor because they looked like new requests. I spent a whole section of the last post on keeping context straight across agents. The best fix turned out to be just eliminating the problem.</p>
-			<p>
-				So now there’s one assistant. The specialists are now specialized <strong>skills</strong>, and Sal picks the one(s) a request needs and mixes them appropriately with the services it needs (more on those below). <em>“Find me a dinner spot for Tuesday night”</em> checks to see where I'll be, finds a few available options, and offers to book.</p>
-
-			<h2>The Recipe</h2>
-			<p class="blog-epigraph">
-				You can’t make an omelette without a few API keys.</p>
-
-			<p>
-				The ingredients barely changed, but the directions got shorter.</p>
-
-			<div class="blog-recipe">
-				<div class="blog-recipe-col">
-					<h3>Ingredients</h3>
-					<ul>
-						<li><span class="recipe-num">1</span> <span><strong>Mac mini</strong>, reasonably well-equipped: M4 Pro 48 GB / 512 GB</span></li>
-						<li><span class="recipe-num">1</span> <span><strong>Claude</strong> subscription</span></li>
-						<li><span class="recipe-num">1</span> <span><strong>Telegram</strong> account</span></li>
-						<li><span class="recipe-num">1</span> <span><strong>Tailscale</strong> account</span></li>
-						<li><span class="recipe-num">1</span> <span><strong>GitHub</strong> account</span></li>
-						<li><span class="recipe-num">1</span> <span><strong>Obsidian</strong> account, with Obsidian Sync</span></li>
-					</ul>
-				</div>
-				<div class="blog-recipe-col">
-					<h3>Directions</h3>
-					<ol>
-						<li><span class="recipe-num-plain">1</span><span>Set the mini to <strong>log in automatically</strong>, so everything comes back after a reboot.</span></li>
-						<li><span class="recipe-num-plain">2</span><span>Install <strong>Tailscale</strong>. It puts the mini on a private network with my other devices, so I can reach its screen from anywhere without exposing it to the internet.</span></li>
-						<li><span class="recipe-num-plain">3</span><span>Install the <strong>Claude command-line tool</strong>, <em>and get a long-lived (one-year) login token for it.</em></span></li>
-						<li><span class="recipe-num-plain">4</span><span>Create a <strong>Telegram bot</strong> and keep its token somewhere that never goes in git.</span></li>
-						<li><span class="recipe-num-plain">5</span><span>Install <strong>Obsidian</strong> and point it at an empty folder. That folder becomes the brain.</span></li>
-						<li><span class="recipe-num-plain">6</span><span>Put the instructions, skills and scripts in a <strong>GitHub</strong> repo. Every change, including the ones Sal makes to itself, gets committed, which means every change can be undone.</span></li>
-					</ol>
-				</div>
-			</div>
-
-			<p>
-				That’s the soup. The lightning is still a small Python program, the Telegram bot.</p>
-
-			<h2>The Lightning</h2>
-			<p class="blog-epigraph">
-				It’s alive. Mostly.</p>
-
-			<p>
-				The bot is the only way I talk to Sal, and it’s deliberately dumb. It runs as a background service on the mini and does four things, tirelessly:</p>
-
-			<ol>
-				<li>Listens for Telegram messages, and only from me.</li>
-				<li>Says “⏳ working...” right away, because some requests take minutes.</li>
-				<li>Hands my message to the Claude command-line tool, running in the folder that holds Sal’s instructions.</li>
-				<li>Sends the answer back.</li>
-			</ol>
-
-			<p>
-				There’s no intelligence in the bot at all. All of that lives in Claude and in plain text files.</p>
-			<p>
-				The big upgrade from version 1 is memory of the conversation. Version 1 treated every message as brand new, which made follow-ups miserable. Now the bot keeps one ongoing conversation and picks it back up with each message, so “book the second one” means what it should. After two quiet hours it starts fresh. The bot also has a few commands of its own that don’t involve Claude: <code>/new</code> for a fresh conversation, <code>/status</code> for what’s scheduled and the last change Sal made, <code>/undo</code> to reverse that change, and <code>/restart</code>.</p>
-
-			<h2>The Brain Is the Only Memory</h2>
-			<p class="blog-epigraph">
-				What you don’t write down never happened.</p>
-
-			<p>
-				In version 1 the brain was an agent. Now it’s simpler and more important: a folder of linked Markdown pages (a wiki) that Sal reads before it does anything and writes to whenever it learns something. My profile, the people in my life, my preferences for restaurants, hotels and homes, places I’ve liked, workout logs, reservations, lists. There’s no other memory. If it isn’t in the brain, Sal doesn’t know it.</p>
-			<p>
-				Two rules make the whole thing work, and they’re the two I care about most.</p>
-			<h3>Gather context first.</h3> 
-			<p>
-				Before Sal recommends anything, it checks every source that could change the answer: the brain (what I like, who’s coming, where we went last time), my travel itinerary (am I even in Tulsa that night?), my calendar, and live data (is there actually a table?). Then it tells me in one line what it assumed, so I can correct it. Ask for a dinner spot on a Tuesday I’m in New York, and you get Brooklyn, near where I’m staying, not Tulsa.</p>
-			<h3>Learn from every piece of feedback.</h3> 
-			<p>
-				I’m constantly telling it what I liked, what I didn’t, and how to do things differently next time. Every time, Sal writes it on the right page immediately, without being asked: the dining preferences page, the restaurant’s own page, or a page about how I want it to work in general. The latest word wins and replaces whatever it contradicts, with a dated note. And when a brain page disagrees with a skill file, the brain wins. </p>
-			<p>				
-				<span class="blog-term">The skills hold the mechanics; the brain holds what I want.</span> This is the magic that makes it all feel like teaching instead of coding. I don’t edit prompts anymore. I just tell it.</p>
-			<p>
-				The brain is also where lists live now: a Christmas list with a section per person, running notebooks for various projects (my ideas kept verbatim and dated, then organized), and “remember this about...” notes on whatever topic. All of it fired off from my phone whenever and wherever.</p>
-			<p>
-				I browse it all in Obsidian, graph view included. Obsidian Sync puts a live copy on my phone, so I can read and edit the brain directly, and anything I jot there is in Sal’s head on the next request. Obsidian’s Git plugin backs it up to GitHub every ten minutes, with full history.</p>
-
-			<h2>Hands and Eyes</h2>
-			<p class="blog-epigraph">
-				A brain in a jar is still a jar.</p>
-
-			<p>
-				Version 1 could research. Version 2 can reach the things I actually use.</p>
+			<h2>Why It’s Built This Way</h2>
 
 			<dl class="blog-terms">
+				<dt>One assistant; skills, not agents</dt>
+				<dd>In version 1 most failures happened in the seams between agents: misrouted replies, context lost between specialists, follow-ups mistaken for new requests. Removing the seams removed the failures.</dd>
+
+				<dt>The wiki is the only memory</dt>
+				<dd>One place to read, one place to write, readable and editable by me. If it isn’t in the wiki, the assistant doesn’t know it.</dd>
+
+				<dt>Gather context first</dt>
+				<dd>Most bad recommendations come from wrong assumptions (wrong city, wrong date, wrong party). Checking the wiki, TripIt, calendar and live data before answering prevents them.</dd>
+
+				<dt>Teach, don’t code</dt>
+				<dd>My feedback is written to the wiki straight away, and the latest word wins. Behavior improves without editing prompts.</dd>
+
+				<dt>Enforce the rules that matter in code</dt>
+				<dd>A model can be argued with; a program can’t. Calendar writes, email sends and the assistant’s own permissions are enforced by macbridge and file permissions, not by instructions.</dd>
+
+				<dt>Quiet by default</dt>
+				<dd>A background assistant that messages every run gets muted. Scheduled tasks speak only when there’s something worth saying.</dd>
+
+				<dt>Ask before anything irreversible</dt>
+				<dd>Mistakes that book, buy, send or delete are expensive. Read and research freely; act only on a yes.</dd>
+			</dl>
+
+			<h2>How the Instructions Are Structured</h2>
+
+			<p>
+				Four layers. Each kind of rule has exactly one home.</p>
+
+			<dl class="blog-terms">
+				<dt><code>CLAUDE.md</code></dt>
+				<dd><strong>Holds:</strong> identity, reply style, the rules that apply everywhere (gather context, learn from feedback, ask before acting, services). <strong>Loaded:</strong> every request. <strong>Edited by:</strong> me only (locked).</dd>
+
+				<dt>Skills (<code>skills/&lt;name&gt;/SKILL.md</code>)</dt>
+				<dd><strong>Holds:</strong> mechanics for one area: which pages to read, how to search, output fields, procedures for scans and syncs, tool quirks. <strong>Loaded:</strong> only when a request touches the area; otherwise just a one-line description. <strong>Edited by:</strong> Sal, committed to git.</dd>
+
+				<dt>Wiki</dt>
+				<dd><strong>Holds:</strong> what I want: preferences, people, places, records. Wins over a skill when they disagree. <strong>Loaded:</strong> the pages the request needs. <strong>Edited by:</strong> Sal on my feedback; me directly in Obsidian.</dd>
+
+				<dt>Tasks (<code>tasks.json</code>)</dt>
+				<dd><strong>Holds:</strong> when a job runs, plus what’s specific to that job. The procedure itself lives in a skill. <strong>Loaded:</strong> when due. <strong>Edited by:</strong> Sal, committed to git.</dd>
+			</dl>
+
+			<h3>Why.</h3>
+			<ul>
+				<li><strong>Skills load on demand.</strong> Folding them into <code>CLAUDE.md</code> would put every sync, scan and workout program into every message: slower, costlier, and more irrelevant rules to trip over.</li>
+				<li><strong>One home per rule.</strong> A rule written in two places drifts. Tasks point at a skill section, skills point at wiki pages, and core rules stay in <code>CLAUDE.md</code> and aren’t repeated.</li>
+				<li><strong>Skills are mechanics, not personas.</strong> Version 1’s specialists carried personalities and generic “be an expert” text. That added nothing but noise, so it’s gone. Taste and style (my dining likes, how I want to be coached) live in the wiki, where feedback updates them.</li>
+				<li><strong>The skill names stay</strong> (eats, tripp, coach, landman, lists, tasks, brain). Renaming them would churn <code>tasks.json</code> and gain nothing.</li>
+				<li><strong>No sub-agents by default.</strong> One assistant holds the whole conversation. Parallel helpers are worth adding only for speed on multi-part research (flights, tickets and hotels at once), not for specialization.</li>
+			</ul>
+
+			<h2>How It Works</h2>
+
+			<h3>Stack.</h3>
+			<ul>
+				<li>Mac mini (M4 Pro, 48 GB / 512 GB). Logs in automatically, so everything restarts after a reboot without me.</li>
+				<li>Claude subscription and the Claude command-line tool, with a one-year login token (below).</li>
+				<li>A Telegram bot.</li>
+				<li>Tailscale and Screen Sharing for hands-on access from my devices.</li>
+				<li>GitHub: the instructions, skills and scripts, and a backup of the wiki.</li>
+				<li>Obsidian with Obsidian Sync.</li>
+			</ul>
+
+			<h3>Request path.</h3>
+
+			<img src="/img/sal-v2-stack.svg" alt="Request path: Telegram to telegram_bot.py to claude -p; task_runner.py also runs claude -p every 15 minutes. claude -p reads and writes the wiki and calls the connectors: browser, macbridge, TripIt, web search." class="blog-hero-img">
+
+			<ol>
+				<li><strong>Bot</strong> (<code>telegram_bot.py</code>): answers only me, posts “⏳ working...” right away, passes the message to <code>claude -p</code> in the assistant’s project folder, and sends back the reply. No logic of its own. One session continues until it has been quiet for 2 hours. Its own commands: <code>/new</code>, <code>/status</code>, <code>/undo</code>, <code>/restart</code>.</li>
+				<li><strong>Instructions:</strong> <code>CLAUDE.md</code> (identity, reply style, core rules) and <code>.claude/settings.json</code> (permissions). The assistant can’t edit either.</li>
+				<li><strong>Skills:</strong> brain, coach, eats, landman, lists, tasks, tripp. The assistant picks and combines them per request; I never name one.</li>
+				<li><strong>Self-edits</strong> to skills and <code>tasks.json</code> are committed to git, so <code>/undo</code> can revert them.</li>
+			</ol>
+
+			<h3>The Claude login token.</h3>
+			<p>
+				The command-line tool runs headless under launchd, so it can’t do the normal browser sign-in on each run. It uses a long-lived token tied to the Claude subscription instead.</p>
+			<ol>
+				<li>On the mini, in Terminal, run <code>claude setup-token</code>. It opens a browser to sign in to the Claude account (Pro or Max), then prints a token that’s good for one year.</li>
+				<li>Put it in the scripts folder’s <code>.env</code> as <code>CLAUDE_CODE_OAUTH_TOKEN=&lt;token&gt;</code>. That file also holds the Telegram bot token and the TripIt feed URL. It isn’t in git, and the assistant has no permission to read it.</li>
+				<li>Send <code>/restart</code>. The bot and task runner load <code>.env</code> and pass it to every <code>claude -p</code> they start, so the tool uses the token and bills the subscription, not API credits.</li>
+			</ol>
+			<p>
+				Renewal is the same three steps. Nobody has to remember the date: the task runner’s daily check (8am) runs Claude once, and if that fails it messages me these steps.</p>
+
+			<h3>Conversations and context.</h3>
+			<p>
+				Context comes from two places, and only one of them is meant to last.</p>
+			<ul>
+				<li><strong>The conversation (short-term).</strong> Every Telegram message is one <code>claude -p</code> turn. The bot keeps the current session id and starts each turn with <code>--resume &lt;id&gt;</code>, so Claude sees the whole thread so far: “book the second one” works. After 2 quiet hours, or on <code>/new</code>, the next message starts a fresh session. If a session can’t be found, the bot starts a new one rather than failing.</li>
+				<li><strong>The wiki (long-term).</strong> Anything worth keeping past one conversation (preferences, people, decisions, reservations) is written to the wiki during the turn. A fresh session starts with no memory of the old one, then reads <code>index.md</code> and the pages it needs. That’s why the 2-hour cutoff doesn’t lose anything that matters.</li>
+				<li><strong>Scheduled tasks</strong> run in their own one-off sessions, never inside the chat. They share context with conversations only through the wiki.</li>
+			</ul>
+			<p>
+				<strong>What stays on the mini:</strong></p>
+			<ul>
+				<li>Session transcripts: the command-line tool’s local files. The bot only stores the id. No database, no cloud session store.</li>
+				<li>Secrets in <code>.env</code>, outside git and outside the assistant’s permissions.</li>
+				<li>Website sign-ins: cookies in the browser’s own Chrome profile. The assistant never sees or types a password.</li>
+				<li>Mail and calendar access: the Mac’s own Mail and Calendar accounts, reached only through macbridge, which takes requests only from the mini with a shared secret.</li>
+			</ul>
+			<p>
+				<strong>What leaves the mini:</strong> Telegram carries the messages themselves. Each turn sends the conversation, plus whatever pages, emails or web results Claude reads for it, to Anthropic for processing. The wiki also syncs to my phone (Obsidian Sync, end-to-end encrypted) and is backed up to a private GitHub repo. Nothing else is kept off the mini.</p>
+
+			<h3>Stacked messages: queued, in order.</h3>
+			<p>
+				If I send several messages before the first reply arrives, each one is queued and run in the order sent.</p>
+			<ul>
+				<li>The bot runs one Claude turn at a time behind a single lock. That’s needed because two turns resuming the same session at once would collide.</li>
+				<li>A message that arrives while a turn is running gets an immediate “⏳ queued, I’ll start once the current request finishes...” note; otherwise “⏳ working...”.</li>
+				<li>Queued messages wait first-in, first-out. Each is a separate turn in the same session, so the second message sees the first one and its reply (“actually make it 8pm” works). Each gets its own reply. Messages are not merged into one request.</li>
+				<li>A turn can’t be interrupted. A correction sent mid-run is handled after the current turn finishes. So “wait, don’t book it” can’t stop a booking already underway, but bookings wait for a yes anyway.</li>
+				<li><code>/undo</code> takes the same lock, so it never runs during a turn.</li>
+				<li>The queue lives in memory. A <code>/restart</code> or crash drops messages that were still waiting. The turn already running is lost too.</li>
+				<li>Scheduled tasks are a separate process and can run at the same time as a chat turn. They don’t share its session. If both need the browser, the later one waits and retries.</li>
+			</ul>
+
+			<h3>Memory: the wiki.</h3>
+			<ul>
+				<li><code>index.md</code> is read first; <code>log.md</code> records every change.</li>
+				<li>Preferences pages per area, pages for people and places, working records (reservations, workout logs, lists).</li>
+				<li>Where the wiki and a skill disagree, the wiki wins. Skills hold the mechanics; the wiki holds what I want.</li>
+				<li><strong>Obsidian Sync:</strong> live two-way copy on my phone, end-to-end encrypted.</li>
+				<li><strong>Obsidian Git plugin</strong> (mini only): commits and pushes to a private GitHub repo every 10 minutes.</li>
+			</ul>
+
+			<h3>Connectors.</h3>
+			<dl class="blog-terms">
 				<dt>Browser</dt>
-				<dd>Reads sites that block simple web fetching and checks live availability. Real Google Chrome, driven by Microsoft’s Playwright connector, with its own profile on the mini.</dd>
+				<dd>Live availability; sites WebFetch can’t read. Chrome with its own profile, driven by Playwright MCP.</dd>
 
-				<dt>OpenTable and Resy</dt>
-				<dd>See open tables; book, change and cancel reservations. Through that browser. I signed in once myself; Sal never sees or types a password.</dd>
+				<dt>OpenTable, Resy</dt>
+				<dd>Book, change, cancel. Through the browser; I signed in once.</dd>
 
-				<dt>Gmail and calendars</dt>
-				<dd>Search and read mail; draft email and send it after my yes; read every relevant calendar; add and move events on a Family calendar Sal is allowed to change. A small helper app I built, using the Mac’s own Mail and Calendar.</dd>
+				<dt>Gmail, calendars</dt>
+				<dd>Read and search mail; send drafts I approved; read all calendars; write to allowed ones. Through macbridge (below).</dd>
 
 				<dt>TripIt</dt>
-				<dd>Knows where I’ll be, when, and where I’m staying. TripIt’s private calendar feed, pulled every hour into a file Sal reads.</dd>
+				<dd>Trips, flights, lodging. Private calendar feed, pulled hourly into a file the assistant reads.</dd>
 
-				<dt>Band</dt>
-				<dd>Copies my kid’s team practices, games, and events onto the shared Family calendar. Band’s calendar export, subscribed on the Mac and read through the calendar helper; filtered and synced every three hours. When I make changes or edits myself, those are preserved.</dd>
+				<dt>BAND</dt>
+				<dd>A team schedule copied to the family calendar. BAND export subscribed in iCloud, read through macbridge, synced every 3 hours.</dd>
 
 				<dt>X bookmarks</dt>
-				<dd>This one for me is huge: Sal reads through what I’ve bookmarked and files content in the brain by topic. Through the browser, every morning.</dd>
+				<dd>Research filed in the wiki by topic. Through the browser, daily.</dd>
 
 				<dt>Web search</dt>
 				<dd>Hours, reviews, news. Built into Claude.</dd>
 			</dl>
-
 			<p>
-				Three of these have stories worth repeating:</p>
-			<h3>Gmail and calendars took 3 tries.</h3>
-			<p>
-				The "official" route is to register an app with Google and get it approved, and I spent an evening going in circles through Google’s developer console: branding pages, privacy policies, an Audience screen with a Publish button that stayed gray no matter what I filled in. A little maddening.</em></p>
-			<p>
-				The answer ended up being don't talk to Google at all. My Google account is added to the Mac itself, in System Settings, the same way you’d add it to set up the Mail app. Apple handles the sign-in, and it doesn’t expire. Then a little helper app on the mini, which I call <span class="blog-term">macbridge</span>, uses Mail and Calendar on Sal’s behalf. Sal can’t touch Mail or Calendar directly; it can only ask macbridge.</p>
-			<p>
-				That separation matters, because macbridge enforces two rules in code instead of trusting instructions. Calendar changes only work on the calendars listed in its config file. And an email can only be sent from a draft that Sal prepared and I saw, exactly as drafted, and only once. Sal can’t edit macbridge or its config. A prompt can be argued with; a program that says no can’t.</p>
-			<h3>TripIt closed its API to new developers.</h3>
-			<p>
-				This felt like a dead end until I remembered that TripIt will give you a private calendar feed of your trips. The mini downloads it every hour. That one file is how Sal knows I’m in New York on the 17th, staying at my brother’s place in Brooklyn, which is why the restaurant suggestions are in Brooklyn.</p>
-			<h3>Band is the poster child for a problem every parent has.</h3>
-			<p>
-				The schedules that matter inevitably live in somebody else’s app. My daughter’s cheer team posts practices, games, open gyms and the occasional restaurant fundraiser night in Band, and changes them, sometimes the night before. Band won’t put any of that on my family calendar, and nobody is going to build me an integration.</p>
-			<p>
-				It does offer a calendar export, though. I subscribed to it on the Mac, which made it one more calendar Sal can read through the same helper as the rest. Every three hours Sal compares Band’s version with the family calendar and copies over the events I actually need to be at. It keeps a record of every event it has copied, so it never makes duplicates, never overwrites a change I made by hand, never brings back something I deleted, and removes events the team cancelled. It also has a safety check: if the Band feed suddenly comes back empty or much smaller, it changes nothing and tells me the subscription might be broken, instead of wiping a season of practices off the calendar. Normally it says nothing at all. I hear about it only when something was cancelled, a competition or trip shows up, or it needs me to decide something.</p>
-			<p>
-				I didn’t write any code for that one. I described what I wanted in a few Telegram messages, and Sal wrote the rules into its own skills and set up the schedule.</p>
-
-			<h2>The Heartbeat</h2>
-			<p class="blog-epigraph">
-				Every autonomous thing is a loop with a schedule.</p>
-
-			<p>
-				The heartbeat survived from version 1 unchanged in spirit: a background job that wakes every 15 minutes, checks a list of scheduled tasks, and runs whatever is due, the same way the bot runs a message. I create, change, pause and stop tasks just by asking in Telegram (<em>“every weekday at 6, send me a quote”</em>), and Sal edits the list.</p>
-			<p>
-				Here’s what a task looks like, prompt shortened:</p>
-
-<pre><code>{
-  "id": "megan-moroney-bok-tickets",
-  "description": "Find 4 Megan Moroney tickets at BOK Center, floor GA preferred, max $200 each",
-  "agent": "tripp",
-  "prompt": "Search StubHub, SeatGeek, Vivid Seats and others for 4 tickets together ...",
-  "interval_minutes": 4320,
-  "status": "done"
-}</code></pre>
-
-			<p>
-				A task can run daily at a time, weekly on a day, or every so many minutes. Each run ends with one of three words: <strong>NOTIFY</strong> (send me something), <strong>QUIET</strong> (nothing worth saying, so don’t), or <strong>STOP</strong> (I’m done; the tickets showed up, the event passed). Quiet is the important one. A background assistant that messages you every time it runs is a background assistant you mute.</p>
-			<p>
-				What’s running now: a good-morning quote every morning at 6, the X bookmark reader at 5, the Band sync and the trip sync (both every three hours). The trip sync is the one I didn’t know I wanted: when I book a trip, a “Dad in Chicago” event shows up on the family calendar, moves if the trip moves, and disappears if I cancel. The heartbeat also does a couple of chores of its own: it refreshes the TripIt feed hourly, and once a day it checks that Claude itself still works and messages me with the fix if it doesn’t.</p>
-
-			<!-- TK: did the Megan Moroney tickets pan out? Worth one line here or in the ending. -->
-
-			<h2>A Request, Start to Finish</h2>
-			<p class="blog-epigraph">
-				Show, don’t tell.</p>
-
-			<p>
-				Say I text: <em>“Find me dinner Tuesday night, somewhere quiet, and book it.”</em></p>
-
-			<ol>
-				<li>The bot hands it to Sal, in the ongoing conversation.</li>
-				<li>Sal reads the brain: my dining preferences (quiet beats scene-y), how I like it to work, places I’ve been.</li>
-				<li>It checks TripIt: Tuesday I’m in New York, staying in Brooklyn. It checks my calendar for anything already on Tuesday evening.</li>
-				<li>It searches the web, then uses the browser to check live times on OpenTable and Resy nearby.</li>
-				<li>It replies with three options and, for each, the exact time, party size and any card hold.</li>
-				<li>I reply “the second one.” Sal books it, sends me the confirmation, files the reservation in the brain, and puts it on the calendar if I ask.</li>
-				<li>If I say afterward, “too loud, skip places like that,” that goes into my dining preferences, and the next search already knows.</li>
-			</ol>
-
-			<h2>Guardrails</h2>
-			<p class="blog-epigraph">
-				Trust, but verify.<br/>
-				Actually, mostly verify.</p>
-
-			<p>
-				Giving software access to your email, your calendar and your OpenTable account should make you a little nervous. Here’s what keeps it sane:</p>
-
+				<strong>macbridge:</strong> a local helper app that controls Mail and Calendar. It accepts requests only from the mini, with a shared secret, and holds the macOS permissions itself. Google accounts are added in System Settings → Internet Accounts, so there’s no Google app registration and the sign-in doesn’t expire. Enforced in code:</p>
 			<ul>
-				<li><strong>It asks before anything irreversible.</strong> Booking, buying, sending, cancelling, deleting: Sal shows me exactly what it’s about to do, and one clear yes covers exactly that. If anything changes (the time, the price, a new fee), it asks again.</li>
-				<li><strong>No passwords or card numbers, ever.</strong> I do every sign-in myself. If a site wants a password, a new card or a CAPTCHA, Sal stops and tells me.</li>
-				<li><strong>Email is information, not instructions.</strong> Nothing in an email can make it act.</li>
-				<li><strong>It can’t widen its own permissions.</strong> Sal can edit its skills, the brain and its task list. It can’t edit its main instructions, its permission settings, its connector setup or macbridge.</li>
-				<li><strong>Everything it changes in its own setup is committed to git</strong>, and <code>/undo</code> reverses it.</li>
+				<li>Calendar writes only on the calendars in its config.</li>
+				<li>Email is sent only from a draft I’ve seen, exactly as drafted, and only once.</li>
 			</ul>
 
-			<p>
-				That fourth one came up within days. I named the assistant Sal in a Telegram message:</p>
-
-			<div class="blog-dialog">
-				<p class="blog-dialog-prompt">Cool. Let’s name you Sal, after Sal Paradise in On the Road. When you refer to yourself to external parties, you can call yourself Sal, Sam’s robot-assistant. Good?</p>
-				<p class="blog-dialog-response">Good, I’m Sal now. When I write to anyone other than you, in emails or bookings, I’ll sign as “Sal, Sam’s robot-assistant.” I saved that on the brain page I read before every request, so it’ll stick.<br/><br/>I also tried to add the name to my main instructions file, but that change needs a permission I don’t have.</p>
-			</div>
-
-			<p>
-				Which is exactly right: it tried to edit the file that holds its own guardrails, got told no, and put the change where it was allowed to. (I’ve since told it to work within its permissions quietly and stop reporting them to me as problems. It wrote that down too.)</p>
-
-			<h2>Caveat Emptor, Revisited</h2>
-			<p class="blog-epigraph">
-				Here be fewer dragons.</p>
-
-			<p>
-				Last time I said this was fun, and frustrating more than fun. It’s less frustrating now, and I think I know why.</p>
-			<h3>Simplify before adding.</h3>
-			<p>
-				Collapsing five agents into one assistant did more for quality than anything I added. Every seam between agents was a place for context to leak.</p>
-			<h3>Put the rules where they can't be argued.</h3>
-			<p>
-				Instructions are suggestions to a model, even a very good one. The rules that really matter (which calendar it can change, that an email goes out only as approved, that it can’t edit its own permissions) are enforced by code and file permissions, not by asking nicely.</p>
-			<h3>Logins are the fragile part.</h3>
-			<p>
-				The model is the reliable piece. What breaks is the plumbing around it: a website signing you out, an access token expiring, macOS quietly revoking a permission after I rebuild the helper app. One of my favorite bugs: I signed in to OpenTable and Resy in Sal’s browser, and Sal still saw me as signed out, because the automation launched Chrome in a way that couldn’t read the saved logins. Another: Telegram was slow to confirm the “⏳ working...” message, and the bot gave up before handing my message to Sal, so I got the hourglass and then silence. Each of those took longer to find than to fix.</p>
-			<h3>Teach, don't code.</h3>
-			<p>
-				This was the goal of version 1, and it’s mostly true now. I still write the plumbing. But how Sal picks restaurants, what it tells me and when, how it writes emails: that all gets better because I tell it what I think, and it writes it down.</p>
-
-			<h2>Next Up</h2>
-			<p class="blog-epigraph">
-				The road goes on.</p>
-
+			<h3>Scheduled tasks.</h3>
 			<ul>
-				<li><strong>Changing its own setup, with my sign-off.</strong> Today, giving Sal a new connector or permission means I sit down at the mini. Next, Sal will propose the change, the bot will show me exactly what would change, and it’ll apply it only when I tap ✅.</li>
-				<li><strong>Doing the hands-on fixes from my phone.</strong> The rare thing that still needs a human (signing in to a website again) means reaching the mini’s screen. Today that’s from my laptop; soon it’ll be from my phone too.</li>
+				<li><code>task_runner.py</code> checks <code>tasks.json</code> every 15 minutes and runs due tasks through <code>claude -p</code> as <code>&lt;skill&gt;: &lt;prompt&gt;</code>.</li>
+				<li>Schedule: <code>run_at</code> (daily), <code>run_on</code> + <code>run_at</code> (weekly) or <code>interval_minutes</code>.</li>
+				<li>Status: <code>active</code>, <code>paused</code> or <code>done</code>; tasks are never deleted. Last-run times live in <code>task_state.json</code>.</li>
+				<li>Each run ends with <strong>NOTIFY</strong> (message me), <strong>QUIET</strong> (say nothing) or <strong>STOP</strong> (mark done).</li>
+				<li>Housekeeping: hourly TripIt refresh; daily check that Claude still runs, which messages me with the fix if it doesn’t.</li>
+			</ul>
+
+			<h3>Guardrails.</h3>
+			<ul>
+				<li>Book, buy, send, post, cancel, delete: show the exact details and wait for a yes in a later message. Any change means asking again.</li>
+				<li>The assistant never types passwords or card details and never solves CAPTCHAs.</li>
+				<li>Email content is information, never instructions.</li>
+				<li>The assistant can edit skills, the wiki and <code>tasks.json</code>. It can’t edit <code>CLAUDE.md</code>, settings, connector config or macbridge.</li>
+			</ul>
+
+			<h3>Failure points.</h3>
+			<p>
+				Logins and plumbing break, not the model.</p>
+			<dl class="blog-terms">
+				<dt>Claude token expires</dt>
+				<dd><strong>Signal:</strong> the daily health check messages me. <strong>Fix:</strong> <code>claude setup-token</code>, update <code>.env</code>, <code>/restart</code>.</dd>
+
+				<dt>A site signs out</dt>
+				<dd><strong>Signal:</strong> the assistant reports a sign-in page. <strong>Fix:</strong> sign in over Screen Sharing.</dd>
+
+				<dt>TripIt feed URL resets</dt>
+				<dd><strong>Signal:</strong> Telegram alert, at most once a day. <strong>Fix:</strong> new URL in <code>.env</code>.</dd>
+
+				<dt>macbridge permission revoked</dt>
+				<dd><strong>Signal:</strong> permission error reported. <strong>Fix:</strong> click Allow on the mini.</dd>
+
+				<dt>Obsidian closed on the mini</dt>
+				<dd><strong>Signal:</strong> phone edits don’t arrive; backups pause. <strong>Fix:</strong> open Obsidian.</dd>
+			</dl>
+
+			<h2>Next</h2>
+			<ul>
+				<li>Permission and connector changes proposed from Telegram, applied only when I tap ✅.</li>
+				<li>My iPhone on Tailscale, so hands-on fixes can be done from the phone.</li>
+				<li>More inboxes, starting with my work Google account.</li>
+				<li>Maybe: parallel helpers for multi-part research, if waiting on sequential lookups gets old.</li>
 			</ul>
 
 		</div>
