@@ -121,7 +121,7 @@
 			<ol>
 				<li><strong>Bot</strong> (<code>telegram_bot.py</code>): answers only me, posts “⏳ working...” right away, passes the message to <code>claude -p</code> in the assistant’s project folder, and sends back the reply. No logic of its own. One session continues until it has been quiet for 2 hours. Its own commands: <code>/new</code>, <code>/status</code>, <code>/undo</code>, <code>/restart</code>.</li>
 				<li><strong>Instructions:</strong> <code>CLAUDE.md</code> (identity, reply style, core rules) and <code>.claude/settings.json</code> (permissions). The assistant can’t edit either.</li>
-				<li><strong>Skills:</strong> brain, coach, eats, landman, lists, tasks, tripp. The assistant picks and combines them per request; I never name one.</li>
+				<li><strong>Skills:</strong> brain, coach, eats, fantasy-football, landman, lists, tasks, tripp. The assistant picks and combines them per request; I never name one.</li>
 				<li><strong>Self-edits</strong> to skills and <code>tasks.json</code> are committed to git, so <code>/undo</code> can revert them.</li>
 			</ol>
 
@@ -198,7 +198,7 @@
 				<dd>Research filed in the wiki by topic. Through the browser, daily.</dd>
 
 				<dt>Fantasy football</dt>
-				<dd>My team in a 16-team MyFantasyLeague league: start/sit, waivers, trades, the draft. Reads the league’s public pages live through the browser on every question, because rosters, injuries and standings change weekly and a remembered roster is a wrong one. MFL doesn’t allow plain fetching, so the browser reads it the way I would; no login needed. Only my preferences and the reasoning behind past moves go in the wiki.</dd>
+				<dd>My team in a 16-team MyFantasyLeague league: start/sit, waivers, trades, the draft. It keeps an eye on the league with three weekly check-ins: a Tuesday recap (result, standings, playoff picture, waiver adds and any trade worth making), plus a Thursday lineup check and a Sunday inactives check before kickoff that message me only when a move is needed. I make the moves myself in MFL. Every check reads the league’s public pages live through the browser, because rosters, injuries and standings change weekly and a remembered roster is a wrong one. MFL doesn’t allow plain fetching, so the browser reads it the way I would; no login needed. Only my preferences and the reasoning behind past moves go in the wiki.</dd>
 
 				<dt>samparadise.com</dt>
 				<dd>Manage my personal website: write and edit pages, add images, publish. A clone of the site’s GitHub Pages repo on the mini; pushing to <code>main</code> publishes, and only after I approve.</dd>
