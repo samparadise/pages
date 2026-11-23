@@ -1,5 +1,0 @@
-# GitHub Pages runs Jekyll. Only .markdown files count as Markdown here, so .md files
-# (like blog/sal/setup.md) are served as plain downloads instead of being turned into pages.
-# A served .md file needs an empty front matter block (---, ---) and its body wrapped in
-# raw/endraw Liquid tags, so its own front matter and {{placeholders}} come through unchanged.
-markdown_ext: "markdown"
